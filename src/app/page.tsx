@@ -93,10 +93,10 @@ export default function Home() {
               top: phase === "paused" ? "50%" : (isMobile ? "24px" : "32px"),
               left: phase === "paused" ? "50%" : (isMobile ? "20px" : "32px"),
               x: phase === "paused" ? "-50%" : "0%",
-              y: phase === "paused" ? "-50%" : scrolled ? "-120%" : "0%",
+              y: phase === "paused" ? "-50%" : "0%",
               scale: phase === "paused" ? 1 : (isMobile ? 0.35 : 0.2),
               color: phase === "paused" ? "#000000" : "#FFFFFF",
-              opacity: scrolled && phase === "main" ? 0 : 1,
+              opacity: 1,
             }}
             transition={{ duration: phase === "main" ? 0.4 : 1.4, ease: [0.76, 0, 0.24, 1] }}
             style={{ willChange: "transform, opacity" }}

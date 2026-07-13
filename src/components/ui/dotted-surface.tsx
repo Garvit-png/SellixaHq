@@ -50,7 +50,7 @@ function Dots() {
   });
 
   return (
-    <points ref={pointsRef} rotation={[-Math.PI / 2.5, 0, 0]}>
+    <points ref={pointsRef} rotation={[-Math.PI / 2.2, 0, 0]} position={[0, -2, 0]}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -72,9 +72,9 @@ export function DottedSurface({ className, children }: { className?: string; chi
   return (
     <div className={cn("relative w-full h-full overflow-hidden", className)}>
       <div className="absolute inset-0 pointer-events-none z-0">
-        <Canvas camera={{ position: [0, -8, 10], fov: 60 }}>
+        <Canvas camera={{ position: [0, 2, 10], fov: 60 }}>
           <Dots />
-          <fog attach="fog" args={["#090909", 10, 25]} />
+          <fog attach="fog" args={["#090909", 5, 30]} />
         </Canvas>
       </div>
       {/* Dimmer overlay for better text contrast */}
