@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 import { useRef, useState } from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagneticButtonProps extends HTMLMotionProps<"button"> {
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   className?: string;
@@ -50,7 +50,7 @@ export default function MagneticButton({
           className
         )
       )}
-      {...props}
+      {...(props as any)}
     >
       {variant === "primary" && (
         <motion.div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.4)_0%,transparent_60%)] scale-0 group-hover:scale-150 transition-transform duration-500 ease-out z-0" />

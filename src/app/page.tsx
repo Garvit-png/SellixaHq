@@ -95,6 +95,7 @@ export default function Home() {
               color: phase === "transition" || phase === "main" ? "#FFFFFF" : "#000000"
             }}
             transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
+            style={{ willChange: "transform" }}
             className="fixed z-50 text-[clamp(4rem,10vw,9rem)] font-heading font-bold tracking-tight select-none origin-top-left flex flex-col"
           >
             <span>SELLIXA</span>

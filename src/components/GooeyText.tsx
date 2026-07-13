@@ -138,6 +138,7 @@ export function GooeyText({
       >
         <span
           ref={text1Ref}
+          style={{ willChange: "filter, opacity, transform" }}
           className={cn(
             "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-block select-none text-center text-[clamp(4rem,10vw,9rem)] font-heading font-bold tracking-tight text-[#000000]",
             textClassName
@@ -145,11 +146,14 @@ export function GooeyText({
         />
         <span
           ref={text2Ref}
+          style={{ willChange: "filter, opacity, transform" }}
           className={cn(
             "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-block select-none text-center text-[clamp(4rem,10vw,9rem)] font-heading font-bold tracking-tight text-[#000000]",
             textClassName
           )}
-        />
+        >
+          {texts[0]}
+        </span>
       </div>
     </div>
   );
