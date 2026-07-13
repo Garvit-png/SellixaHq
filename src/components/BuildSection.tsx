@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { GLSLHills } from "@/components/ui/glsl-hills";
 import { cn } from "@/lib/utils";
 import { SegmentedControl } from "./SegmentedControl";
+import { BoatRevealText } from "./BoatRevealText";
 
 export function BuildSection() {
   const lineVariants = {
@@ -22,6 +23,10 @@ export function BuildSection() {
       id="build"
       className="relative flex min-h-screen w-full shrink-0 flex-col items-center justify-center overflow-hidden bg-[#090909]"
     >
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 md:top-12 z-40 pointer-events-none">
+        <BoatRevealText />
+      </div>
+
       <div className="absolute inset-0 z-0 pointer-events-none">
         <GLSLHills />
       </div>

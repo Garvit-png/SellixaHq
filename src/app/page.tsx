@@ -11,6 +11,7 @@ export default function Home() {
   const [phase, setPhase] = useState<"morphing" | "paused" | "transition" | "main">("morphing");
   const [isMobile, setIsMobile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("intro");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,6 +20,26 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (phase !== "main") return;
+
+    const sections = document.querySelectorAll("section[id], div[id='intro']");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 } // Trigger when 50% of the section is visible
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [phase]);
 
   const handleComplete = useCallback(() => {
     setPhase("paused");
@@ -210,23 +231,33 @@ export default function Home() {
           >
             {/* Sweeping shine effect */}
             <motion.div 
-              className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-accent/20 to-transparent -skew-x-12 z-0"
+              className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-accent/20 to-transparent -skew-x-12 z-0 pointer-events-none"
               animate={{ left: ["-50%", "150%"] }}
               transition={{ duration: 7, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
             />
             
             <nav className="relative z-10 flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-16 text-[9px] sm:text-[10px] md:text-xs font-mono uppercase tracking-widest">
-              {/* Active Section */}
-              <a href="#intro" className="relative text-white transition-all cursor-pointer">
-                01 · Intro
-                <span className="absolute -bottom-1.5 left-0 right-0 h-[1px] bg-accent shadow-[0_0_8px_rgba(244,180,0,1)]"></span>
-              </a>
-              
-              {/* Inactive Sections */}
-              <a href="#build" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">02 · Build</a>
-              <a href="#reviews" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">03 · Reviews</a>
-              <a href="#growth" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">04 · Growth</a>
-              <a href="#launch" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">05 · Launch</a>
+              {[
+                { id: "intro", label: "01 · Intro" },
+                { id: "build", label: "02 · Build" },
+                { id: "reviews", label: "03 · Reviews" },
+                { id: "growth", label: "04 · Growth" },
+                { id: "launch", label: "05 · Launch" }
+              ].map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <a 
+                    key={item.id} 
+                    href={`#${item.id}`} 
+                    className={`relative transition-all cursor-pointer ${isActive ? "text-white" : "text-accent/50 hover:text-white hover:scale-110"}`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <span className="absolute -bottom-1.5 left-0 right-0 h-[1px] bg-accent shadow-[0_0_8px_rgba(244,180,0,1)]"></span>
+                    )}
+                  </a>
+                );
+              })}
             </nav>
           </motion.footer>
         )}
