@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GooeyText } from "@/components/GooeyText";
 import { GlowyWaves } from "@/components/GlowyWaves";
+import { BuildSection } from "@/components/BuildSection";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [phase, setPhase] = useState<"morphing" | "paused" | "transition" | "main">("morphing");
   const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -81,36 +84,35 @@ export default function Home() {
         </div>
       )}
 
-      {/* SELLIXA Moving Logo (Animated Manually for Smoothness) */}
+      {/* SELLIXA Moving Logo — Single fixed element, scroll-aware */}
       <AnimatePresence>
         {(phase === "paused" || phase === "transition" || phase === "main") && (
           <motion.div
             initial={false}
             animate={{
-              top: phase === "transition" || phase === "main" ? (isMobile ? "24px" : "32px") : "50%",
-              left: phase === "transition" || phase === "main" ? (isMobile ? "20px" : "32px") : "50%",
-              x: phase === "transition" || phase === "main" ? "0%" : "-50%",
-              y: phase === "transition" || phase === "main" ? "0%" : "-50%",
-              scale: phase === "transition" || phase === "main" ? (isMobile ? 0.35 : 0.2) : 1,
-              color: phase === "transition" || phase === "main" ? "#FFFFFF" : "#000000"
+              top: phase === "paused" ? "50%" : (isMobile ? "24px" : "32px"),
+              left: phase === "paused" ? "50%" : (isMobile ? "20px" : "32px"),
+              x: phase === "paused" ? "-50%" : "0%",
+              y: phase === "paused" ? "-50%" : scrolled ? "-120%" : "0%",
+              scale: phase === "paused" ? 1 : (isMobile ? 0.35 : 0.2),
+              color: phase === "paused" ? "#000000" : "#FFFFFF",
+              opacity: scrolled && phase === "main" ? 0 : 1,
             }}
-            transition={{ duration: 1.4, ease: [0.76, 0, 0.24, 1] }}
-            style={{ willChange: "transform" }}
-            className="fixed z-50 text-[clamp(4rem,10vw,9rem)] font-heading font-bold tracking-tight select-none origin-top-left flex flex-col"
+            transition={{ duration: phase === "main" ? 0.4 : 1.4, ease: [0.76, 0, 0.24, 1] }}
+            style={{ willChange: "transform, opacity" }}
+            className="fixed z-50 text-[clamp(4rem,10vw,9rem)] font-heading font-bold tracking-tight select-none origin-top-left flex flex-col pointer-events-none"
           >
             <span>SELLIXA</span>
-            <AnimatePresence>
-              {phase === "main" && (
-                <motion.span 
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[0.2em] text-text-muted font-normal mt-[-0.2em] ml-2"
-                >
-                  STUDIO
-                </motion.span>
-              )}
-            </AnimatePresence>
+            {(phase === "transition" || phase === "main") && (
+              <motion.span 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="text-[clamp(1.5rem,3vw,2.5rem)] tracking-[0.2em] text-text-muted font-normal mt-[-0.2em] ml-2"
+              >
+                STUDIO
+              </motion.span>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -122,28 +124,35 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute inset-0 z-40 flex flex-col text-text-primary overflow-y-auto"
+            className="absolute inset-0 z-40 flex flex-col text-text-primary overflow-y-auto scroll-smooth"
+            ref={scrollRef}
+            onScroll={(e) => {
+              const st = (e.target as HTMLDivElement).scrollTop;
+              setScrolled(st > 60);
+            }}
           >
-            {/* Dark background with glowy waves */}
-            <div className="absolute inset-0 bg-bg-primary z-[-2]"></div>
-            <GlowyWaves />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,180,0,0.06)_0%,transparent_60%)] z-[-1]"></div>
+            {/* HERO SECTION (100vh) */}
+            <div id="intro" className="relative min-h-screen flex flex-col w-full">
+              {/* Dark background with glowy waves */}
+              <div className="absolute inset-0 bg-bg-primary z-[-2]"></div>
+              <GlowyWaves />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,180,0,0.06)_0%,transparent_60%)] z-[-1]"></div>
 
             {/* Navbar Area */}
-            <header className="w-full px-4 md:px-8 pt-6 md:pt-8 pb-4 flex justify-between items-center">
+            <header className="w-full px-4 md:px-8 pt-6 md:pt-8 pb-4 flex justify-between items-center relative z-50">
+               
+               {/* Spacer for fixed logo */}
+               <div className="w-[100px] md:w-[150px]" />
               
-              {/* Spacer for fixed logo */}
-              <div className="w-[100px] md:w-[150px] flex flex-col justify-center" />
-              
-              <nav className="hidden md:flex gap-8 text-sm font-medium text-text-muted">
-                <a href="#" className="hover:text-text-primary transition-colors">How it works</a>
-                <a href="#" className="hover:text-text-primary transition-colors">Split</a>
-                <a href="#" className="hover:text-text-primary transition-colors">Creators</a>
-                <a href="#" className="hover:text-text-primary transition-colors">FAQ</a>
-                <a href="#" className="hover:text-text-primary transition-colors">Book a meet</a>
+              <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-text-muted relative z-50">
+                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">How it works</a>
+                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Split</a>
+                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Creators</a>
+                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">FAQ</a>
+                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Book a meet</a>
               </nav>
 
-              <button className="bg-accent hover:bg-accent-hover text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
+              <button className="cursor-pointer relative z-50 bg-accent hover:bg-accent-hover hover:scale-105 text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
                 Apply
               </button>
             </header>
@@ -156,41 +165,70 @@ export default function Home() {
                 Onboarding creators — Q2 2026
               </div>
 
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light leading-[1.1] max-w-4xl tracking-[-0.03em]" style={{ fontFamily: 'var(--font-inter)' }}>
-                Monetize your <br className="hidden sm:block" />
-                <span className="text-accent">audience.</span>
+              <h1 className="text-5xl sm:text-7xl md:text-[5.5rem] font-heading font-light leading-[1.05] max-w-4xl tracking-tight text-text-primary">
+                Monetize your <span className="text-accent italic font-light tracking-tight">audience.</span>
               </h1>
 
-              <p className="mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-text-muted max-w-2xl font-light leading-relaxed">
-                We build your <strong className="text-text-primary font-medium">courses, digital products &amp; branded theme</strong> — end-to-end. You keep <strong className="text-accent font-medium">75%</strong>. We only earn when you do.
+              <p className="mt-10 md:mt-12 text-base sm:text-lg md:text-xl text-text-muted max-w-2xl font-light">
+                We build your <strong className="text-text-primary font-medium">courses, digital products & branded theme</strong> — end-to-end. You keep <strong className="text-accent font-medium">75%</strong>. We only earn when you do.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mt-10 md:mt-12">
-                <button className="bg-accent hover:bg-accent-hover text-black px-8 py-3.5 rounded-full font-semibold transition-all duration-300 shadow-[0_0_30px_rgba(244,180,0,0.3)]">
-                  Book a meet &rarr;
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-12 md:mt-16 w-full">
+                <button className="cursor-pointer bg-accent hover:bg-accent-hover hover:scale-105 text-black px-8 py-3.5 rounded-full font-semibold transition-all duration-300 shadow-[0_0_30px_rgba(244,180,0,0.3)] hover:shadow-[0_0_40px_rgba(244,180,0,0.5)]">
+                  Book a meet {"→"}
                 </button>
-                <button className="px-8 py-3.5 rounded-full font-semibold border border-glass-border hover:bg-white/5 transition-all duration-300">
+                <button className="cursor-pointer px-8 py-3.5 rounded-full font-semibold border border-glass-border hover:bg-white/10 hover:scale-105 transition-all duration-300">
                   See how it works
                 </button>
               </div>
             </main>
+            </div>
 
-            {/* Status Bar */}
-            <footer className="w-full px-4 md:px-8 py-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-xs font-mono text-text-muted uppercase tracking-wider">
-              <div className="flex flex-wrap justify-center gap-4 md:gap-12">
-                <span className="text-accent">01 · Intro</span>
-                <span className="hover:text-text-primary cursor-pointer transition-colors">02 · Build</span>
-                <span className="hover:text-text-primary cursor-pointer transition-colors">03 · Reviews</span>
-                <span className="hover:text-text-primary cursor-pointer transition-colors">04 · Growth</span>
-                <span className="hover:text-text-primary cursor-pointer transition-colors">05 · Launch</span>
-              </div>
-              <div className="flex gap-4">
-                <span>Scroll ↔ Time</span>
-                <span className="text-accent">0.01s</span>
-              </div>
-            </footer>
+            {/* BUILD SECTION (100vh) */}
+            <BuildSection />
 
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Minimal Gold Navigation Strip (Sticky - Outside of Transformed Container for True Sticky Behavior) */}
+      <AnimatePresence>
+        {phase === "main" && (
+          <motion.footer 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0,
+              boxShadow: ["0px -1px 5px rgba(244,180,0,0)", "0px -2px 15px rgba(244,180,0,0.15)", "0px -1px 5px rgba(244,180,0,0)"]
+            }}
+            transition={{ 
+              opacity: { duration: 0.8, delay: 0.5 },
+              y: { duration: 0.8, delay: 0.5 },
+              boxShadow: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="fixed bottom-0 left-0 z-50 w-full border-t border-accent/20 bg-accent/5 backdrop-blur-md py-2 overflow-hidden"
+          >
+            {/* Sweeping shine effect */}
+            <motion.div 
+              className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-accent/20 to-transparent -skew-x-12 z-0"
+              animate={{ left: ["-50%", "150%"] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+            />
+            
+            <nav className="relative z-10 flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-16 text-[9px] sm:text-[10px] md:text-xs font-mono uppercase tracking-widest">
+              {/* Active Section */}
+              <a href="#intro" className="relative text-white transition-all cursor-pointer">
+                01 · Intro
+                <span className="absolute -bottom-1.5 left-0 right-0 h-[1px] bg-accent shadow-[0_0_8px_rgba(244,180,0,1)]"></span>
+              </a>
+              
+              {/* Inactive Sections */}
+              <a href="#build" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">02 · Build</a>
+              <a href="#reviews" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">03 · Reviews</a>
+              <a href="#growth" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">04 · Growth</a>
+              <a href="#launch" className="text-accent/50 hover:text-white hover:scale-110 transition-all cursor-pointer">05 · Launch</a>
+            </nav>
+          </motion.footer>
         )}
       </AnimatePresence>
     </div>
