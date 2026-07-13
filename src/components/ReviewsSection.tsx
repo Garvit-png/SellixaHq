@@ -196,7 +196,7 @@ export function ReviewsSection() {
                   {item.handle}
                 </span>
                 <span className={`text-sm font-bold ${isActive ? 'text-[#D4AF37]' : 'text-[#D4AF37]/70'}`}>
-                  {item.stat}
+                  {item.followers}
                 </span>
               </div>
             </motion.div>

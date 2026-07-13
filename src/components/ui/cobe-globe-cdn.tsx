@@ -29,6 +29,7 @@ export function GlobeCdn() {
         { location: [37.7595, -122.4367], size: 0.03 },
         { location: [40.7128, -74.0060], size: 0.1 },
       ],
+      // @ts-expect-error: cobe types might not include onRender but it is a valid property
       onRender: (state) => {
         // Rotate the globe continuously
         state.phi = phi;
