@@ -35,6 +35,7 @@ export default function MagneticButton({
   };
 
   return (
+    // @ts-ignore: Next.js 15 / React 19 Framer Motion type conflict
     <motion.button
       ref={ref}
       onMouseMove={handleMouse}
