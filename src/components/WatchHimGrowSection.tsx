@@ -69,9 +69,9 @@ export function WatchHimGrowSection() {
             <div className="relative w-[300px] h-[400px] rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/80 backdrop-blur-md shadow-[0_0_50px_rgba(212,175,55,0.05)] flex items-center justify-center">
               {/* Video Container (Clips the video only) */}
               <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden rounded-[24px]">
-                 <video 
+                  <video 
                    className="absolute inset-0 w-full h-full object-cover scale-[2.5]"
-                   src="/laptop.mp4"
+                   src="/Laptop.mp4"
                    autoPlay
                    loop
                    muted
