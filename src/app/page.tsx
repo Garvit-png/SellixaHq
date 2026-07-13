@@ -5,11 +5,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GooeyText } from "@/components/GooeyText";
 import { GlowyWaves } from "@/components/GlowyWaves";
 import { BuildSection } from "@/components/BuildSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
+import { WatchHimGrowSection } from "@/components/WatchHimGrowSection";
+import { PitchSection } from "@/components/PitchSection";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { TheDealSection } from "@/components/TheDealSection";
+import { WhoItsForSection } from "@/components/WhoItsForSection";
+import { EarlyPartnersSection } from "@/components/EarlyPartnersSection";
+import { FAQSection } from "@/components/FAQSection";
+import { FinalCtaSection } from "@/components/FinalCtaSection";
+import { CalendlySection } from "@/components/CalendlySection";
+import { FooterSection } from "@/components/FooterSection";
+import { MarqueeSection } from "@/components/MarqueeSection";
+import { WhatWeBuildSection } from "@/components/WhatWeBuildSection";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [phase, setPhase] = useState<"morphing" | "paused" | "transition" | "main">("morphing");
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Simple navigation handler
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const [phase, setPhase] = useState<"morphing" | "paused" | "transition" | "main">("morphing");
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("intro");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -22,7 +45,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (phase !== "main") return;
+    if (phase !== "main") {
+      document.body.style.overflow = "hidden";
+      return;
+    }
+    
+    document.body.style.overflow = "";
+    
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
     const sections = document.querySelectorAll("section[id], div[id='intro']");
     const observer = new IntersectionObserver(
@@ -33,12 +68,15 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is visible
+      { threshold: 0.2 } // Adjusted so tall sections properly trigger the active state
     );
 
     sections.forEach((section) => observer.observe(section));
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [phase]);
 
   const handleComplete = useCallback(() => {
@@ -52,7 +90,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full bg-white flex flex-col items-center justify-center overflow-hidden">
+    <main 
+      className="relative min-h-screen w-full overflow-x-clip bg-white flex flex-col items-center justify-center"
+    >
+      {/* GLOBAL NOISE OVERLAY */}
+      <svg className="pointer-events-none fixed inset-0 z-[100] w-full h-full opacity-[0.15] mix-blend-overlay">
+        <filter id="noiseFilter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+      </svg>
       
       {/* Intro Backgrounds (Hidden once transition completes) */}
       <AnimatePresence>
@@ -114,10 +161,10 @@ export default function Home() {
               top: phase === "paused" ? "50%" : (isMobile ? "24px" : "32px"),
               left: phase === "paused" ? "50%" : (isMobile ? "20px" : "32px"),
               x: phase === "paused" ? "-50%" : "0%",
-              y: phase === "paused" ? "-50%" : "0%",
+              y: phase === "paused" ? "-50%" : (["pitch", "how-it-works", "deal", "who-its-for", "early-partners", "faq", "launch", "schedule"].includes(activeSection) ? "-150%" : "0%"),
               scale: phase === "paused" ? 1 : (isMobile ? 0.35 : 0.2),
               color: phase === "paused" ? "#000000" : "#FFFFFF",
-              opacity: 1,
+              opacity: ["pitch", "how-it-works", "deal", "who-its-for", "early-partners", "faq", "launch", "schedule"].includes(activeSection) ? 0 : 1,
             }}
             transition={{ duration: phase === "main" ? 0.4 : 1.4, ease: [0.76, 0, 0.24, 1] }}
             style={{ willChange: "transform, opacity" }}
@@ -142,15 +189,11 @@ export default function Home() {
       <AnimatePresence>
         {phase === "main" && (
           <motion.div 
+            id="main-scroll-container"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute inset-0 z-40 flex flex-col text-text-primary overflow-y-auto scroll-smooth"
-            ref={scrollRef}
-            onScroll={(e) => {
-              const st = (e.target as HTMLDivElement).scrollTop;
-              setScrolled(st > 60);
-            }}
+            className="relative z-40 w-full flex flex-col text-text-primary"
           >
             {/* HERO SECTION (100vh) */}
             <div id="intro" className="relative min-h-screen flex flex-col w-full">
@@ -166,16 +209,16 @@ export default function Home() {
                <div className="w-[100px] md:w-[150px]" />
               
               <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-text-muted relative z-50">
-                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">How it works</a>
-                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Split</a>
-                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Creators</a>
-                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">FAQ</a>
-                <a href="#" className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Book a meet</a>
+                <a href="#how-it-works" onClick={(e) => handleNavClick(e, 'how-it-works')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">How it works</a>
+                <a href="#deal" onClick={(e) => handleNavClick(e, 'deal')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Split</a>
+                <a href="#who-its-for" onClick={(e) => handleNavClick(e, 'who-its-for')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Creators</a>
+                <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">FAQ</a>
+                <a href="#schedule" onClick={(e) => handleNavClick(e, 'schedule')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Contact us</a>
               </nav>
 
-              <button className="cursor-pointer relative z-50 bg-accent hover:bg-accent-hover hover:scale-105 text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
+              <a href="#schedule" onClick={(e) => handleNavClick(e, 'schedule')} className="cursor-pointer relative z-50 bg-accent hover:bg-accent-hover hover:scale-105 text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
                 Apply
-              </button>
+              </a>
             </header>
 
             {/* Hero Section */}
@@ -208,13 +251,58 @@ export default function Home() {
             {/* BUILD SECTION (100vh) */}
             <BuildSection />
 
+            {/* REVIEWS SECTION (100vh) */}
+            <ReviewsSection />
+
+            {/* WATCH HIM GROW SECTION (100vh) */}
+            <WatchHimGrowSection />
+
+            {/* THE PITCH SECTION */}
+            <PitchSection />
+
+            {/* SECTIONS WITH ROUGH NOISE BACKGROUND */}
+            <div className="relative w-full">
+              {/* Global Noise Overlay for these sections */}
+              <div className="absolute inset-0 pointer-events-none z-50 bg-noise opacity-[0.06] mix-blend-overlay"></div>
+
+              {/* MARQUEE SECTION */}
+              <MarqueeSection />
+
+              {/* WHAT WE BUILD FOR YOU SECTION */}
+              <WhatWeBuildSection />
+
+              {/* HOW IT WORKS SECTION */}
+              <HowItWorksSection />
+
+              {/* THE DEAL SECTION */}
+              <TheDealSection />
+
+              {/* WHO IT'S FOR SECTION */}
+              <WhoItsForSection />
+
+              {/* EARLY PARTNERS SECTION */}
+              <EarlyPartnersSection />
+
+              {/* FAQ SECTION */}
+              <FAQSection />
+            </div>
+
+            {/* FINAL CTA SECTION (Now safely at the very bottom!) */}
+            <FinalCtaSection />
+
+            {/* CALENDLY SCHEDULE SECTION */}
+            <CalendlySection />
+
+            {/* NEW FOOTER SECTION */}
+            <FooterSection />
+
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Minimal Gold Navigation Strip (Sticky - Outside of Transformed Container for True Sticky Behavior) */}
       <AnimatePresence>
-        {phase === "main" && (
+        {phase === "main" && !["pitch", "how-it-works", "deal", "who-its-for", "early-partners", "faq", "launch", "schedule"].includes(activeSection) && (
           <motion.footer 
             initial={{ opacity: 0, y: 50 }}
             animate={{ 
@@ -236,13 +324,14 @@ export default function Home() {
               transition={{ duration: 7, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
             />
             
-            <nav className="relative z-10 flex flex-wrap justify-center items-center gap-6 sm:gap-12 md:gap-16 text-[9px] sm:text-[10px] md:text-xs font-mono uppercase tracking-widest">
+            <nav className="relative z-10 flex flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-12 text-[9px] sm:text-[10px] md:text-xs font-mono uppercase tracking-widest">
               {[
                 { id: "intro", label: "01 · Intro" },
                 { id: "build", label: "02 · Build" },
                 { id: "reviews", label: "03 · Reviews" },
                 { id: "growth", label: "04 · Growth" },
-                { id: "launch", label: "05 · Launch" }
+                { id: "launch", label: "05 · Launch" },
+                { id: "pitch", label: "06 · Pitch" }
               ].map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -262,6 +351,6 @@ export default function Home() {
           </motion.footer>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }

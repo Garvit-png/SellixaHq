@@ -15,6 +15,8 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+import { GridTrailCanvas } from "@/components/ui/GridTrailCanvas";
+
 export const metadata: Metadata = {
   title: "Sellixa",
   description: "Monetize your audience.",
@@ -30,7 +32,8 @@ export default function RootLayout({
       lang="en"
       className={cn("antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
     >
-      <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-hidden selection:bg-accent selection:text-white">
+      <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
+        <GridTrailCanvas />
         <main className="flex-grow">{children}</main>
       </body>
     </html>
