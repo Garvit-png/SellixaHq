@@ -216,7 +216,7 @@ export default function Home() {
                 <a href="#schedule" onClick={(e) => handleNavClick(e, 'schedule')} className="cursor-pointer px-3 py-1.5 rounded-full transition-all duration-300 hover:bg-accent hover:text-black hover:scale-105 hover:px-5 hover:shadow-[0_0_15px_rgba(244,180,0,0.3)]">Contact us</a>
               </nav>
 
-              <a href="#schedule" onClick={(e) => handleNavClick(e, 'schedule')} className="cursor-pointer relative z-50 bg-accent hover:bg-accent-hover hover:scale-105 text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
+              <a href="#launch" onClick={(e) => handleNavClick(e, 'launch')} className="cursor-pointer relative z-50 bg-accent hover:bg-accent-hover hover:scale-105 text-black px-5 md:px-6 py-2 rounded-full font-semibold text-xs md:text-sm transition-all duration-300">
                 Apply
               </a>
             </header>
