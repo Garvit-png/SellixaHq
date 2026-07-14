@@ -15,8 +15,8 @@ export function TheDealSection() {
 
   useEffect(() => {
     if (isInView) {
-      animate(creatorPercent, 75, { duration: 2.5, ease: [0.22, 1, 0.36, 1] }); // Smooth easeOut cubic
-      animate(sellixaPercent, 25, { duration: 2.5, ease: [0.22, 1, 0.36, 1] });
+      animate(creatorPercent, 70, { duration: 2.5, ease: [0.22, 1, 0.36, 1] }); // Smooth easeOut cubic
+      animate(sellixaPercent, 30, { duration: 2.5, ease: [0.22, 1, 0.36, 1] });
     }
   }, [isInView, creatorPercent, sellixaPercent]);
 
@@ -38,7 +38,7 @@ export function TheDealSection() {
         </h2>
         
         <p className="text-[#A3A3A3] text-sm md:text-base font-light max-w-2xl text-center leading-relaxed mb-24">
-          No retainers. No hourly fees. No setup costs. We take <strong className="text-[#D4AF37] font-medium">25%</strong> commission —<br className="hidden md:block" /> only on actual sales.
+          No retainers. No hourly fees. No setup costs. We take <strong className="text-[#D4AF37] font-medium">30%</strong> commission —<br className="hidden md:block" /> only on actual sales.
         </p>
 
         {/* The Deal Box */}
@@ -57,7 +57,7 @@ export function TheDealSection() {
             <motion.div 
               className="relative h-[120px] md:h-[140px] bg-gradient-to-r from-[#FFF080] via-[#FACC15] to-[#EAB308] flex flex-col justify-center items-center rounded-[20px] shadow-[0_0_50px_rgba(250,204,21,0.4)] overflow-hidden border border-[#FFF080]/60 cursor-pointer"
               initial={{ width: "0%" }}
-              animate={{ width: isInView ? "75%" : "0%" }}
+              animate={{ width: isInView ? "70%" : "0%" }}
               whileHover={{ y: -12, scale: 1.03 }}
               transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1], y: { duration: 0.2, ease: "easeOut" }, scale: { duration: 0.2, ease: "easeOut" } }}
             >
@@ -89,7 +89,7 @@ export function TheDealSection() {
             <motion.div 
               className="h-[120px] md:h-[140px] bg-[#222222] flex flex-col justify-center items-center rounded-[20px] border border-white/5 overflow-hidden cursor-pointer"
               initial={{ width: "100%" }}
-              animate={{ width: isInView ? "25%" : "100%" }}
+              animate={{ width: isInView ? "30%" : "100%" }}
               whileHover={{ y: -12, scale: 1.03 }}
               transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1], y: { duration: 0.2, ease: "easeOut" }, scale: { duration: 0.2, ease: "easeOut" } }}
             >
