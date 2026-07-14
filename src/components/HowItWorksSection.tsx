@@ -50,7 +50,7 @@ export function HowItWorksSection() {
       <div className="max-w-[85rem] mx-auto w-full px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <div className="flex items-center space-x-6 mb-10">
-          <span className="text-[#D4AF37] font-serif italic text-xl">III</span>
+          <span className="text-[#D4AF37] font-serif italic text-xl">V</span>
           <div className="w-12 h-px bg-[#D4AF37]/40"></div>
           <span className="text-[#D4AF37] text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase font-semibold">How it works</span>
         </div>

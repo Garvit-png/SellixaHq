@@ -51,7 +51,7 @@ export function EarlyPartnersSection() {
         
         {/* Section Header */}
         <div className="flex items-center space-x-6 mb-6">
-          <span className="text-[#D4AF37] font-serif italic text-lg">VI</span>
+          <span className="text-[#D4AF37] font-serif italic text-lg">X</span>
           <div className="w-8 h-px bg-[#D4AF37]/40"></div>
           <span className="text-[#D4AF37] text-[9px] md:text-[10px] font-mono tracking-[0.2em] uppercase font-semibold">Early Partners</span>
         </div>

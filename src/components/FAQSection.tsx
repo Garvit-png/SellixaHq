@@ -40,7 +40,7 @@ export function FAQSection() {
         
         {/* Section Header */}
         <div className="flex items-center space-x-6 mb-8 self-start md:self-center">
-          <span className="text-[#D4AF37] font-serif italic text-lg">VII</span>
+          <span className="text-[#D4AF37] font-serif italic text-lg">XI</span>
           <div className="w-8 h-px bg-[#D4AF37]/40"></div>
           <span className="text-[#D4AF37] text-[9px] md:text-[10px] font-mono tracking-[0.2em] uppercase font-semibold">Questions</span>
         </div>

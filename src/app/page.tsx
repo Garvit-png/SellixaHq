@@ -18,6 +18,14 @@ import { CalendlySection } from "@/components/CalendlySection";
 import { FooterSection } from "@/components/FooterSection";
 import { MarqueeSection } from "@/components/MarqueeSection";
 import { WhatWeBuildSection } from "@/components/WhatWeBuildSection";
+import { AboutSection } from "@/components/AboutSection";
+import { ServicesSection } from "@/components/ServicesSection";
+import { WhyChooseUsSection } from "@/components/WhyChooseUsSection";
+import { PortfolioSection } from "@/components/PortfolioSection";
+import { FreeAuditSection } from "@/components/FreeAuditSection";
+import { BlogPreviewSection } from "@/components/BlogPreviewSection";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { NewsletterSection } from "@/components/NewsletterSection";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -268,11 +276,23 @@ export default function Home() {
               {/* MARQUEE SECTION */}
               <MarqueeSection />
 
+              {/* ABOUT SECTION */}
+              <AboutSection />
+
+              {/* SERVICES SECTION */}
+              <ServicesSection />
+
               {/* WHAT WE BUILD FOR YOU SECTION */}
               <WhatWeBuildSection />
 
               {/* HOW IT WORKS SECTION */}
               <HowItWorksSection />
+
+              {/* WHY CHOOSE US SECTION */}
+              <WhyChooseUsSection />
+
+              {/* PORTFOLIO SECTION */}
+              <PortfolioSection />
 
               {/* THE DEAL SECTION */}
               <TheDealSection />
@@ -285,13 +305,22 @@ export default function Home() {
 
               {/* FAQ SECTION */}
               <FAQSection />
+
+              {/* FREE FUNNEL AUDIT */}
+              <FreeAuditSection />
+
+              {/* BLOG / RESOURCES */}
+              <BlogPreviewSection />
             </div>
 
-            {/* FINAL CTA SECTION (Now safely at the very bottom!) */}
+            {/* FINAL CTA SECTION */}
             <FinalCtaSection />
 
             {/* CALENDLY SCHEDULE SECTION */}
             <CalendlySection />
+            
+            {/* NEWSLETTER SECTION */}
+            <NewsletterSection />
 
             {/* NEW FOOTER SECTION */}
             <FooterSection />

@@ -26,7 +26,7 @@ export function TheDealSection() {
         
         {/* Section Header */}
         <div className="flex items-center space-x-6 mb-12">
-          <span className="text-[#D4AF37] font-serif italic text-xl">IV</span>
+          <span className="text-[#D4AF37] font-serif italic text-xl">VIII</span>
           <div className="w-12 h-px bg-[#D4AF37]/40"></div>
           <span className="text-[#D4AF37] text-[10px] md:text-xs font-mono tracking-[0.2em] uppercase font-semibold">The Deal</span>
         </div>
