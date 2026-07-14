@@ -29,16 +29,16 @@ export function WatchHimGrowSection() {
   const coin2Y = useTransform(scrollYProgress, [0, 0.5, 1], [0, -60, 0]);
 
   return (
-    <section id="growth" ref={containerRef} className="relative w-full h-[300vh] bg-[#080808]">
-      {/* Sticky Container - Pins to screen while scrolling */}
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden text-[#F5F5F5] py-24">
+    <section id="growth" ref={containerRef} className="relative w-full h-auto lg:h-[300vh] bg-[#080808] pb-16 lg:pb-0">
+      {/* Sticky Container - Pins to screen while scrolling on Desktop */}
+      <div className="lg:sticky lg:top-0 lg:h-screen w-full flex flex-col items-center justify-center overflow-hidden text-[#F5F5F5] pt-16 lg:py-24">
         
         {/* Background Grid */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-30" style={{ backgroundImage: 'linear-gradient(to right, #1A1A1A 1px, transparent 1px), linear-gradient(to bottom, #1A1A1A 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
         
         {/* Background Vortex (Scroll-driven rotation) */}
         <motion.div style={{ rotate: vortexRotation }} className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[120vw] h-[120vw] max-w-[1500px] max-h-[1500px] z-0 pointer-events-none opacity-20">
-          <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,rgba(212,175,55,0.08),transparent,rgba(255,255,255,0.02),transparent)] rounded-full blur-[50px]" />
+          <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent,rgba(212,175,55,0.08),transparent,rgba(255,255,255,0.02),transparent)] rounded-full hidden md:block blur-[50px]" />
         </motion.div>
 
         {/* Floating Coins (Scroll-driven bounce) */}
@@ -56,17 +56,17 @@ export function WatchHimGrowSection() {
             YOUR FIRST LAUNCH
             <span className="w-12 h-[1px] bg-[#D4AF37]/50 absolute right-1/2 translate-x-[150px]" />
           </div>
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif font-light tracking-tight">
             Watch HIM <span className="italic text-[#D4AF37] font-medium">grow.</span>
           </h2>
         </div>
 
         {/* Main Content Layout */}
-        <div className="relative z-20 flex flex-col lg:flex-row items-start justify-center gap-16 lg:gap-24 w-full max-w-6xl px-4">
+        <div className="relative z-20 flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24 w-full max-w-6xl px-4">
           
           {/* Left Card: Character/Video */}
-          <div className="relative flex flex-col items-center">
-            <div className="relative w-[300px] h-[400px] rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/80 backdrop-blur-md shadow-[0_0_50px_rgba(212,175,55,0.05)] flex items-center justify-center">
+          <div className="relative flex flex-col items-center w-full lg:w-auto">
+            <div className="relative w-full max-w-[300px] h-[400px] rounded-[24px] border border-[#D4AF37]/30 bg-[#141414]/80 backdrop-blur-md shadow-[0_0_50px_rgba(212,175,55,0.05)] flex items-center justify-center">
               {/* Video Container (Clips the video only) */}
               <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden rounded-[24px]">
                   <video 
@@ -190,7 +190,7 @@ export function WatchHimGrowSection() {
           </div>
 
           {/* Right Card: Dashboard Widget */}
-          <div className="relative w-full max-w-[550px] h-[380px] rounded-[24px] border border-[#D4AF37]/20 bg-[#0F0F0F]/90 backdrop-blur-xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] p-10 flex flex-col justify-start overflow-hidden">
+          <div className="relative w-full max-w-[550px] h-[350px] lg:h-[380px] rounded-[24px] border border-[#D4AF37]/20 bg-[#0F0F0F]/90 backdrop-blur-xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] p-5 lg:p-10 flex flex-col justify-start overflow-hidden">
             {/* Header */}
             <div className="flex justify-between items-start z-10 mb-6">
               <div className="flex items-center gap-3">
@@ -204,7 +204,7 @@ export function WatchHimGrowSection() {
 
             {/* Revenue Amount (Scroll Driven) */}
             <div className="z-10">
-               <motion.div className="text-6xl font-serif text-white tracking-tight mb-3">
+               <motion.div className="text-4xl md:text-6xl font-serif text-white tracking-tight mb-3">
                  {formattedRevenue}
                </motion.div>
                <motion.div className="text-[#4ADE80] text-xs font-mono font-bold tracking-wide">

@@ -21,8 +21,8 @@ export function TheDealSection() {
   }, [isInView, creatorPercent, sellixaPercent]);
 
   return (
-    <section id="deal" className="relative w-full min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden bg-transparent">
-      <div className="max-w-[85rem] mx-auto w-full px-6 md:px-12 relative z-10 flex flex-col items-center">
+    <section id="deal" className="relative w-full min-h-screen flex flex-col items-center justify-center py-16 md:py-32 overflow-hidden bg-transparent">
+      <div className="max-w-[85rem] mx-auto w-full px-4 md:px-12 relative z-10 flex flex-col items-center">
         
         {/* Section Header */}
         <div className="flex items-center space-x-6 mb-12">
@@ -32,7 +32,7 @@ export function TheDealSection() {
         </div>
 
         {/* Title */}
-        <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif font-thin leading-[1.05] tracking-tight text-center mb-6">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-thin leading-[1.05] tracking-tight text-center mb-6">
           <span className="text-white/90">We only win </span>
           <span className="italic text-[#D4AF37] font-light">when you win.</span>
         </h2>
@@ -44,18 +44,18 @@ export function TheDealSection() {
         {/* The Deal Box */}
         <div 
           ref={ref}
-          className="relative w-full max-w-5xl bg-[#0d0d0d]/40 backdrop-blur-xl border border-[#D4AF37]/30 rounded-[32px] p-6 md:p-12 shadow-[0_0_40px_rgba(212,175,55,0.15),inset_0_0_30px_rgba(212,175,55,0.05)] overflow-hidden"
+          className="relative w-full max-w-5xl bg-[#0d0d0d]/40 backdrop-blur-xl border border-[#D4AF37]/30 rounded-[24px] md:rounded-[32px] p-5 md:p-12 shadow-[0_0_40px_rgba(212,175,55,0.15),inset_0_0_30px_rgba(212,175,55,0.05)] overflow-hidden"
         >
           {/* Subtle animated gradient sweep on the main box border */}
           <div className="absolute inset-0 w-full h-full rounded-[32px] border border-transparent [mask-image:linear-gradient(black,black),linear-gradient(black,black)] [mask-clip:padding-box,border-box] [mask-composite:exclude] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-[#D4AF37] before:to-transparent before:w-[200%] before:animate-[spin_4s_linear_infinite]"></div>
           {/* Subtle glow behind the box */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-3xl bg-[#D4AF37]/5 blur-[120px] rounded-full pointer-events-none z-[-1]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-3xl bg-[#D4AF37]/5 hidden md:block blur-[120px] rounded-full pointer-events-none z-[-1]"></div>
 
           {/* Progress Bar Container */}
           <div className="w-full flex items-end gap-3 h-[130px] md:h-[150px] mb-10 rounded-[24px]">
             {/* Creator (Yellow) Bar */}
             <motion.div 
-              className="relative h-[120px] md:h-[140px] bg-gradient-to-r from-[#FFF080] via-[#FACC15] to-[#EAB308] flex flex-col justify-center items-center rounded-[20px] shadow-[0_0_50px_rgba(250,204,21,0.4)] overflow-hidden border border-[#FFF080]/60 cursor-pointer"
+              className="relative h-[100px] md:h-[140px] bg-gradient-to-r from-[#FFF080] via-[#FACC15] to-[#EAB308] flex flex-col justify-center items-center rounded-[16px] md:rounded-[20px] shadow-[0_0_50px_rgba(250,204,21,0.4)] overflow-hidden border border-[#FFF080]/60 cursor-pointer"
               initial={{ width: "0%" }}
               animate={{ width: isInView ? "70%" : "0%" }}
               whileHover={{ y: -12, scale: 1.03 }}
@@ -75,10 +75,10 @@ export function TheDealSection() {
               />
 
               <div className="flex items-baseline px-4 relative z-10">
-                <motion.span className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-black tracking-tight whitespace-nowrap">
+                <motion.span className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-black tracking-tight whitespace-nowrap">
                   {roundedCreator}
                 </motion.span>
-                <span className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-black tracking-tight">%</span>
+                <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-black tracking-tight">%</span>
               </div>
               <span className="text-black/70 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mt-2 relative z-10">
                 Creator
@@ -87,17 +87,17 @@ export function TheDealSection() {
 
             {/* Sellixa (Dark) Bar */}
             <motion.div 
-              className="h-[120px] md:h-[140px] bg-[#222222] flex flex-col justify-center items-center rounded-[20px] border border-white/5 overflow-hidden cursor-pointer"
+              className="h-[100px] md:h-[140px] bg-[#222222] flex flex-col justify-center items-center rounded-[16px] md:rounded-[20px] border border-white/5 overflow-hidden cursor-pointer"
               initial={{ width: "100%" }}
               animate={{ width: isInView ? "30%" : "100%" }}
               whileHover={{ y: -12, scale: 1.03 }}
               transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1], y: { duration: 0.2, ease: "easeOut" }, scale: { duration: 0.2, ease: "easeOut" } }}
             >
               <div className="flex items-baseline px-4">
-                <motion.span className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold text-white tracking-tight whitespace-nowrap">
+                <motion.span className="text-2xl md:text-4xl lg:text-5xl font-sans font-bold text-white tracking-tight whitespace-nowrap">
                   {roundedSellixa}
                 </motion.span>
-                <span className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold text-white tracking-tight">%</span>
+                <span className="text-2xl md:text-4xl lg:text-5xl font-sans font-bold text-white tracking-tight">%</span>
               </div>
               <span className="text-white/40 text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase mt-2">
                 Sellixa

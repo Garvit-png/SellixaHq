@@ -4,7 +4,7 @@ import MagneticButton from "./MagneticButton";
 export default function Footer() {
   return (
     <footer className="border-t border-glass-border mt-32 py-20 bg-bg-primary relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 hidden md:block rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-20">

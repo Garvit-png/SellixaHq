@@ -76,7 +76,7 @@ export function EarlyPartnersSection() {
               }`}
             >
               {partner.active && (
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/15 blur-[60px] rounded-full pointer-events-none"></div>
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#D4AF37]/15 hidden md:block blur-[60px] rounded-full pointer-events-none"></div>
               )}
               
               <div>

@@ -54,7 +54,7 @@ export function FinalCtaSection() {
       <div className="absolute inset-0 pointer-events-none z-0 bg-noise opacity-[0.05] mix-blend-overlay"></div>
       
       {/* Gentle center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 hidden md:block blur-[120px] rounded-full pointer-events-none z-0"></div>
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto w-full">
         

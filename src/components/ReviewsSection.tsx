@@ -87,8 +87,8 @@ export function ReviewsSection() {
       </div>
 
       {/* Volumetric Lighting Leaks */}
-      <div className="absolute top-0 -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08)_0%,transparent_70%)] z-0 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)] z-0 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 -left-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08)_0%,transparent_70%)] z-0 rounded-full hidden md:block blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-[10%] w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)] z-0 rounded-full hidden md:block blur-[100px] pointer-events-none" />
 
       {/* Main Content Area */}
       <div className="relative z-20 flex flex-col items-center text-center px-4 w-full max-w-6xl mt-8 mb-16 pointer-events-none">
@@ -109,7 +109,7 @@ export function ReviewsSection() {
           whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl font-serif font-light tracking-tight leading-[1.2]"
+          className="text-3xl md:text-6xl font-serif font-light tracking-tight leading-[1.2]"
         >
           They had the audience. <br/>
           Now they have <span className="italic text-[#D4AF37] font-medium drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]">income.</span>

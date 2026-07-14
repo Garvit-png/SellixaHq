@@ -88,7 +88,7 @@ export function WhoItsForSection() {
                   <>
                     <div className="absolute bottom-0 left-0 w-[50%] h-[2px] bg-gradient-to-r from-[#D4AF37] to-transparent rounded-bl-[24px]"></div>
                     <div className="absolute bottom-0 left-0 w-[2px] h-[50%] bg-gradient-to-t from-[#D4AF37] to-transparent rounded-bl-[24px]"></div>
-                    <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[#D4AF37]/20 blur-[60px] rounded-full pointer-events-none"></div>
+                    <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-[#D4AF37]/20 hidden md:block blur-[60px] rounded-full pointer-events-none"></div>
                   </>
                 )}
 

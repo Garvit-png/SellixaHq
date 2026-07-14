@@ -16,7 +16,7 @@ export function WhatWeBuildSection() {
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-serif font-light leading-[1.1] mb-10 md:mb-14">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl text-white font-serif font-light leading-[1.1] mb-10 md:mb-14">
           Courses, materials &<br />
           <span className="text-[#FACC15] italic">branded themes.</span>
         </h2>
@@ -30,7 +30,7 @@ export function WhatWeBuildSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-            className="flex-1 w-full rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-6 md:p-8 flex flex-col items-center justify-between relative overflow-hidden group"
+            className="flex-1 w-full rounded-[24px] md:rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-5 md:p-8 flex flex-col items-center justify-between relative overflow-hidden group"
           >
             {/* Corner Decorative Brackets */}
             <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-white/20"></div>
@@ -69,7 +69,7 @@ export function WhatWeBuildSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex-[1.3] w-full rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-6 md:p-8 flex flex-col relative overflow-hidden group"
+            className="flex-[1.3] w-full rounded-[24px] md:rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-5 md:p-8 flex flex-col relative overflow-hidden group"
           >
             {/* Corner Decorative Brackets */}
             <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-[#FACC15]/40"></div>

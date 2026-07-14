@@ -24,7 +24,7 @@ export function CalendlySection() {
       className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#0B0B0B] py-32 overflow-hidden"
     >
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 blur-[100px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 hidden md:block blur-[100px] rounded-full pointer-events-none z-0"></div>
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto w-full">
         
