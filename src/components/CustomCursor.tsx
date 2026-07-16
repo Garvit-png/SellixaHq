@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  // Smooth trailing spring for the outer ring
+  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const cursorX = useSpring(0, springConfig);
+  const cursorY = useSpring(0, springConfig);
+
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -33,27 +40,39 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none z-[9999]"
-      style={{
-        background: isHovered
-          ? "radial-gradient(circle, rgba(244, 180, 0, 0.2) 0%, rgba(0,0,0,0) 70%)"
-          : "radial-gradient(circle, rgba(244, 180, 0, 0.08) 0%, rgba(0,0,0,0) 70%)",
-      }}
-      animate={{
-        x: mousePosition.x - 200,
-        y: mousePosition.y - 200,
-        scale: isHovered ? 0.3 : 1,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 150,
-        damping: 15,
-        mass: 0.1,
-      }}
-    />
+    <>
+      {/* Outer Ring */}
+      <motion.div
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-black/30 dark:border-white/50 pointer-events-none z-[9999] mix-blend-difference"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          scale: isHovered ? 1.5 : 1,
+          backgroundColor: isHovered ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)",
+          borderWidth: isHovered ? "0px" : "1px",
+        }}
+        transition={{ duration: 0.2 }}
+      />
+      {/* Inner Dot */}
+      <motion.div
+        className="fixed top-0 left-0 w-2 h-2 bg-black dark:bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        animate={{
+          x: mousePosition.x,
+          y: mousePosition.y,
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: isHovered ? 0 : 1,
+          opacity: isHovered ? 0 : 1,
+        }}
+        transition={{ duration: 0.1 }}
+      />
+    </>
   );
 }

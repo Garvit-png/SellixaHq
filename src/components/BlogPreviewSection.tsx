@@ -28,24 +28,28 @@ export function BlogPreviewSection() {
   ];
 
   return (
-    <section id="blog" className="w-full flex justify-center py-24 md:py-32 bg-[#050505] relative z-20 overflow-hidden">
-      <div className="max-w-6xl w-full flex flex-col items-start px-4 md:px-8 relative z-10">
+    <section id="blog" className="w-full flex justify-center py-24 md:py-32 bg-[#ffff00] relative z-20 overflow-hidden">
+      {/* Paint spill transition from the black FreeAuditSection */}
+      <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="w-full h-[10vh] md:h-[15vh] text-[#050505] fill-current"
+        >
+          <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
+        </svg>
+      </div>
+
+      <div className="max-w-6xl w-full flex flex-col items-start px-4 md:px-8 relative z-10 mt-12 md:mt-24">
         
         {/* Section Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-[#FACC15] font-serif italic text-xl md:text-2xl">XII</span>
-          <div className="h-[1px] w-8 md:w-12 bg-[#FACC15]/50"></div>
-          <span className="text-[#FACC15] font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
-            Creator Resources
-          </span>
-        </div>
-
         <div className="w-full flex justify-between items-end mb-16">
-          <h2 className="text-4xl md:text-6xl text-white font-serif font-light leading-[1.1]">
+          <h2 className="text-4xl md:text-6xl text-black font-serif font-light leading-[1.1]">
             Insights from the <br />
-            <span className="text-[#FACC15] italic">frontlines.</span>
+            <span className="text-black italic font-bold">frontlines.</span>
           </h2>
-          <button className="hidden md:block text-white/50 hover:text-[#FACC15] transition-colors border-b border-transparent hover:border-[#FACC15] pb-1 text-sm font-mono uppercase tracking-widest">
+          <button className="hidden md:block text-black/50 hover:text-black transition-colors border-b border-transparent hover:border-black pb-1 text-sm font-mono uppercase tracking-widest">
             View All Posts
           </button>
         </div>
@@ -61,26 +65,26 @@ export function BlogPreviewSection() {
               transition={{ duration: 0.5 }}
               className="group cursor-pointer flex flex-col"
             >
-              <div className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${post.image} border border-white/5 mb-6 overflow-hidden relative`}>
+              <div className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${post.image} border border-black/5 mb-6 overflow-hidden relative`}>
                 {/* Image overlay effect */}
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-mono text-white tracking-widest uppercase">
+                <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-black/10 text-[10px] font-mono text-white tracking-widest uppercase">
                   {post.category}
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-white/40 text-xs font-mono tracking-widest uppercase mb-3">
+              <div className="flex items-center gap-4 text-black/60 text-xs font-mono tracking-widest uppercase mb-3">
                 <span>{post.date}</span>
-                <span className="w-1 h-1 rounded-full bg-white/20"></span>
+                <span className="w-1 h-1 rounded-full bg-black/30"></span>
                 <span>{post.readTime}</span>
               </div>
-              <h3 className="text-xl text-white font-serif group-hover:text-[#FACC15] transition-colors leading-snug">
+              <h3 className="text-xl text-black font-serif group-hover:text-black/70 transition-colors leading-snug">
                 {post.title}
               </h3>
             </motion.div>
           ))}
         </div>
         
-        <button className="md:hidden mt-12 text-white/50 hover:text-[#FACC15] transition-colors border-b border-white/20 pb-1 text-sm font-mono uppercase tracking-widest mx-auto">
+        <button className="md:hidden mt-12 text-black/50 hover:text-black transition-colors border-b border-black/20 pb-1 text-sm font-mono uppercase tracking-widest mx-auto">
           View All Posts
         </button>
       </div>

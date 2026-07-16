@@ -1,59 +1,79 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Sparkles, Menu, X } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkBg, setIsDarkBg] = useState(false);
+  
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    
+    setScrolled(latest > 50);
+
+    // Hide navbar links if scrolling down past 150px, show if scrolling up
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+
+    if (typeof window !== 'undefined') {
+      const vh = window.innerHeight;
+      // Hero (100vh) is yellow
+      // WhatWeBuild (150vh) + Reviews (100vh) are black (total 250vh)
+      // WatchHimGrow is yellow
+      // So dark background is between 95vh and ~330vh
+      setIsDarkBg(latest > vh * 0.95 && latest < vh * 3.3);
+    }
+  });
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "py-4 bg-bg-primary/80 backdrop-blur-xl border-b border-glass-border" : "py-6"
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-[padding] duration-300 ${
+        scrolled ? "py-4" : "py-6"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xl font-heading font-bold">
-          <div className="w-6 h-6 rounded-md bg-accent flex items-center justify-center text-black">
-            <Sparkles size={14} />
-          </div>
-          Aura
+      <div className={`max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between transition-colors duration-300 relative ${isDarkBg ? "text-white" : "text-black"}`}>
+        {/* LOGO */}
+        <div className="flex flex-col items-start cursor-default z-20">
+          <span className="font-bold text-2xl tracking-tight leading-none">SELLIXA</span>
+          <span className="text-[0.6rem] tracking-[0.3em] font-medium opacity-80 mt-1 uppercase">STUDIO</span>
         </div>
 
-        <ul className="hidden md:flex items-center gap-8 text-sm text-text-muted">
-          {["Features", "Ecosystem", "Testimonials", "FAQ"].map((item) => (
-            <li key={item}>
-              <a
-                href={`#${item.toLowerCase()}`}
-                className="hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-accent after:transition-all hover:after:w-full"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
+        {/* LINKS - These hide on scroll down */}
+        <div className={`absolute left-1/2 -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          hidden ? 'opacity-0 -translate-y-8 pointer-events-none' : 'opacity-100 translate-y-0'
+        }`}>
+          <ul className="hidden md:flex items-center gap-8 text-sm font-medium opacity-80">
+            {["How it works", "Split", "Creators", "FAQ", "Contact us"].map((item) => (
+              <li key={item}>
+                <a
+                  href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                  className="hover:opacity-100 transition-opacity"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div className="hidden md:block">
-          <MagneticButton variant="secondary" className="px-5 py-2.5 text-sm">
-            Log In
+        {/* APPLY BUTTON */}
+        <div className="hidden md:block z-20">
+          <MagneticButton variant="primary" className={`px-6 py-2 text-sm rounded-full font-medium transition-colors duration-300 ${isDarkBg ? "bg-white text-black hover:opacity-90" : "bg-black text-white hover:opacity-90"}`}>
+            Apply
           </MagneticButton>
         </div>
 
-        <button className="md:hidden text-text-primary" onClick={() => setMobileMenuOpen(true)}>
+        <button className="md:hidden z-20" onClick={() => setMobileMenuOpen(true)}>
           <Menu size={24} />
         </button>
       </div>
@@ -64,27 +84,30 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-bg-primary/95 backdrop-blur-2xl z-[60] flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 bg-[#050505] z-40 flex flex-col items-center justify-center text-white"
           >
-            <button className="absolute top-6 right-6 p-2" onClick={() => setMobileMenuOpen(false)}>
+            <button
+              className="absolute top-10 right-6 md:right-12"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <X size={32} />
             </button>
-            {["Features", "Ecosystem", "Testimonials", "FAQ"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-2xl font-heading text-text-primary hover:text-accent transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-            <MagneticButton variant="primary" onClick={() => setMobileMenuOpen(false)}>
-              Log In
-            </MagneticButton>
+            <ul className="flex flex-col gap-8 text-2xl font-serif text-center">
+              {["How it works", "Split", "Creators", "FAQ", "Contact us"].map((item) => (
+                <li key={item}>
+                  <a
+                    href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                    className="hover:text-[#FFFFFF] transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

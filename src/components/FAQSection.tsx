@@ -35,20 +35,25 @@ export function FAQSection() {
   };
 
   return (
-    <section id="faq" className="relative w-full min-h-screen flex flex-col justify-center py-20 bg-transparent">
-      <div className="max-w-3xl mx-auto w-full px-6 md:px-12 relative z-10 flex flex-col items-center">
-        
-        {/* Section Header */}
-        <div className="flex items-center space-x-6 mb-8 self-start md:self-center">
-          <span className="text-[#D4AF37] font-serif italic text-lg">XI</span>
-          <div className="w-8 h-px bg-[#D4AF37]/40"></div>
-          <span className="text-[#D4AF37] text-[9px] md:text-[10px] font-mono tracking-[0.2em] uppercase font-semibold">Questions</span>
-        </div>
+    <section id="faq" className="relative w-full min-h-screen flex flex-col justify-center py-20 bg-[#050505] overflow-hidden">
+      {/* Paint spill transition from the yellow EarlyPartnersSection */}
+      <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="w-full h-[10vh] md:h-[15vh] text-[#ffff00] fill-current"
+        >
+          <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
+        </svg>
+      </div>
 
+      <div className="max-w-3xl mx-auto w-full px-6 md:px-12 relative z-10 flex flex-col items-center mt-12 md:mt-24">
+        
         {/* Title */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-serif font-thin leading-[1.05] tracking-tight mb-16 self-start md:self-center text-center">
-          <span className="text-white/90">Honest </span>
-          <span className="italic text-[#D4AF37]">answers.</span>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-serif font-light leading-[1.05] tracking-tight mb-16 self-start md:self-center text-center">
+          <span className="text-white">Honest </span>
+          <span className="italic text-[#ffff00] font-bold">answers.</span>
         </h2>
 
         {/* FAQ Accordion */}
@@ -59,21 +64,21 @@ export function FAQSection() {
               <div 
                 key={idx} 
                 className={`w-full rounded-[16px] border overflow-hidden transition-colors duration-300 ${
-                  isOpen ? 'bg-[#111] border-[#D4AF37]/30' : 'bg-[#0A0A0A] border-white/5 hover:border-white/10'
+                  isOpen ? 'bg-[#ffff00] border-[#ffff00] shadow-[0_0_30px_rgba(255,255,0,0.2)]' : 'bg-[#ffff00] border-[#ffff00] hover:shadow-[0_0_20px_rgba(255,255,0,0.15)]'
                 }`}
               >
                 <button
                   onClick={() => toggleFaq(idx)}
                   className="w-full flex items-center justify-between p-6 md:p-8 text-left focus:outline-none"
                 >
-                  <span className="text-white/90 font-sans font-medium text-[15px] md:text-[16px]">
+                  <span className="text-black font-sans font-bold text-[15px] md:text-[16px]">
                     {faq.question}
                   </span>
                   <div className="ml-4 flex-shrink-0">
                     {isOpen ? (
-                      <Minus className="w-5 h-5 text-[#D4AF37]" strokeWidth={2} />
+                      <Minus className="w-5 h-5 text-black" strokeWidth={2} />
                     ) : (
-                      <Plus className="w-5 h-5 text-[#D4AF37]" strokeWidth={2} />
+                      <Plus className="w-5 h-5 text-black" strokeWidth={2} />
                     )}
                   </div>
                 </button>
@@ -85,7 +90,7 @@ export function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0 text-white/60 font-sans text-[14px] md:text-[15px] leading-[1.6]">
+                      <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0 text-black/80 font-sans font-medium text-[14px] md:text-[15px] leading-[1.6]">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -98,9 +103,9 @@ export function FAQSection() {
 
         {/* Bottom Star Divider */}
         <div className="relative w-full flex items-center justify-center">
-          <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent"></div>
-          <div className="relative w-8 h-8 rounded-full border border-[#D4AF37]/30 bg-[#0A0A0A] flex items-center justify-center z-10">
-            <Star className="w-3.5 h-3.5 text-[#D4AF37] fill-transparent" />
+          <div className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ffff00]/50 to-transparent"></div>
+          <div className="relative w-8 h-8 rounded-full border border-[#ffff00] bg-[#050505] flex items-center justify-center z-10">
+            <Star className="w-3.5 h-3.5 text-[#ffff00] fill-transparent" />
           </div>
         </div>
 

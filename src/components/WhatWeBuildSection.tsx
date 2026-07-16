@@ -1,148 +1,123 @@
 "use client";
 
+import RetroGrid from "@/components/magicui/retro-grid";
 import { motion } from "framer-motion";
 
 export function WhatWeBuildSection() {
   return (
-    <section id="build" className="w-full flex justify-center py-16 md:py-20 bg-[#050505] relative z-20">
-      <div className="max-w-6xl w-full flex flex-col items-start px-4 md:px-8">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-[#FACC15] font-serif italic text-xl md:text-2xl">IV</span>
-          <div className="h-[1px] w-8 md:w-12 bg-[#FACC15]/50"></div>
-          <span className="text-[#FACC15] font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
-            What we build for you
-          </span>
-        </div>
-
-        <h2 className="text-3xl md:text-5xl lg:text-6xl text-white font-serif font-light leading-[1.1] mb-10 md:mb-14">
-          Courses, materials &<br />
-          <span className="text-[#FACC15] italic">branded themes.</span>
-        </h2>
-
-        {/* Cards Container */}
-        <div className="w-full flex flex-col lg:flex-row gap-6 md:gap-8">
-          
-          {/* CARD 1: Digital Material */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-            className="flex-1 w-full rounded-[24px] md:rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-5 md:p-8 flex flex-col items-center justify-between relative overflow-hidden group"
-          >
-            {/* Corner Decorative Brackets */}
-            <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-white/20"></div>
-            <div className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-[#FACC15]/40"></div>
-
-            <div className="w-full flex-grow flex items-center justify-center py-8">
-              {/* Ebook Mockup */}
-              <div className="w-56 h-72 rounded-xl bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] border border-white/10 shadow-[0_0_50px_rgba(250,204,21,0.08)] group-hover:shadow-[0_0_60px_rgba(250,204,21,0.15)] transition-shadow duration-500 flex flex-col p-6 relative">
-                {/* Left yellow binding */}
-                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#FACC15] rounded-l-xl"></div>
-                
-                <div className="text-[#FACC15] font-mono text-[8px] tracking-[0.25em] uppercase mb-auto">
-                  01 - Digital Material
-                </div>
-                
-                <div className="mt-auto flex flex-col">
-                  <div className="text-white font-serif text-2xl md:text-3xl mb-2 font-light">The Trader's Edge</div>
-                  <div className="text-white/40 font-serif italic text-sm mb-8">A Market Psychology Playbook</div>
-                  <div className="text-[#FACC15] font-mono text-[9px] tracking-widest">by @yourhandle</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Labels */}
-            <div className="w-full flex justify-between text-white/30 font-mono text-[8px] md:text-[9px] uppercase tracking-[0.2em] mt-8">
-              <span>Ebooks · PDFs</span>
-              <span className="hidden sm:inline">Templates</span>
-              <span>Your theme</span>
-            </div>
-          </motion.div>
-
-
-          {/* CARD 2: Course Platform */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex-[1.3] w-full rounded-[24px] md:rounded-[32px] border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-md p-5 md:p-8 flex flex-col relative overflow-hidden group"
-          >
-            {/* Corner Decorative Brackets */}
-            <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-[#FACC15]/40"></div>
-            <div className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-[#FACC15]/40"></div>
-
-            <div className="w-full flex-grow flex items-center justify-center py-4">
-              {/* Browser Mockup */}
-              <div className="w-full max-w-lg rounded-xl border border-white/10 bg-[#0C0C0C] overflow-hidden flex flex-col shadow-2xl">
-                {/* Browser Top Bar */}
-                <div className="h-10 border-b border-white/5 bg-[#111] flex items-center px-4 relative">
-                  <div className="flex gap-1.5 absolute left-4">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]"></div>
-                  </div>
-                  <div className="mx-auto text-white/20 font-mono text-[9px] tracking-wider">
-                    yourhandle.sellixa.co
-                  </div>
-                </div>
-                
-                {/* Module Content */}
-                <div className="p-5 md:p-8 flex flex-col">
-                  <div className="text-[#FACC15] font-mono text-[8px] tracking-[0.25em] uppercase mb-4">
-                    Module 03 / 08 · Your Theme
-                  </div>
-                  <div className="text-white font-serif text-2xl md:text-3xl mb-3 font-light">
-                    Risk-Reward Framework
-                  </div>
-                  <div className="text-white/40 font-mono text-[9px] tracking-widest mb-8">
-                    12 lessons · 2h 14m
-                  </div>
-
-                  <div className="h-[1px] w-full bg-white/5 mb-6"></div>
-
-                  {/* Lessons List */}
-                  <div className="flex flex-col gap-1 md:gap-2">
-                    
-                    <div className="flex items-center gap-4 text-white/60 font-sans text-xs md:text-sm py-1.5">
-                      <span className="text-[#FACC15] text-[10px]">✓</span>
-                      <span>The 1% Rule, Rewritten</span>
-                    </div>
-                    
-                    {/* Active Lesson */}
-                    <div className="flex items-center justify-between border border-[#FACC15]/20 bg-[#FACC15]/[0.03] rounded-lg p-2.5 my-1.5">
-                      <div className="flex items-center gap-4 text-white font-sans text-xs md:text-sm">
-                        <span className="text-[#FACC15] text-xs">▶</span>
-                        <span>Asymmetric Bets</span>
-                      </div>
-                      <div className="bg-[#FACC15] text-black font-mono text-[8px] font-bold px-2 py-1 rounded">
-                        NOW
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4 text-white/40 font-sans text-xs md:text-sm py-1.5">
-                      <span className="w-3 text-center">·</span>
-                      <span>Drawdown Recovery</span>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Labels */}
-            <div className="w-full flex justify-between text-white/30 font-mono text-[8px] md:text-[9px] uppercase tracking-[0.2em] mt-8">
-              <span>Courses · Cohorts</span>
-              <span className="hidden sm:inline">Storefront</span>
-              <span>Hosted for you</span>
-            </div>
-          </motion.div>
-
-        </div>
+    <section 
+      id="build" 
+      className="w-full min-h-[150svh] relative bg-black z-20 flex flex-col items-center justify-center overflow-hidden"
+    >
+      {/* Paint spill / irregular curve transition from yellow to black */}
+      <div className="absolute top-0 left-0 w-full z-40 pointer-events-none drop-shadow-md">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="w-full h-[10vh] md:h-[15vh] text-[#ffff00] fill-current"
+        >
+          <path d="M0,0 V30 C150,60 350,0 500,40 C650,80 850,20 1000,60 C1100,90 1150,40 1200,50 V0 Z" />
+        </svg>
       </div>
+      {/* Huge Title Area (Underneath the animation) */}
+      <div className="absolute top-[25svh] md:top-[30svh] z-0 flex flex-col items-center w-full px-6">
+        <motion.h2 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } }
+          }}
+          className="flex flex-row justify-center text-[9vw] md:text-[6vw] text-[#ffff00] font-sans font-extrabold uppercase tracking-widest whitespace-nowrap text-center drop-shadow-[0_0_15px_rgba(255,255,0,0.4)]"
+        >
+          {"WE DESIGN & SHIP".split("").map((char, index) => (
+            <motion.span
+              key={index}
+              variants={{
+                hidden: { opacity: 0, x: -100, skewX: -20, filter: "blur(10px)" },
+                visible: { 
+                  opacity: 1, 
+                  x: 0, 
+                  skewX: 0,
+                  filter: "blur(0px)",
+                  transition: { type: "spring", damping: 12, stiffness: 150 } 
+                }
+              }}
+              className={char === " " ? "w-[3vw] md:w-[1.5vw]" : "inline-block"}
+            >
+              {char}
+            </motion.span>
+          ))}
+        </motion.h2>
+      </div>
+
+      {/* Retro Grid Container */}
+      <div className="absolute inset-0 z-10 w-full h-full pointer-events-none overflow-hidden">
+        <RetroGrid />
+      </div>
+
+      {/* Cards Layout for Milestones */}
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15, delayChildren: 0.4 } }
+        }}
+        className="absolute top-[60svh] md:top-[65svh] left-0 w-full px-6 md:px-12 z-20 flex flex-col items-center justify-center gap-8 md:gap-12 pointer-events-auto"
+      >
+        
+        {/* Grid of Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl [perspective:1000px]">
+          {/* Card 1 */}
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, rotateX: -90, transformOrigin: "top" },
+              visible: { opacity: 1, rotateX: 0, transition: { type: "spring", damping: 15, stiffness: 100 } }
+            }}
+            className="flex flex-col items-center justify-center text-center p-8 rounded-2xl bg-black/40 border-2 border-[#ffff00] backdrop-blur-md transition-transform hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,0,0.3)]"
+          >
+            <h3 className="text-xl md:text-2xl font-sans font-light text-white">Your course.</h3>
+          </motion.div>
+          {/* Card 2 */}
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, rotateX: -90, transformOrigin: "top" },
+              visible: { opacity: 1, rotateX: 0, transition: { type: "spring", damping: 15, stiffness: 100 } }
+            }}
+            className="flex flex-col items-center justify-center text-center p-8 rounded-2xl bg-black/40 border-2 border-[#ffff00] backdrop-blur-md transition-transform hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,0,0.3)]"
+          >
+            <h3 className="text-xl md:text-2xl font-sans font-light text-white">Your materials.</h3>
+          </motion.div>
+          {/* Card 3 */}
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, rotateX: -90, transformOrigin: "top" },
+              visible: { opacity: 1, rotateX: 0, transition: { type: "spring", damping: 15, stiffness: 100 } }
+            }}
+            className="flex flex-col items-center justify-center text-center p-8 rounded-2xl bg-black/40 border-2 border-[#ffff00] backdrop-blur-md transition-transform hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,0,0.3)]"
+          >
+            <h3 className="text-xl md:text-2xl font-sans font-light text-white">Your theme.</h3>
+          </motion.div>
+        </div>
+
+        {/* Paragraph */}
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }
+          }}
+          className="max-w-2xl text-center"
+        >
+          <p className="text-sm md:text-base text-white/80 font-sans font-light leading-relaxed bg-black/40 backdrop-blur-xl px-8 py-5 rounded-2xl border-2 border-[#ffff00] shadow-[0_0_20px_rgba(255,255,0,0.3)]">
+            We construct premium digital infrastructures for top-tier creators. <span className="text-white font-medium">Enter the next stage of your business evolution.</span>
+          </p>
+        </motion.div>
+
+      </motion.div>
     </section>
   );
 }

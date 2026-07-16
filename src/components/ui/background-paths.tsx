@@ -54,7 +54,7 @@ export function BackgroundPaths() {
           transition={{ duration: 15, ease: "linear", repeat: Infinity }}
         >
           {paths.map((path, i) => {
-            const color = i % 2 === 0 ? "#FFD700" : "#FFF5CC"; // Very bright gold and pale yellow
+            const color = i % 2 === 0 ? "#FFFFFF" : "#FFFFFF"; // Very bright gold and pale yellow
             const strokeWidth = 0.05 + (i % 3) * 0.08;
             const opacity = 0.5 + (i % 3) * 0.2; // Opacity 0.5 to 0.9
             const duration = 4 + (i % 5) * 1.5;

@@ -74,7 +74,8 @@ ul {
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: background 0.3s ease;
+    will-change: transform, background;
 }
 
 body:hover .cursor-glow {

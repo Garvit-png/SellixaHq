@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
+import { NoiseOverlay } from "@/components/NoiseOverlay";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
@@ -11,15 +11,13 @@ const inter = Inter({
 });
 
 const outfit = Outfit({
-  variable: "--font-outfit",
+  variable: "--font-heading",
   subsets: ["latin"],
 });
 
-import { GridTrailCanvas } from "@/components/ui/GridTrailCanvas";
-
 export const metadata: Metadata = {
-  title: "Sellixa",
-  description: "Monetize your audience.",
+  title: "SELLIXA | We Build Startups Fast",
+  description: "We are an elite software agency that builds, ships, and scales startups fast.",
 };
 
 export default function RootLayout({
@@ -30,10 +28,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
+      className={cn("scroll-smooth antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
     >
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
-        <GridTrailCanvas />
+        <NoiseOverlay />
         <main className="flex-grow">{children}</main>
       </body>
     </html>

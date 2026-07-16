@@ -27,12 +27,18 @@ function initCursor() {
         mouseY = e.clientY;
     });
 
+    let targetScale = 1;
+    let currentScale = 1;
+
     function animateCursor() {
         // Interpolate position
         cursorX += (mouseX - cursorX) * speed;
         cursorY += (mouseY - cursorY) * speed;
+        
+        // Interpolate scale
+        currentScale += (targetScale - currentScale) * 0.15;
 
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%) scale(${currentScale})`;
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
@@ -41,13 +47,11 @@ function initCursor() {
     const interactives = document.querySelectorAll('a, button, .faq-question');
     interactives.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursor.style.width = '120px';
-            cursor.style.height = '120px';
+            targetScale = 0.3; // effectively 120px
             cursor.style.background = 'radial-gradient(circle, rgba(244, 180, 0, 0.2) 0%, rgba(0,0,0,0) 70%)';
         });
         el.addEventListener('mouseleave', () => {
-            cursor.style.width = '400px';
-            cursor.style.height = '400px';
+            targetScale = 1; // 400px
             cursor.style.background = 'radial-gradient(circle, rgba(244, 180, 0, 0.08) 0%, rgba(0,0,0,0) 70%)';
         });
     });
@@ -176,17 +180,20 @@ function initParallax() {
         lastScrollY = window.scrollY;
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                parallaxItems.forEach(item => {
+                // Batch reads
+                const updates = Array.from(parallaxItems).map(item => {
                     const speed = parseFloat(item.dataset.speed || 0.05);
                     const rect = item.getBoundingClientRect();
+                    return { item, speed, rect };
+                });
 
+                // Batch writes
+                updates.forEach(({ item, speed, rect }) => {
                     // Only animate if in viewport
                     if (rect.top < window.innerHeight && rect.bottom > 0) {
                         // Calculate offset based on element center relative to viewport center
                         const yOffset = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
-                        // Combine with existing transform if any (assume only translateY for simplicity here)
-                        // Note: To not conflict with .reveal transforms, we wrap inner content or apply carefully.
-                        // Here we apply directly to the item, assuming it doesn't conflict drastically with reveal completion
+                        
                         if (item.classList.contains('visible')) {
                             item.style.transform = `translateY(${yOffset}px)`;
                         }

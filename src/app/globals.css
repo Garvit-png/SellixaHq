@@ -101,6 +101,19 @@
   }
 }
 
+@keyframes grid {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-grid {
+  animation: grid 15s linear infinite;
+}
+
 @keyframes moveGrid {
   0% {
     background-position: 0px 0px;

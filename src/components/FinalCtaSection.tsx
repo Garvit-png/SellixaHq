@@ -32,7 +32,7 @@ const AnimatedUserRow = () => {
         {users.map((_, i) => (
           <User 
             key={i} 
-            className="w-8 h-8 md:w-12 md:h-12 text-[#FACC15] drop-shadow-[0_0_15px_rgba(250,204,21,0.8)]" 
+            className="w-8 h-8 md:w-12 md:h-12 text-[#ffff00] drop-shadow-[0_0_15px_rgba(255,255,0,0.8)]" 
             strokeWidth={2} 
           />
         ))}
@@ -48,13 +48,25 @@ export function FinalCtaSection() {
   return (
     <section 
       id="launch" 
-      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#0B0B0B] overflow-hidden py-32"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#0B0B0B] overflow-hidden py-32 relative overflow-hidden"
     >
+
+      <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="w-full h-[10vh] md:h-[15vh] text-[#ffff00] fill-current"
+        >
+          <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
+        </svg>
+      </div>
+
       {/* Very subtle noise overlay for the cinematic feel to match previous sections */}
       <div className="absolute inset-0 pointer-events-none z-0 bg-noise opacity-[0.05] mix-blend-overlay"></div>
       
       {/* Gentle center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 hidden md:block blur-[120px] rounded-full pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#E5E5E5]/5 hidden md:block blur-[120px] rounded-full pointer-events-none z-0"></div>
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto w-full">
         
@@ -64,7 +76,7 @@ export function FinalCtaSection() {
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#FDE047] via-[#FACC15] to-[#EAB308] shadow-[0_0_40px_rgba(250,204,21,0.3)] flex items-center justify-center mb-12"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ffff00] via-[#ffff00] to-[#ffff00] shadow-[0_0_40px_rgba(255,255,0,0.3)] flex items-center justify-center mb-12"
         >
           <span className="text-black font-sans font-bold text-[10px] tracking-[0.15em] uppercase">
             Sellixa
@@ -79,8 +91,8 @@ export function FinalCtaSection() {
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-serif font-thin tracking-tight leading-[1.05] mb-8"
         >
-          <span className="text-white/90">Turn your audience<br />into </span>
-          <span className="italic text-[#FACC15]">income.</span>
+          <span className="text-white">Turn your audience<br />into </span>
+          <span className="italic text-[#ffff00]">income.</span>
         </motion.h2>
 
         {/* Description */}
@@ -102,7 +114,7 @@ export function FinalCtaSection() {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.98 }}
-          className="group bg-gradient-to-r from-[#FDE047] via-[#FACC15] to-[#EAB308] hover:from-[#FFF080] hover:to-[#FACC15] text-black px-10 py-4 rounded-full font-bold text-[15px] md:text-base transition-all duration-300 shadow-[0_0_30px_rgba(250,204,21,0.25)] hover:shadow-[0_0_50px_rgba(250,204,21,0.5)] flex items-center space-x-3 mb-8"
+          className="group bg-gradient-to-r from-[#ffff00] via-[#ffff00] to-[#ffff00] hover:from-[#ffff00] hover:to-[#ffff00] text-black px-10 py-4 rounded-full font-bold text-[15px] md:text-base transition-all duration-300 shadow-[0_0_30px_rgba(255,255,0,0.25)] hover:shadow-[0_0_50px_rgba(255,255,0,0.5)] flex items-center space-x-3 mb-8"
         >
           <span>Book a meet</span>
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -118,7 +130,7 @@ export function FinalCtaSection() {
         >
           <span>Or Email</span>
           <Mail className="w-3.5 h-3.5" />
-          <a href="mailto:contact@sellixahq.com" className="hover:text-[#FACC15] transition-colors lowercase tracking-normal text-[11px] font-sans">
+          <a href="mailto:contact@sellixahq.com" className="text-[#ffff00] hover:text-white transition-colors lowercase tracking-normal text-[13px] font-sans font-medium">
             contact@sellixahq.com
           </a>
         </motion.div>
@@ -129,16 +141,24 @@ export function FinalCtaSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-[#555555] font-mono text-[10px] tracking-[0.1em]"
+          className="text-[#555555] font-mono text-sm md:text-base tracking-[0.1em]"
         >
           // 15 minutes. zero pressure. straight to fit.
         </motion.p>
 
       </div>
 
-      {/* The Animated Users Row at the very bottom! */}
-      <AnimatedUserRow />
-      
+      {/* Curve at the bottom of the section pointing downwards into the yellow Calendly section */}
+      <div className="absolute bottom-[-1px] left-0 w-full z-20 pointer-events-none rotate-180">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="w-full h-[10vh] md:h-[15vh] text-[#ffff00] fill-current"
+        >
+          <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
+        </svg>
+      </div>
     </section>
   );
 }
