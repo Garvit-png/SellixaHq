@@ -351,8 +351,8 @@ export function HeroWebGL() {
       >
         <HeroShaderMaterial />
       </Canvas>
-      <div className="absolute inset-0 pointer-events-none z-10">
-        <h2 className="absolute inset-0 flex items-center justify-center text-black font-bold tracking-[0.8em] text-[10px] md:text-sm pt-[28vh] md:pt-[36vh] pl-[0.8em]">
+      <div className="absolute inset-0 pointer-events-none z-10 mix-blend-difference">
+        <h2 className="absolute inset-0 flex items-center justify-center text-[#ffff00] font-bold tracking-[0.8em] text-[10px] md:text-sm pt-[28vh] md:pt-[36vh] pl-[0.8em]">
           <CurrencyScramble text="MONETIZE YOUR AUDIENCE" />
         </h2>
       </div>

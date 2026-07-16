@@ -11,17 +11,6 @@ export function MarqueeSection() {
   return (
     <div className="w-full bg-[#ffff00] py-6 overflow-hidden flex items-center relative z-20 shadow-[0_0_50px_rgba(255,255,0,0.3)] border-y border-black/20">
 
-      <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 1200 120" 
-          preserveAspectRatio="none" 
-          className="w-full h-[10vh] md:h-[15vh] text-[#050505] fill-current"
-        >
-          <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
-        </svg>
-      </div>
-
       <style>{`
         @keyframes marquee-scroll {
           0% { transform: translateX(0%); }

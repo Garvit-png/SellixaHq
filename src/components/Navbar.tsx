@@ -26,12 +26,29 @@ export default function Navbar() {
     }
 
     if (typeof window !== 'undefined') {
-      const vh = window.innerHeight;
-      // Hero (100vh) is yellow
-      // WhatWeBuild (150vh) + Reviews (100vh) are black (total 250vh)
-      // WatchHimGrow is yellow
-      // So dark background is between 95vh and ~330vh
-      setIsDarkBg(latest > vh * 0.95 && latest < vh * 3.3);
+      // Find elements at the center of the navbar
+      const elements = document.elementsFromPoint(window.innerWidth / 2, 30);
+      
+      let isYellow = false;
+      let isBlack = false;
+      
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i];
+        if (el.classList.contains('bg-[#ffff00]')) {
+          isYellow = true;
+          break;
+        }
+        if (el.classList.contains('bg-[#050505]') || el.classList.contains('bg-[#0B0B0B]') || el.classList.contains('bg-black')) {
+          isBlack = true;
+          break;
+        }
+      }
+      
+      if (isYellow) {
+        setIsDarkBg(false); // Yellow background means we want black text
+      } else if (isBlack) {
+        setIsDarkBg(true);  // Black background means we want white text
+      }
     }
   });
 
