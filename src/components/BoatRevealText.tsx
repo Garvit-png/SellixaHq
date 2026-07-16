@@ -2,8 +2,6 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { KineticText } from "@/components/ui/kinetic-text";
-
 const TEXT = "WE DESIGN & SHIP";
 const DURATION = 3; // seconds boat travels
 
@@ -80,18 +78,16 @@ export function BoatRevealText() {
           </motion.div>
         )}
 
-        {/* Phase 2: KineticText hover (appears after boat finishes) */}
+        {/* Phase 2: Static text hover (appears after boat finishes) */}
         {done && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.25 }}
           >
-            <KineticText
-              text={TEXT}
-              as="h2"
-              className="text-accent text-lg sm:text-xl md:text-2xl lg:text-3xl font-heading font-light tracking-[0.15em] whitespace-nowrap leading-none cursor-default"
-            />
+            <h2 className="text-accent text-lg sm:text-xl md:text-2xl lg:text-3xl font-heading font-light tracking-[0.15em] whitespace-nowrap leading-none cursor-default">
+              {TEXT}
+            </h2>
           </motion.div>
         )}
       </div>
