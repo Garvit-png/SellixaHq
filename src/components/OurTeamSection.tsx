@@ -26,7 +26,7 @@ const team = [
   {
     name: "Garvit",
     role: "TECH LEAD",
-    image: "/garvit4.png",
+    image: "/garvit145.png",
     bio: "More interested in shipping meaningful products than collecting buzzwords. Building software that users remember and developers enjoy maintaining."
   },
   {
@@ -38,7 +38,7 @@ const team = [
   {
     name: "Shivangi",
     role: "DESIGN",
-    image: "/shivangi.jpeg",
+    image: "/shivangi88.jpeg",
     bio: "I spend more time aligning pixels than aligning my sleep schedule."
   },
   {
@@ -101,7 +101,7 @@ export function OurTeamSection() {
                   <img 
                     src={member.image} 
                     alt={member.name} 
-                    className={`absolute inset-0 w-full h-full object-cover object-top filter grayscale-[0.3] ${member.imgClass || ""}`}
+                    className={`absolute inset-0 w-full h-full object-cover object-top ${member.name !== 'Garvit' ? 'filter grayscale-[0.3]' : ''} ${member.imgClass || ""}`}
                   />
                   
                   {/* Vertical Strip for Role */}
