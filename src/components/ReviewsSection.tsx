@@ -132,7 +132,7 @@ export function ReviewsSection() {
         </motion.div>
 
         {/* 3D Marquee Container */}
-        <div className="relative flex h-[700px] w-full max-w-[1200px] flex-row items-center justify-center overflow-hidden gap-1.5 [perspective:400px] border-2 border-[#ffff00] rounded-[2rem] shadow-[0_0_30px_rgba(255,255,0,0.15)] bg-black/50">
+        <div className="relative flex h-[700px] w-full max-w-[1200px] flex-row items-center justify-center overflow-hidden gap-1.5 [perspective:400px] rounded-[2rem] bg-black/50">
           <div
             className="flex flex-row items-center gap-4"
             style={{
