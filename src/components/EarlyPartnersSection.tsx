@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 const partners = [
@@ -6,6 +6,50 @@ const partners = [
     quote: (
       <>
         "I talked for four hours across three calls. Six weeks later I had a course & ebook doing <span className="text-black font-bold">$11k/month</span>."
+      </>
+    ),
+    name: "Kush Adhana",
+    role: "Fitness and grooming",
+    image: "/kush_adhana.jpeg",
+    active: false,
+  },
+  {
+    quote: (
+      <>
+        "They built the course, the materials, <span className="text-black font-bold">and the whole brand theme</span> — all under my name."
+      </>
+    ),
+    name: "Rohit Sha",
+    role: "Personal development",
+    image: "/rohit_sah.jpeg",
+    active: true,
+  },
+  {
+    quote: (
+      <>
+        "The theme & design alone would have cost me ₹5L. They took the risk, I took the <span className="text-black font-bold">75%</span>."
+      </>
+    ),
+    name: "Isha",
+    role: "Fitness and beauty",
+    image: "/client_isha.png",
+    active: false,
+  },
+  {
+    quote: (
+      <>
+        "My audience engagement doubled in a month. They didn't just build a product, they built a <span className="text-black font-bold">community</span>."
+      </>
+    ),
+    name: "Ashwini",
+    role: "Dating coach",
+    image: "/ashwini.jpeg",
+    active: false,
+  },
+  {
+    quote: (
+      <>
+        "I used to spend 20 hours a week on operations. Now I spend zero. <span className="text-black font-bold">It runs itself</span>."
       </>
     ),
     name: "Arjun M.",
@@ -16,24 +60,13 @@ const partners = [
   {
     quote: (
       <>
-        "They built the course, the materials, <span className="text-black font-bold">and the whole brand theme</span> — all under my name."
+        "They completely understood my vibe. My students loved the new platform and sales <span className="text-black font-bold">tripled</span>."
       </>
     ),
     name: "Priya S.",
     role: "Physics teacher · 142k",
     image: "https://i.pravatar.cc/150?u=priya",
     active: true,
-  },
-  {
-    quote: (
-      <>
-        "The theme & design alone would have cost me ₹5L. They took the risk, I took the <span className="text-black font-bold">75%</span>."
-      </>
-    ),
-    name: "Rohan K.",
-    role: "DSA instructor · 67k",
-    image: "https://i.pravatar.cc/150?u=rohan",
-    active: false,
   }
 ];
 
@@ -76,32 +109,43 @@ export function EarlyPartnersSection() {
           <span className="italic text-black font-bold">own audience.</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-          {partners.map((partner, idx) => (
-            <div 
-              key={idx} 
-              className="relative bg-black/5 rounded-[24px] p-6 md:p-8 flex flex-col justify-between border transition-all duration-500 min-h-[260px] hover:-translate-y-2 cursor-pointer border-black/10 hover:border-black/30 hover:shadow-lg"
-            >
-              <div>
-                <div className="flex space-x-1 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-black fill-black" />
-                  ))}
-                </div>
-                <p className="text-black/80 font-serif text-base md:text-lg leading-[1.65] mb-8">
-                  {partner.quote}
-                </p>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <img src={partner.image} alt={partner.name} className="w-10 h-10 rounded-full object-cover border border-black/10" />
+        {/* Auto-sliding marquee */}
+        <div className="relative w-full overflow-hidden mb-10 group">
+          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#ffff00] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#ffff00] to-transparent z-10 pointer-events-none" />
+          
+          <motion.div 
+            className="flex gap-5 w-max"
+            animate={{ x: [0, "-50%"] }}
+            transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+          >
+            {/* Double the array for seamless infinite scroll */}
+            {[...partners, ...partners].map((partner, idx) => (
+              <div 
+                key={idx} 
+                className="relative bg-black/5 rounded-[24px] p-6 md:p-8 flex flex-col justify-between border transition-all duration-500 w-[350px] shrink-0 hover:-translate-y-2 cursor-pointer border-black/10 hover:border-black/30 hover:shadow-lg"
+              >
                 <div>
-                  <h4 className="text-black font-sans font-bold text-sm mb-0.5">{partner.name}</h4>
-                  <p className="text-black/60 font-mono text-[9px] uppercase tracking-[0.1em]">{partner.role}</p>
+                  <div className="flex space-x-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-black fill-black" />
+                    ))}
+                  </div>
+                  <p className="text-black/80 font-serif text-base md:text-lg leading-[1.65] mb-8">
+                    {partner.quote}
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <img src={partner.image} alt={partner.name} className="w-10 h-10 rounded-full object-cover border border-black/10" />
+                  <div>
+                    <h4 className="text-black font-sans font-bold text-sm mb-0.5">{partner.name}</h4>
+                    <p className="text-black/60 font-mono text-[9px] uppercase tracking-[0.1em]">{partner.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </motion.div>
         </div>
 
         {/* Stats Bar */}

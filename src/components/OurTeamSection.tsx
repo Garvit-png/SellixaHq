@@ -4,52 +4,61 @@ import React from 'react';
 
 const team = [
   {
-    name: "Alex M.",
+    name: "Shwetansh",
     role: "FOUNDER",
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=800",
-    bio: "Former design lead at multiple YC startups. Obsessed with high-converting aesthetics."
+    image: "/shwetansh4.png",
+    bio: "I don’t sleep on ideas… I lose sleep because of them 😭🚀"
   },
   {
-    name: "Sarah K.",
-    role: "ENGINEERING",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
-    bio: "Full-stack wizard. Ships production-ready code faster than you can write a spec."
+    name: "Prabhas",
+    role: "CO-FOUNDER",
+    image: "/prabhas3.png",
+    bio: "Has a solution ready before you finish explaining the problem",
+    imgClass: "scale-110"
   },
   {
-    name: "David R.",
-    role: "GROWTH",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
-    bio: "Scaled three agencies to 7-figures. Knows exactly what makes an audience pull out their wallets."
+    name: "Hriday",
+    role: "CHIEF OF OPERATIONS",
+    image: "/hridya2.png",
+    bio: "Makes complex operations feel simple. If there’s a faster way to do it, he’s probably already built it.",
+    imgClass: "scale-110"
   },
   {
-    name: "Emma W.",
+    name: "Garvit",
+    role: "TECH LEAD",
+    image: "/garvit4.png",
+    bio: "More interested in shipping meaningful products than collecting buzzwords. Building software that users remember and developers enjoy maintaining."
+  },
+  {
+    name: "Drishti",
     role: "DESIGN",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800",
-    bio: "Award-winning creative mind. Turns complex ideas into breathtaking visual narratives."
+    image: "/Drishti.jpeg",
+    bio: "I treat every client call like the start of a great story"
   },
   {
-    name: "Michael T.",
-    role: "STRATEGY",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
-    bio: "Master of market positioning. He ensures we don't just build, we dominate."
+    name: "Shivangi",
+    role: "DESIGN",
+    image: "/shivangi.jpeg",
+    bio: "I spend more time aligning pixels than aligning my sleep schedule."
   },
   {
-    name: "Jessica H.",
-    role: "MARKETING",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
-    bio: "Data-driven growth hacker. Finds the lowest CAC channels and scales them aggressively."
-  },
-  {
-    name: "James L.",
-    role: "PRODUCT",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
-    bio: "Product visionary. Translates messy user feedback into intuitive features that retain users."
-  },
-  {
-    name: "Olivia P.",
+    name: "Soni",
     role: "OPERATIONS",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&q=80&w=800",
-    bio: "The glue that holds it all together. Ensures every project ships exactly on time without breaking a sweat."
+    image: "/soni.jpeg",
+    bio: "Operations specialist ensuring seamless execution across all projects."
+  },
+  {
+    name: "Ashwini",
+    role: "OUTREACH HEAD",
+    image: "/ashwini.jpeg",
+    bio: "Operations specialist ensuring seamless execution across all projects.",
+    imgClass: "scale-110"
+  },
+  {
+    name: "Supriya",
+    role: "OPERATIONS",
+    image: "/supriya.jpeg",
+    bio: "Dedicated team player driving operational excellence across projects."
   }
 ];
 
@@ -77,11 +86,11 @@ export function OurTeamSection() {
         </h2>
 
         {/* 3D Flip Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
           {team.map((member, idx) => (
             <div 
               key={idx}
-              className="group relative w-full aspect-[3/4] [perspective:1000px] cursor-pointer transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
+              className="group relative w-full aspect-[3/4] [perspective:1000px] transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
             >
               {/* Card Inner Container - handles the flip */}
               <div className="w-full h-full relative transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
@@ -92,7 +101,7 @@ export function OurTeamSection() {
                   <img 
                     src={member.image} 
                     alt={member.name} 
-                    className="absolute inset-0 w-full h-full object-cover filter grayscale-[0.3]"
+                    className={`absolute inset-0 w-full h-full object-cover object-top filter grayscale-[0.3] ${member.imgClass || ""}`}
                   />
                   
                   {/* Vertical Strip for Role */}
@@ -135,7 +144,7 @@ export function OurTeamSection() {
 
                   {/* Socials on the Back (Doodle Style) */}
                   <div className="flex space-x-4 mt-auto mb-2">
-                    <a href="#" className="w-10 h-10 rounded-full bg-white border-2 border-black flex items-center justify-center text-black hover:bg-[#ffff00] hover:-translate-y-1 hover:shadow-[3px_3px_0px_#000] transition-all duration-200">
+                    <a href="#" className="w-10 h-10 rounded-full bg-[#0a66c2] border-2 border-[#0a66c2] flex items-center justify-center text-white cursor-pointer hover:-translate-y-2 hover:scale-110 hover:shadow-[3px_5px_0px_#000] transition-all duration-200">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                     </a>
                   </div>
