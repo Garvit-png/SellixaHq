@@ -31,15 +31,14 @@ const testimonials = [
   { name: 'Shital Verma', username: '@shital', body: 'An informative and well-organized guide that was worth every penny.' },
 ];
 
-function TestimonialCard({ img, name, username, body, country }: (typeof testimonials)[number]) {
+function TestimonialCard({ name, username, body }: (typeof testimonials)[number]) {
   return (
     <Card className="w-64 bg-[#ffff00] border-[#ffff00] shrink-0 relative transition-all duration-300 hover:scale-[1.15] hover:z-50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] cursor-pointer rounded-2xl !rounded-2xl overflow-hidden">
       <CardContent className="p-4">
         <div className="flex items-center gap-2.5">
           <div className="flex flex-col">
-            <figcaption className="text-sm font-bold text-black flex items-center gap-1">
+            <figcaption className="text-sm font-bold text-black">
               {name}
-              <span className="text-xs font-medium text-black/80">{country}</span>
             </figcaption>
             <p className="text-xs font-bold text-black/60">{username}</p>
           </div>
