@@ -59,29 +59,20 @@ export function StairsScrollSection() {
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {steps.map((step) => (
-            <div
-              key={step.num}
-              className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-colors hover:bg-black/10"
-            >
-              {/* Step Number */}
-              <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
-                {step.num}
-              </span>
-              
-              {/* Step Title */}
-              <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">
-                {step.title}
-              </h3>
-              
-              {/* Step Description */}
-              <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">
-                {step.desc}
-              </p>
-            </div>
-          ))}
+          {/* Top Row: Card 1 */}
+          <div className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-colors hover:bg-black/10">
+            <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
+              {steps[0].num}
+            </span>
+            <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">
+              {steps[0].title}
+            </h3>
+            <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">
+              {steps[0].desc}
+            </p>
+          </div>
 
-          {/* 6th Grid Spot - Video Card */}
+          {/* Top Row: Video (col-span-1) */}
           <div className="flex flex-col relative w-full h-full min-h-[300px] md:min-h-full rounded-2xl border-4 border-black overflow-hidden shadow-xl bg-black/5">
             <video 
               src="/money.mp4" 
@@ -93,6 +84,24 @@ export function StairsScrollSection() {
               suppressHydrationWarning
             />
           </div>
+
+          {/* Rest of the cards (Card 2, 3, 4, 5) */}
+          {steps.slice(1).map((step) => (
+            <div
+              key={step.num}
+              className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-colors hover:bg-black/10"
+            >
+              <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
+                {step.num}
+              </span>
+              <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">
+                {step.title}
+              </h3>
+              <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">
+                {step.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

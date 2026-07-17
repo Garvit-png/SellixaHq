@@ -67,7 +67,7 @@ export function WhatWeBuildSection() {
           hidden: {},
           visible: { transition: { staggerChildren: 0.15, delayChildren: 0.4 } }
         }}
-        className="absolute top-[60svh] md:top-[65svh] left-0 w-full px-6 md:px-12 z-20 flex flex-col items-center justify-center gap-8 md:gap-12 pointer-events-auto"
+        className="absolute top-[45svh] md:top-[50svh] left-0 w-full px-6 md:px-12 z-20 flex flex-col items-center justify-center gap-8 md:gap-12 pointer-events-auto"
       >
         
         {/* Grid of Cards */}

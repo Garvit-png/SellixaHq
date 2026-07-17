@@ -62,7 +62,7 @@ export function WhoItsForSection() {
         {/* Title */}
         <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif font-light leading-[1.05] tracking-tight mb-20 max-w-4xl">
           <span className="text-white">Built for creators with </span>
-          <span className="italic text-[#ffff00] font-bold">10k-500k</span>
+          <span className="italic text-[#ffff00] font-bold">50k-2M</span>
           <span className="block text-white">followers.</span>
         </h2>
 

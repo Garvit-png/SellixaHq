@@ -21,7 +21,7 @@ export function PitchSection() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto w-full flex flex-col items-start relative z-10 mt-12 md:mt-24">
+      <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-center relative z-10 mt-24 md:mt-32">
         
         {/* Main Content Box */}
         <div 
@@ -47,31 +47,7 @@ export function PitchSection() {
 
       </div>
       
-      {/* Scroll Spacer */}
-      <div className="h-[15vh] md:h-[20vh] w-full relative z-10"></div>
 
-      {/* Principle Quote Section */}
-      <div 
-        className="flex flex-col items-center justify-center text-center max-w-5xl mx-auto w-full pb-24 relative z-10"
-      >
-        <div className="bg-black/90 backdrop-blur-md p-8 md:p-16 rounded-3xl shadow-[0_0_30px_rgba(255,255,0,0.15)] border-2 border-[#ffff00] w-full flex flex-col items-center">
-          {/* Quote mark */}
-          <span className="text-white text-6xl md:text-7xl font-serif font-black leading-none opacity-90 mb-8">❞</span>
-          
-          {/* Quote Text */}
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light italic leading-tight text-white mb-12">
-            “We design the product, the materials, and the theme.<br/>
-            You keep your audience and <span className="font-bold text-[#ffff00]">75% of every sale.</span>”
-          </h3>
-
-          {/* Divider */}
-          <div className="flex items-center space-x-6">
-            <div className="w-12 md:w-20 h-px bg-white/50"></div>
-            <span className="text-white/50 text-[10px] md:text-xs font-mono uppercase tracking-[0.25em]">Sellixa Founding Principle</span>
-            <div className="w-12 md:w-20 h-px bg-white/50"></div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

@@ -57,7 +57,7 @@ export function WatchHimGrowSection() {
 
         {/* The text */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left z-10">
-          <h2 className="font-sans font-black tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.0] uppercase flex flex-col text-black">
+          <h2 className="font-sans font-black tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.0] uppercase flex flex-col text-black [text-shadow:5px_5px_0_#fff,10px_10px_0_rgba(0,0,0,0.2)]">
             <span className="block">WATCH YOURSELF</span>
             <span className="block">GROW WITH US</span>
           </h2>

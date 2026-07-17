@@ -95,29 +95,47 @@ export function HandScrollSection() {
           titleBackground={true}
           backgroundStyle="gradient"
         >
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl justify-items-center px-4 pb-24 mt-8">
-          {steps.map((step) => (
-            <div
-              key={step.num}
-              className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full"
-            >
-              {/* Step Number */}
-              <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
-                {step.num}
-              </span>
-              
-              {/* Step Title */}
-              <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">
-                {step.title}
-              </h3>
-              
-              {/* Step Description */}
-              <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">
-                {step.desc}
-              </p>
-            </div>
-          ))}
+        {/* Steps Container */}
+        <div className="flex flex-col gap-6 w-full max-w-5xl px-4 pb-24 mt-8 items-center">
+          {/* Top Row: Cards 1, 2, 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            {steps.slice(0, 3).map((step) => (
+              <div
+                key={step.num}
+                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full"
+              >
+                <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
+                  {step.num}
+                </span>
+                <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">
+                  {step.title}
+                </h3>
+                <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Row: Cards 4, 5 (Centered) */}
+          <div className="flex flex-col md:flex-row justify-center gap-6 w-full">
+            {steps.slice(3).map((step) => (
+              <div
+                key={step.num}
+                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+              >
+                <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
+                  {step.num}
+                </span>
+                <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">
+                  {step.title}
+                </h3>
+                <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </BackgroundPaths>
       </div>
