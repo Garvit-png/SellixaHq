@@ -9,21 +9,24 @@ export function BlogPreviewSection() {
       date: "Oct 12, 2026",
       category: "Strategy",
       readTime: "5 min read",
-      image: "from-[#111] to-[#0A0A0A]" // Using gradient as placeholder
+      image: "/blog_pricing_cover.png",
+      pdf: "/How to Price Your First Digital Product (And Why Most Creators Get It Wrong).pdf"
     },
     {
-      title: "The 3 Pillars of a High-Converting Funnel",
+      title: "The 3 Funnels Behind Every High-Converting Digital Product Launch",
       date: "Oct 05, 2026",
       category: "Growth",
       readTime: "7 min read",
-      image: "from-[#1A1A1A] to-[#050505]"
+      image: "/blog_funnel_cover.png",
+      pdf: "/The 3 Funnels Behind Every High-Converting Digital Product Launch.pdf"
     },
     {
-      title: "Why Most Creator Businesses Fail in Year One",
+      title: "Why Most Businessmen Fail in Their First Year",
       date: "Sep 28, 2026",
       category: "Insights",
       readTime: "4 min read",
-      image: "from-[#0D0D0D] to-[#000]"
+      image: "/blog_failure_cover.png",
+      pdf: "/Why Most Businessmen Fail in Their First Year (It's Rarely the Product).pdf"
     }
   ];
 
@@ -57,19 +60,32 @@ export function BlogPreviewSection() {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {posts.map((post, idx) => (
-            <motion.div
+            <motion.a
               key={idx}
+              href={post.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5 }}
-              className="group cursor-pointer flex flex-col transition-all duration-300 hover:-translate-y-2"
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="group cursor-pointer flex flex-col transition-all duration-300 hover:-translate-y-2 no-underline"
             >
-              <div className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${post.image} border border-black/5 mb-6 overflow-hidden relative`}>
-                {/* Image overlay effect */}
-                <div className="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors duration-500"></div>
+              <div className="w-full aspect-[4/3] rounded-2xl border border-black/10 mb-6 overflow-hidden relative bg-[#0A0A0A]">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+                {/* Category badge */}
                 <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-black/10 text-[10px] font-mono text-white tracking-widest uppercase">
                   {post.category}
+                </div>
+                {/* Read PDF badge - appears on hover */}
+                <div className="absolute bottom-4 right-4 bg-[#ffff00] text-black text-[10px] font-mono font-bold px-3 py-1 rounded-full tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Read PDF ↗
                 </div>
               </div>
               <div className="flex items-center gap-4 text-black/60 text-xs font-mono tracking-widest uppercase mb-3">
@@ -80,7 +96,7 @@ export function BlogPreviewSection() {
               <h3 className="text-xl text-black font-serif group-hover:text-black/70 transition-colors leading-snug">
                 {post.title}
               </h3>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
         

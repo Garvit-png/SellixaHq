@@ -76,14 +76,12 @@ export function WhoItsForSection() {
                 className="relative bg-[#0A0A0A] rounded-[24px] p-8 flex flex-col justify-between transition-all duration-500 border border-[#ffff00] group min-h-[380px] hover:-translate-y-2 cursor-pointer"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-full overflow-hidden mb-10 border-2 border-[#ffff00] relative">
-                    <img src={persona.image} alt={persona.title} className="w-full h-full object-cover rounded-full relative z-10" />
+                  <div className="w-14 h-14 rounded-full bg-[#ffff00]/10 border border-[#ffff00]/30 flex items-center justify-center mb-8">
+                    <Icon className="text-[#ffff00] w-7 h-7" strokeWidth={1.5} />
                   </div>
                   
-                  <Icon className="text-[#ffff00] w-5 h-5 mb-5" strokeWidth={2} />
-                  
-                  <h3 className="text-white font-serif text-[1.35rem] mb-3">{persona.title}</h3>
-                  <p className="text-[#888888] text-[0.85rem] leading-[1.7] font-light mb-8">
+                  <h3 className="text-white font-serif text-[1.5rem] mb-4">{persona.title}</h3>
+                  <p className="text-gray-300 text-[0.95rem] leading-[1.7] font-light mb-8">
                     {persona.desc}
                   </p>
                 </div>

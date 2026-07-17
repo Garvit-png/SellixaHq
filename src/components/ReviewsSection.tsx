@@ -7,69 +7,28 @@ import { Marquee } from '@/components/ui/3d-testimonails';
 
 // Unique reviews data
 const testimonials = [
-  {
-    name: 'Ava Green',
-    username: '@ava',
-    body: 'Cascade AI made my workflow 10x faster!',
-    img: 'https://randomuser.me/api/portraits/women/32.jpg',
-    country: '🇦🇺 Australia',
-  },
-  {
-    name: 'Ana Miller',
-    username: '@ana',
-    body: 'Vertical marquee is a game changer!',
-    img: 'https://randomuser.me/api/portraits/women/68.jpg',
-    country: '🇩🇪 Germany',
-  },
-  {
-    name: 'Mateo Rossi',
-    username: '@mat',
-    body: 'Animations are buttery smooth!',
-    img: 'https://randomuser.me/api/portraits/men/51.jpg',
-    country: '🇮🇹 Italy',
-  },
-  {
-    name: 'Maya Patel',
-    username: '@maya',
-    body: 'Setup was a breeze!',
-    img: 'https://randomuser.me/api/portraits/women/53.jpg',
-    country: '🇮🇳 India',
-  },
-  {
-    name: 'Noah Smith',
-    username: '@noah',
-    body: 'Best marquee component!',
-    img: 'https://randomuser.me/api/portraits/men/33.jpg',
-    country: '🇺🇸 USA',
-  },
-  {
-    name: 'Lucas Stone',
-    username: '@luc',
-    body: 'Very customizable and smooth.',
-    img: 'https://randomuser.me/api/portraits/men/22.jpg',
-    country: '🇫🇷 France',
-  },
-  {
-    name: 'Haruto Sato',
-    username: '@haru',
-    body: 'Impressive performance on mobile!',
-    img: 'https://randomuser.me/api/portraits/men/85.jpg',
-    country: '🇯🇵 Japan',
-  },
-  {
-    name: 'Emma Lee',
-    username: '@emma',
-    body: 'Love the pause on hover feature!',
-    img: 'https://randomuser.me/api/portraits/women/45.jpg',
-    country: '🇨🇦 Canada',
-  },
-  {
-    name: 'Carlos Ray',
-    username: '@carl',
-    body: 'Great for testimonials and logos.',
-    img: 'https://randomuser.me/api/portraits/men/61.jpg',
-    country: '🇪🇸 Spain',
-  },
+  { name: 'Danish Khaz', username: '@danish', body: 'Simple, practical, and genuinely helpful. One of the best digital resources I\'ve purchased.' },
+  { name: 'Ankit Mishra', username: '@ankit', body: 'The eBook was easy to follow and gave me clear, actionable insights. Highly recommended!' },
+  { name: 'Nupur', username: '@nupur', body: 'Loved how well-structured and practical the content was. Worth every penny.' },
+  { name: 'Sourabh Pandharmise', username: '@sourabh', body: 'The concepts were explained in a simple way, making them easy to implement.' },
+  { name: 'Vibha', username: '@vibha', body: 'A well-designed eBook with valuable knowledge. I really enjoyed reading it.' },
+  { name: 'Nitin', username: '@nitin', body: 'Practical guidance with no unnecessary fluff. Exactly what I was looking for.' },
+  { name: 'Sameer', username: '@sameer', body: 'Clear, informative, and packed with useful insights. Definitely a great investment.' },
+  { name: 'Joynath Das', username: '@joynath', body: 'A practical guide that delivered exactly what it promised. Great value!' },
+  { name: 'Samarth', username: '@samarth', body: 'Easy to understand, actionable, and genuinely useful. Highly recommended.' },
+  { name: 'Naitik Kirar', username: '@naitik', body: 'One of the most well-structured digital guides I\'ve come across.' },
+  { name: 'Raushan Kumar', username: '@raushan', body: 'The insights were clear and helped me approach things with more confidence.' },
+  { name: 'Shah Farhan', username: '@farhan', body: 'Straight to the point with practical advice that actually makes sense.' },
+  { name: 'Arvind Yogiji', username: '@arvind', body: 'Very informative and thoughtfully designed. A worthwhile purchase.' },
+  { name: 'Mayank Chhetri', username: '@mayank', body: 'Excellent content with practical strategies that are easy to implement.' },
+  { name: 'Arjun Rathour', username: '@arjun', body: 'Simple language, valuable lessons, and a great overall experience.' },
+  { name: 'Johri Nidhi', username: '@nidhi', body: 'The content was engaging, practical, and exceeded my expectations.' },
+  { name: 'Shaswat', username: '@shaswat', body: 'A well-crafted resource that provides real value from start to finish.' },
+  { name: 'Vikash Kumar', username: '@vikash', body: 'Highly practical and easy to follow. Definitely worth reading.' },
+  { name: 'Ankush Bittan', username: '@ankush', body: 'Loved the clarity and depth of the content. Highly recommended!' },
+  { name: 'Shubham Kasyap', username: '@shubham', body: 'One of the best digital resources I\'ve purchased. Great experience overall.' },
+  { name: 'Balram Verma', username: '@balram', body: 'Useful insights presented in a simple and actionable format.' },
+  { name: 'Shital Verma', username: '@shital', body: 'An informative and well-organized guide that was worth every penny.' },
 ];
 
 function TestimonialCard({ img, name, username, body, country }: (typeof testimonials)[number]) {
@@ -77,10 +36,6 @@ function TestimonialCard({ img, name, username, body, country }: (typeof testimo
     <Card className="w-64 bg-[#ffff00] border-[#ffff00] shrink-0 relative transition-all duration-300 hover:scale-[1.15] hover:z-50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8)] cursor-pointer rounded-2xl !rounded-2xl overflow-hidden">
       <CardContent className="p-4">
         <div className="flex items-center gap-2.5">
-          <Avatar className="size-9 border border-black/10">
-            <AvatarImage src={img} alt={username} />
-            <AvatarFallback className="bg-black/5 text-black">{name[0]}</AvatarFallback>
-          </Avatar>
           <div className="flex flex-col">
             <figcaption className="text-sm font-bold text-black flex items-center gap-1">
               {name}

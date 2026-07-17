@@ -5,7 +5,7 @@ const partners = [
   {
     quote: (
       <>
-        "I talked for four hours across three calls. Six weeks later I had a course & ebook doing <span className="text-black font-bold">$11k/month</span>."
+        "I talked for a few hours across multiple calls. Weeks later I had a course & ebook generating <span className="text-black font-bold">amazing monthly revenue</span>."
       </>
     ),
     name: "Kush Adhana",
@@ -27,7 +27,7 @@ const partners = [
   {
     quote: (
       <>
-        "The theme & design alone would have cost me ₹5L. They took the risk, I took the <span className="text-black font-bold">75%</span>."
+        "The theme & design alone would have cost me a fortune. They took the risk, I took the <span className="text-black font-bold">majority of the profit</span>."
       </>
     ),
     name: "Isha",
@@ -49,32 +49,32 @@ const partners = [
   {
     quote: (
       <>
-        "I used to spend 20 hours a week on operations. Now I spend zero. <span className="text-black font-bold">It runs itself</span>."
+        "I used to spend hours a week on operations. Now I spend none. <span className="text-black font-bold">It runs itself</span>."
       </>
     ),
     name: "Arjun M.",
-    role: "Options trader · 84k",
+    role: "Options trader",
     image: "https://i.pravatar.cc/150?u=arjun",
     active: false,
   },
   {
     quote: (
       <>
-        "They completely understood my vibe. My students loved the new platform and sales <span className="text-black font-bold">tripled</span>."
+        "They completely understood my vibe. My students loved the new platform and sales <span className="text-black font-bold">multiplied</span>."
       </>
     ),
     name: "Priya S.",
-    role: "Physics teacher · 142k",
+    role: "Physics teacher",
     image: "https://i.pravatar.cc/150?u=priya",
     active: true,
   }
 ];
 
 const stats = [
-  { value: "12+", label: "CREATORS ONBOARDED" },
-  { value: "₹2.1Cr", label: "PAID TO CREATORS" },
-  { value: "98%", label: "RELAUNCH RATE" },
-  { value: "4.9", label: "AVG CREATOR RATING" }
+  { value: "25+", label: "TRUSTED CREATORS" },
+  { value: "₹75L", label: "REVENUE GENERATED" },
+  { value: "93%", label: "RELAUNCH RATE" },
+  { value: "4.7", label: "AVG CREATOR RATING" }
 ];
 
 export function EarlyPartnersSection() {

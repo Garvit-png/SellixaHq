@@ -31,19 +31,19 @@ const team = [
   },
   {
     name: "Drishti",
-    role: "DESIGN",
+    role: "SALES",
     image: "/Drishti.jpeg",
     bio: "I treat every client call like the start of a great story"
   },
   {
     name: "Shivangi",
-    role: "DESIGN",
+    role: "DESIGNER",
     image: "/shivangi88.jpeg",
     bio: "I spend more time aligning pixels than aligning my sleep schedule."
   },
   {
     name: "Soni",
-    role: "OPERATIONS",
+    role: "SOCIAL MEDIA HEAD",
     image: "/soni.jpeg",
     bio: "Operations specialist ensuring seamless execution across all projects."
   },
@@ -51,14 +51,14 @@ const team = [
     name: "Ashwini",
     role: "OUTREACH HEAD",
     image: "/ashwini.jpeg",
-    bio: "Operations specialist ensuring seamless execution across all projects.",
+    bio: "One meaningful connection can change a business forever.",
     imgClass: "scale-110"
   },
   {
     name: "Supriya",
-    role: "OPERATIONS",
-    image: "/supriya.jpeg",
-    bio: "Dedicated team player driving operational excellence across projects."
+    role: "TECH",
+    image: "/supriya2.jpeg",
+    bio: "My browser has more tabs than my notebook."
   }
 ];
 
