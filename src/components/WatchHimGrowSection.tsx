@@ -9,31 +9,10 @@ export function WatchHimGrowSection() {
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 1200 120" 
           preserveAspectRatio="none" 
-          className="w-full h-[10vh] md:h-[15vh] text-[#050505] fill-current"
+          className="w-full h-[10vh] md:h-[15vh] text-black fill-current"
         >
           <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
         </svg>
-      </div>
-
-      {/* Paint spill transition from the black/yellow grid section */}
-      <div 
-        className="absolute top-0 left-0 w-full z-30 pointer-events-none h-[10vh] md:h-[15vh] overflow-hidden bg-black"
-        style={{
-          maskImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z\' fill=\'black\'/%3E%3C/svg%3E")',
-          WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z\' fill=\'black\'/%3E%3C/svg%3E")',
-          maskSize: '100% 100%',
-          WebkitMaskSize: '100% 100%',
-          maskRepeat: 'no-repeat',
-          WebkitMaskRepeat: 'no-repeat'
-        }}
-      >
-        <div 
-          className="absolute inset-0 opacity-50 animate-[moveGrid_5s_linear_infinite]"
-          style={{
-            backgroundImage: 'linear-gradient(to right, #ffff00 1px, transparent 1px), linear-gradient(to bottom, #ffff00 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
-          }}
-        />
       </div>
 
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 px-6 mt-16 md:mt-24">

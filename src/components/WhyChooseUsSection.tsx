@@ -70,7 +70,7 @@ export function WhyChooseUsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col p-8 border-l border-black/20 hover:border-black transition-colors"
+              className="flex flex-col p-8 border-l border-black/20 hover:border-black transition-all duration-300 hover:-translate-y-2 hover:bg-black/5 hover:shadow-xl cursor-pointer rounded-r-2xl"
             >
               <h3 className="text-2xl text-black font-serif mb-4 font-bold">{reason.title}</h3>
               <p className="text-black/80 font-medium text-sm md:text-base leading-relaxed">

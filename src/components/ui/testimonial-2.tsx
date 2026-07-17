@@ -119,7 +119,6 @@ export const AnimatedTestimonialGrid = ({
           style={{ 
             top: pos.top, 
             left: pos.left,
-            right: pos.right,
             bottom: pos.bottom,
           }}
           variants={imageVariants}

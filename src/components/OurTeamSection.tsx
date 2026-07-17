@@ -81,7 +81,7 @@ export function OurTeamSection() {
           {team.map((member, idx) => (
             <div 
               key={idx}
-              className="group relative w-full aspect-[3/4] [perspective:1000px] cursor-pointer"
+              className="group relative w-full aspect-[3/4] [perspective:1000px] cursor-pointer transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
             >
               {/* Card Inner Container - handles the flip */}
               <div className="w-full h-full relative transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">

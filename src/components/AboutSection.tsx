@@ -18,7 +18,7 @@ export function AboutSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 
-          className="w-full h-full bg-cover bg-center opacity-80"
+          className="w-full h-full bg-cover bg-right opacity-80"
           style={{ backgroundImage: "url('/group.jpg')" }}
         />
         {/* Gradients to ensure text readability */}

@@ -102,7 +102,7 @@ export function HandScrollSection() {
             {steps.slice(0, 3).map((step) => (
               <div
                 key={step.num}
-                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full"
+                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
               >
                 <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
                   {step.num}
@@ -122,7 +122,7 @@ export function HandScrollSection() {
             {steps.slice(3).map((step) => (
               <div
                 key={step.num}
-                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
               >
                 <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
                   {step.num}

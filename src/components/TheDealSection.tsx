@@ -118,7 +118,7 @@ export function TheDealSection() {
           {/* Features Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Feature 1 */}
-            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10">
+            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-black/10 cursor-pointer">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0 text-[#ffff00] text-xs font-bold font-mono">
                 $0
               </div>
@@ -129,7 +129,7 @@ export function TheDealSection() {
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10">
+            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-black/10 cursor-pointer">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffff00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
@@ -142,7 +142,7 @@ export function TheDealSection() {
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10">
+            <div className="bg-black/5 rounded-[16px] p-5 flex items-start gap-4 border border-black/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-black/10 cursor-pointer">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center flex-shrink-0">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffff00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 6L9 17l-5-5"></path>

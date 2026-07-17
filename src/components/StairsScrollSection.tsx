@@ -60,7 +60,7 @@ export function StairsScrollSection() {
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* Top Row: Card 1 */}
-          <div className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-colors hover:bg-black/10">
+          <div className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-all duration-300 hover:bg-black/10 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
             <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
               {steps[0].num}
             </span>
@@ -89,7 +89,7 @@ export function StairsScrollSection() {
           {steps.slice(1).map((step) => (
             <div
               key={step.num}
-              className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-colors hover:bg-black/10"
+              className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-all duration-300 hover:bg-black/10 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
             >
               <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
                 {step.num}

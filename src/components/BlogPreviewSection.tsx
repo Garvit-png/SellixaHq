@@ -63,7 +63,7 @@ export function BlogPreviewSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5 }}
-              className="group cursor-pointer flex flex-col"
+              className="group cursor-pointer flex flex-col transition-all duration-300 hover:-translate-y-2"
             >
               <div className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${post.image} border border-black/5 mb-6 overflow-hidden relative`}>
                 {/* Image overlay effect */}
