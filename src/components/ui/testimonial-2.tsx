@@ -8,7 +8,8 @@ interface Testimonial {
   imgSrc: string;
   alt: string;
   handle?: string;
-  growth?: number; // The percentage increase (e.g., 250 for +250%)
+  growth?: number;
+  objectPosition?: string; // custom crop position e.g. 'top', 'center', '50% 20%'
 }
 
 interface AnimatedTestimonialGridProps {
@@ -137,7 +138,7 @@ export const AnimatedTestimonialGrid = ({
                 pos.sizeClass,
                 pos.hoverSizeClass
               )}>
-                <img src={testimonial.imgSrc} alt={testimonial.alt} className="absolute inset-0 w-full h-full object-cover" />
+                <img src={testimonial.imgSrc} alt={testimonial.alt} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: testimonial.objectPosition ?? 'center' }} />
               </div>
 
               {/* Stats - Initially hidden, expands on hover */}
