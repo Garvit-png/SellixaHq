@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { motion, animate } from 'framer-motion';
+import { motion, animate, type Variants } from 'framer-motion';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -67,7 +67,7 @@ function Counter({ value }: { value: number }) {
 }
 
 // --- ANIMATION LOGIC ---
-const imageVariants = {
+const imageVariants: Variants = {
   initial: { opacity: 0, scale: 0.5 },
   animate: { 
     opacity: 1, 
@@ -76,7 +76,6 @@ const imageVariants = {
       type: 'spring' as const, 
       stiffness: 260, 
       damping: 20,
-      delay: Math.random() * 0.5,
     } 
   },
 };
