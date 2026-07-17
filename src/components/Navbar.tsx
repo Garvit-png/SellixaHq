@@ -5,6 +5,14 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import { Sparkles, Menu, X } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 
+const navItems = [
+  { label: "How it works", href: "#hand-process" },
+  { label: "Split", href: "#deal" },
+  { label: "Creators", href: "#portfolio" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact us", href: "#audit" }
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -70,13 +78,13 @@ export default function Navbar() {
           hidden ? 'opacity-0 -translate-y-8 pointer-events-none' : 'opacity-100 translate-y-0'
         }`}>
           <ul className="hidden md:flex items-center gap-8 text-sm font-medium opacity-80">
-            {["How it works", "Split", "Creators", "FAQ", "Contact us"].map((item) => (
-              <li key={item}>
+            {navItems.map((item) => (
+              <li key={item.label}>
                 <a
-                  href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                  href={item.href}
                   className="hover:opacity-100 transition-opacity"
                 >
-                  {item}
+                  {item.label}
                 </a>
               </li>
             ))}
@@ -110,14 +118,14 @@ export default function Navbar() {
               <X size={32} />
             </button>
             <ul className="flex flex-col gap-8 text-2xl font-serif text-center">
-              {["How it works", "Split", "Creators", "FAQ", "Contact us"].map((item) => (
-                <li key={item}>
+              {navItems.map((item) => (
+                <li key={item.label}>
                   <a
-                    href={`#${item.toLowerCase().replace(/ /g, "-")}`}
+                    href={item.href}
                     className="hover:text-[#FFFFFF] transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}

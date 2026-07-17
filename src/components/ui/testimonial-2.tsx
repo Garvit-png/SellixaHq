@@ -10,6 +10,7 @@ interface Testimonial {
   handle?: string;
   growth?: number;
   objectPosition?: string; // custom crop position e.g. 'top', 'center', '50% 20%'
+  link?: string;
 }
 
 interface AnimatedTestimonialGridProps {
@@ -25,25 +26,25 @@ interface AnimatedTestimonialGridProps {
 // --- PRE-DEFINED POSITIONS FOR THE IMAGES ---
 const imagePositions = [
   // 1. Top-Left (@tradepro)
-  { top: '5%', left: '15%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[84px] group-hover:!h-[84px]' },
+  { top: '5%', left: '15%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[130px] group-hover:!h-[130px]' },
   // 2. Top-Middle (@buildsaas)
-  { top: '-2%', left: '55%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[76px] group-hover:!h-[76px]' },
+  { top: '-2%', left: '55%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[120px] group-hover:!h-[120px]' },
   // 3. Top-Right (@fitlife)
-  { top: '10%', left: '80%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[76px] group-hover:!h-[76px]' },
+  { top: '10%', left: '80%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[120px] group-hover:!h-[120px]' },
   // 4. Center-Left (@ui_god)
-  { top: '40%', left: '10%', containerClass: 'hidden lg:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[84px] group-hover:!h-[84px]' },
+  { top: '40%', left: '10%', containerClass: 'hidden lg:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[130px] group-hover:!h-[130px]' },
   // 5. Center-Right (@creatorhq)
-  { top: '45%', left: '85%', containerClass: 'hidden lg:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[84px] group-hover:!h-[84px]' },
+  { top: '45%', left: '85%', containerClass: 'hidden lg:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[130px] group-hover:!h-[130px]' },
   // 6. Bottom-Right (@editmaster)
-  { bottom: '20%', left: '70%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[64px] group-hover:!h-[64px]' },
+  { bottom: '20%', left: '70%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[110px] group-hover:!h-[110px]' },
   // 7. Bottom-Left (@DEVGURU)
-  { bottom: '15%', left: '22%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[84px] group-hover:!h-[84px]' },
+  { bottom: '15%', left: '22%', containerClass: 'hidden md:flex flex-col items-start', sizeClass: 'w-[72px] h-[72px]', hoverSizeClass: 'group-hover:!w-[130px] group-hover:!h-[130px]' },
   
   // Mobile Fallback Positions
-  { top: '10%', left: '5%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[64px] group-hover:!h-[64px]' },
-  { top: '5%', left: '80%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[72px] group-hover:!h-[72px]' },
-  { bottom: '5%', left: '10%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[72px] group-hover:!h-[72px]' },
-  { bottom: '10%', left: '80%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[64px] group-hover:!h-[64px]' },
+  { top: '10%', left: '5%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[100px] group-hover:!h-[100px]' },
+  { top: '5%', left: '80%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[110px] group-hover:!h-[110px]' },
+  { bottom: '5%', left: '10%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[64px] h-[64px]', hoverSizeClass: 'group-hover:!w-[110px] group-hover:!h-[110px]' },
+  { bottom: '10%', left: '80%', containerClass: 'flex md:hidden flex-col items-start', sizeClass: 'w-[56px] h-[56px]', hoverSizeClass: 'group-hover:!w-[100px] group-hover:!h-[100px]' },
 ];
 
 // --- COUNTER COMPONENT ---
@@ -124,12 +125,17 @@ export const AnimatedTestimonialGrid = ({
           variants={imageVariants}
           initial="initial"
           animate="animate"
-          whileHover={{ scale: 1.05, zIndex: 50 }}
+          whileHover={{ scale: 1.15, zIndex: 50 }}
           custom={index}
         >
           <motion.div animate={floatingAnimation()} className="relative flex flex-col items-start">
             {/* The Expandable Card */}
-            <div className="peer group cursor-pointer relative flex items-center bg-transparent hover:bg-[#0a0a0a]/90 hover:backdrop-blur-xl border border-transparent hover:border-[#ffff00]/40 rounded-[24px] p-0 hover:p-1.5 shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] w-max max-w-max flex-row">
+            <a 
+              href={testimonial.link || "#"}
+              target={testimonial.link ? "_blank" : undefined}
+              rel={testimonial.link ? "noopener noreferrer" : undefined}
+              className="peer group cursor-pointer relative flex items-center bg-transparent hover:bg-[#0a0a0a]/90 hover:backdrop-blur-xl border border-transparent hover:border-[#ffff00]/40 rounded-[24px] p-0 hover:p-1.5 shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,0,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] w-max max-w-max flex-row no-underline"
+            >
               
               {/* Photo */}
               <div className={cn(
@@ -138,6 +144,8 @@ export const AnimatedTestimonialGrid = ({
                 pos.hoverSizeClass
               )}>
                 <img src={testimonial.imgSrc} alt={testimonial.alt} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: testimonial.objectPosition ?? 'center' }} />
+                
+
               </div>
 
               {/* Stats - Initially hidden, expands on hover */}
@@ -148,9 +156,14 @@ export const AnimatedTestimonialGrid = ({
                     <TrendingUp className="w-3 h-3 mr-1" />
                     +{testimonial.growth}% Growth
                   </div>
+                  {testimonial.link && (
+                    <div className="mt-2 text-[10px] font-bold text-[#ffff00] flex items-center gap-1 uppercase tracking-wider">
+                      View Instagram <ArrowRight className="w-3 h-3" />
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
+            </a>
 
             {/* Display Handle below (disappears on hover) */}
             <div className="transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] opacity-100 transform translate-y-0 peer-hover:opacity-0 peer-hover:-translate-y-2 w-full pointer-events-none mt-3 text-left">

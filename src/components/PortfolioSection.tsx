@@ -5,10 +5,10 @@ import { AnimatedTestimonialGrid } from '@/components/ui/testimonial-2';
 // --- SAMPLE DATA ---
 const testimonials = [
   { imgSrc: '/ashish chhipa.jpeg', alt: 'Ashish Chhipa', handle: '@ashish', growth: 180 },
-  { imgSrc: '/Isha dhankhar.jpeg', alt: 'Isha Dhankhar', handle: '@ishadhankhar', growth: 240, objectPosition: 'top' },
-  { imgSrc: '/kush adhana.jpeg', alt: 'Kush Adhana', handle: '@kush', growth: 310 },
-  { imgSrc: '/poonam chaudhary asttrologer.jpeg', alt: 'Poonam Chaudhary', handle: '@poonam', growth: 195 },
-  { imgSrc: '/Rohit sah.jpeg', alt: 'Rohit Sah', handle: '@rohitsah', growth: 275 },
+  { imgSrc: '/Isha dhankhar.jpeg', alt: 'Isha Dhankhar', handle: '@ishadhankhar21', link: 'https://www.instagram.com/ishadhankhar21/', growth: 240, objectPosition: 'top' },
+  { imgSrc: '/kush_adhana.jpeg', alt: 'Kush Adhana', handle: '@kush', growth: 310 },
+  { imgSrc: '/poonam chaudhary asttrologer.jpeg', alt: 'Poonam Chaudhary', handle: '@poonamchaudharyofficial', link: 'https://www.instagram.com/poonamchaudharyofficial/', growth: 195 },
+  { imgSrc: '/rohit_sah.jpeg', alt: 'Rohit Sah', handle: '@rohitfitpreneur', link: 'https://www.instagram.com/rohitfitpreneur/', growth: 275 },
 ];
 
 export function PortfolioSection() {

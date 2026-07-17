@@ -6,7 +6,7 @@ const team = [
   {
     name: "Shwetansh",
     role: "FOUNDER",
-    image: "/shwetansh4.png",
+    image: "/shwe.jpeg",
     bio: "I don’t sleep on ideas… I lose sleep because of them 😭🚀"
   },
   {
