@@ -86,7 +86,7 @@ const floatingAnimation = () => ({
     duration: Math.random() * 4 + 5,
     repeat: Infinity,
     repeatType: 'reverse' as const,
-    ease: 'easeInOut',
+    ease: 'easeInOut' as const,
   },
 });
 
