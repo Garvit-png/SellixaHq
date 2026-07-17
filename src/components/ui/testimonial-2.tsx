@@ -73,7 +73,7 @@ const imageVariants = {
     opacity: 1, 
     scale: 1, 
     transition: { 
-      type: 'spring', 
+      type: 'spring' as const, 
       stiffness: 260, 
       damping: 20,
       delay: Math.random() * 0.5,
