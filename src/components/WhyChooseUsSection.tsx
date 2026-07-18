@@ -11,7 +11,7 @@ export function WhyChooseUsSection() {
     },
     {
       title: "Performance Based",
-      description: "We only earn when you earn. Our 75/25 split ensures our goals are perfectly aligned with your success."
+      description: "We only earn when you earn. Our 70/30 split ensures our goals are perfectly aligned with your success."
     },
     {
       title: "Premium Aesthetics",
