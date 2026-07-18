@@ -48,7 +48,7 @@ const team = [
     bio: "Operations specialist ensuring seamless execution across all projects."
   },
   {
-    name: "Ashwini",
+    name: "Ashwani",
     role: "OUTREACH HEAD",
     image: "/ashwini.jpeg",
     bio: "One meaningful connection can change a business forever.",
