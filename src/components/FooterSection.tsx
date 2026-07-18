@@ -31,12 +31,12 @@ export function FooterSection() {
         {/* Right: Socials & Legal */}
         <div className="flex flex-col items-center md:items-end gap-6 mt-8 md:mt-0">
           <div className="flex items-center space-x-6">
-            <a href="#" className="flex items-center space-x-2 text-[#ffff00]/80 hover:text-[#ffff00] transition-colors group">
+            <a href="mailto:sellixahq@gmail.com" className="flex items-center space-x-2 text-[#ffff00]/80 hover:text-[#ffff00] transition-colors group">
               <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span className="font-mono text-xs tracking-widest uppercase">Gmail</span>
             </a>
             
-            <a href="#" className="flex items-center space-x-2 text-[#ffff00]/80 hover:text-[#ffff00] transition-colors group">
+            <a href="https://www.instagram.com/sellixa._hq" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-[#ffff00]/80 hover:text-[#ffff00] transition-colors group">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
