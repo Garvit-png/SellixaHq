@@ -21,8 +21,9 @@ export function AboutSection() {
           className="w-full h-full bg-cover bg-right opacity-80"
           style={{ backgroundImage: "url('/group.jpg')" }}
         />
-        {/* Gradients to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent pointer-events-none"></div>
+        {/* Black only on the left side, fades into transparent on right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000000] from-20% via-[#000000]/0 via-35% to-transparent pointer-events-none"></div>
+        {/* Bottom fade for readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none"></div>
       </div>
 
