@@ -340,6 +340,36 @@ const HeroShaderMaterial = () => {
 export function HeroWebGL() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef);
+  const [isSimplified, setIsSimplified] = useState(false);
+
+  useEffect(() => {
+    const checkConditions = () => {
+      let slowNetwork = false;
+      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      if (connection) {
+        if (['slow-2g', '2g', '3g'].includes(connection.effectiveType) || connection.saveData) {
+          slowNetwork = true;
+        }
+      }
+      setIsSimplified(window.innerWidth < 768 || slowNetwork);
+    };
+    checkConditions();
+    window.addEventListener("resize", checkConditions);
+    return () => window.removeEventListener("resize", checkConditions);
+  }, []);
+
+  if (isSimplified) {
+    return (
+      <div className="absolute inset-0 w-full h-full bg-[#ffff00] flex flex-col items-center justify-center overflow-hidden z-0">
+        <h1 className="text-[18vw] font-black text-black tracking-tighter mb-10">SELLIXA</h1>
+        <div className="absolute inset-0 pointer-events-none z-10">
+          <h2 className="absolute inset-0 flex items-center justify-center text-black font-bold tracking-[0.8em] text-[10px] pt-[28vh] pl-[0.8em]">
+            <CurrencyScramble text="MONETIZE YOUR AUDIENCE" />
+          </h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className="absolute inset-0 w-full h-full bg-[#ffff00] z-0 overflow-hidden cursor-default">

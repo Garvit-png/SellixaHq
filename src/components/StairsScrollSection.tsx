@@ -1,4 +1,5 @@
 "use client";
+import { LazyVideo } from "@/components/ui/LazyVideo";
 
 const steps = [
   {
@@ -74,7 +75,7 @@ export function StairsScrollSection() {
 
           {/* Top Row: Video (col-span-1) */}
           <div className="flex flex-col relative w-full h-full min-h-[300px] md:min-h-full rounded-2xl border-4 border-black overflow-hidden shadow-xl bg-black/5">
-            <video 
+            <LazyVideo 
               src="/money.mp4" 
               autoPlay 
               loop 

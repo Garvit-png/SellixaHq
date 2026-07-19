@@ -1,4 +1,5 @@
 "use client";
+import { LazyVideo } from "@/components/ui/LazyVideo";
 
 import { Mail, Apple, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
@@ -59,7 +60,7 @@ export function FooterSection() {
       {/* Bottom: Massive Video Background with Yellow Text */}
       <div className="relative w-full flex justify-center items-center select-none z-0 mt-4 overflow-hidden py-8 md:py-16">
         {/* Background Video */}
-        <video 
+        <LazyVideo 
           src="/cheeta.mp4" 
           autoPlay 
           loop 

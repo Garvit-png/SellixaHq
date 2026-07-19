@@ -1,9 +1,21 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import RetroGrid from "@/components/magicui/retro-grid";
 import { motion } from "framer-motion";
 
 export function WhatWeBuildSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section 
       id="build" 
@@ -36,12 +48,12 @@ export function WhatWeBuildSection() {
             <motion.span
               key={index}
               variants={{
-                hidden: { opacity: 0, x: -100, skewX: -20, filter: "blur(10px)" },
+                hidden: { opacity: 0, x: isMobile ? -20 : -100, skewX: isMobile ? 0 : -20, filter: isMobile ? "none" : "blur(10px)" },
                 visible: { 
                   opacity: 1, 
                   x: 0, 
                   skewX: 0,
-                  filter: "blur(0px)",
+                  filter: isMobile ? "none" : "blur(0px)",
                   transition: { type: "spring", damping: 12, stiffness: 150 } 
                 }
               }}
@@ -54,9 +66,11 @@ export function WhatWeBuildSection() {
       </div>
 
       {/* Retro Grid Container */}
-      <div className="absolute inset-0 z-10 w-full h-full pointer-events-none overflow-hidden">
-        <RetroGrid />
-      </div>
+      {!isMobile && (
+        <div className="absolute inset-0 z-10 w-full h-full pointer-events-none overflow-hidden">
+          <RetroGrid />
+        </div>
+      )}
 
       {/* Cards Layout for Milestones */}
       <motion.div 
@@ -107,12 +121,12 @@ export function WhatWeBuildSection() {
         {/* Paragraph */}
         <motion.div 
           variants={{
-            hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }
+            hidden: { opacity: 0, y: 30, filter: isMobile ? "none" : "blur(10px)" },
+            visible: { opacity: 1, y: 0, filter: isMobile ? "none" : "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }
           }}
           className="max-w-2xl text-center"
         >
-          <p className="text-sm md:text-base text-white/80 font-sans font-light leading-relaxed bg-black/40 backdrop-blur-xl px-8 py-5 rounded-2xl border-2 border-[#ffff00] shadow-[0_0_20px_rgba(255,255,0,0.3)]">
+          <p className={`text-sm md:text-base text-white/80 font-sans font-light leading-relaxed bg-black/40 ${isMobile ? '' : 'backdrop-blur-xl'} px-8 py-5 rounded-2xl border-2 border-[#ffff00] shadow-[0_0_20px_rgba(255,255,0,0.3)]`}>
             We construct premium digital infrastructures for top-tier creators. <span className="text-white font-medium">Enter the next stage of your business evolution.</span>
           </p>
         </motion.div>

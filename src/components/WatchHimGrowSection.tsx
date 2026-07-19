@@ -1,4 +1,5 @@
 "use client";
+import { LazyVideo } from "@/components/ui/LazyVideo";
 
 export function WatchHimGrowSection() {
   return (
@@ -23,7 +24,7 @@ export function WatchHimGrowSection() {
           style={{ width: "100%", maxWidth: "400px", aspectRatio: "9/16" }}
           suppressHydrationWarning
         >
-          <video 
+          <LazyVideo 
             src="/win.mp4" 
             autoPlay 
             loop 
