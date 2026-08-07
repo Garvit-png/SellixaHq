@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Plus, Minus, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 const faqs = [
   {
@@ -51,10 +52,12 @@ export function FAQSection() {
       <div className="max-w-3xl mx-auto w-full px-6 md:px-12 relative z-10 flex flex-col items-center mt-12 md:mt-24">
         
         {/* Title */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-serif font-light leading-[1.05] tracking-tight mb-16 self-start md:self-center text-center">
-          <span className="text-white">Honest </span>
-          <span className="italic text-[#ffff00] font-bold">answers.</span>
-        </h2>
+        <FadeUp className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-serif font-light leading-[1.05] tracking-tight mb-16 self-start md:self-center text-center">
+          <h2>
+            <span className="text-white">Honest </span>
+            <TypeWriter text="answers." delay={0.3} speed={60} className="italic text-[#ffff00] font-bold" cursor={false} />
+          </h2>
+        </FadeUp>
 
         {/* FAQ Accordion */}
         <div className="w-full space-y-4 mb-24">

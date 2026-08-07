@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
+import { FadeUp, FadeIn } from "@/components/AnimateIn";
 
 export function PitchSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -28,20 +29,42 @@ export function PitchSection() {
           className="bg-black/90 backdrop-blur-md p-8 md:p-16 rounded-3xl shadow-[0_0_30px_rgba(255,255,0,0.15)] border-2 border-[#ffff00] max-w-5xl"
         >
           {/* Main Heading */}
-          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif leading-[1.05] tracking-tight mb-16 font-thin">
-            <span className="block text-white">You have the <span className="font-bold text-[#ffff00]">audience.</span></span>
-            <span className="block text-white">You have the <span className="font-bold text-[#ffff00]">knowledge.</span></span>
-            <span className="block text-white/60 italic mt-2">You just don't sell them<br/>anything.</span>
-          </h2>
+          <FadeUp className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-serif leading-[1.05] tracking-tight mb-16 font-thin">
+            <motion.span
+              className="block text-white"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >You have the <span className="font-bold text-[#ffff00]">audience.</span></motion.span>
+            <motion.span
+              className="block text-white"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >You have the <span className="font-bold text-[#ffff00]">knowledge.</span></motion.span>
+            <motion.span
+              className="block text-white/60 italic mt-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >You just don't sell them<br/>anything.</motion.span>
+          </FadeUp>
 
           {/* Two Column Paragraphs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-            <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
-              Most mid-size creators sit on a goldmine of attention — but never monetize it. Because a real product means a <span className="font-bold text-[#ffff00]">course</span>, <span className="font-bold text-[#ffff00]">digital materials</span>, a <span className="font-bold text-[#ffff00]">branded storefront</span>, launch assets, funnels... a full studio's worth of work.
-            </p>
-            <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
-              Sellixa is that studio. We design the product, the materials, and the theme — ship it under your name, and turn your audience into actual revenue.
-            </p>
+            <FadeUp delay={0.5}>
+              <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
+                Most mid-size creators sit on a goldmine of attention — but never monetize it. Because a real product means a <span className="font-bold text-[#ffff00]">course</span>, <span className="font-bold text-[#ffff00]">digital materials</span>, a <span className="font-bold text-[#ffff00]">branded storefront</span>, launch assets, funnels... a full studio's worth of work.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.65}>
+              <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
+                Sellixa is that studio. We design the product, the materials, and the theme — ship it under your name, and turn your audience into actual revenue.
+              </p>
+            </FadeUp>
           </div>
         </div>
 

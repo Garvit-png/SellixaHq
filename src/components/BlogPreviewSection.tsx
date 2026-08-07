@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 export function BlogPreviewSection() {
   const posts = [
@@ -48,10 +49,12 @@ export function BlogPreviewSection() {
         
         {/* Section Header */}
         <div className="w-full flex justify-between items-end mb-16">
-          <h2 className="text-4xl md:text-6xl text-black font-serif font-light leading-[1.1]">
-            Insights from the <br />
-            <span className="text-black italic font-bold">frontlines.</span>
-          </h2>
+          <FadeUp delay={0.05}>
+            <h2 className="text-4xl md:text-6xl text-black font-serif font-light leading-[1.1]">
+              Insights from the <br />
+              <TypeWriter text="frontlines." delay={0.3} speed={55} className="text-black italic font-bold" cursor={false} />
+            </h2>
+          </FadeUp>
           <button className="hidden md:block text-black/50 hover:text-black transition-colors border-b border-transparent hover:border-black pb-1 text-sm font-mono uppercase tracking-widest">
             View All Posts
           </button>

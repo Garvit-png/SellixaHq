@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
+import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 export function WhyChooseUsSection() {
   const reasons = [
@@ -50,17 +51,16 @@ export function WhyChooseUsSection() {
 
       <div className="max-w-6xl w-full flex flex-col items-center px-4 md:px-8 relative z-10 text-center mt-12 md:mt-24">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <span className="text-black font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-bold">
-            Why Choose Sellixa
-          </span>
-        </div>
+        <FadeUp delay={0.05} className="flex items-center gap-4 mb-6">
+          <span className="text-black font-mono text-xs md:text-sm tracking-[0.2em] uppercase font-bold">Why Choose Sellixa</span>
+        </FadeUp>
 
-        <h2 className="text-4xl md:text-6xl text-black font-serif font-light leading-[1.1] mb-20 drop-shadow-sm">
-          The unfair advantage for<br />
-          <span className="text-black italic font-bold">top creators.</span>
-        </h2>
+        <FadeUp delay={0.15} className="mb-20">
+          <h2 className="text-4xl md:text-6xl text-black font-serif font-light leading-[1.1] drop-shadow-sm">
+            The unfair advantage for<br />
+            <TypeWriter text="top creators." delay={0.5} speed={55} className="text-black italic font-bold" cursor={false} />
+          </h2>
+        </FadeUp>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full text-left">
           {reasons.map((reason, idx) => (

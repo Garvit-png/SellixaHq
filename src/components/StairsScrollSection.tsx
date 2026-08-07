@@ -1,5 +1,7 @@
 "use client";
 import { LazyVideo } from "@/components/ui/LazyVideo";
+import { motion } from "framer-motion";
+import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 const steps = [
   {
@@ -51,57 +53,54 @@ export function StairsScrollSection() {
         
         {/* Top Title */}
         <div className="w-full flex justify-center mb-16 md:mb-24">
-          <div className="flex flex-col items-center text-center">
+          <FadeUp className="flex flex-col items-center text-center">
             <h2 className="text-4xl md:text-6xl lg:text-7xl text-black font-serif font-light leading-tight drop-shadow-md">
-              Everything you need to <span className="font-bold italic">scale</span>
+              Everything you need to{" "}
+              <TypeWriter text="scale" delay={0.4} speed={80} className="font-bold italic" cursor={false} />
             </h2>
-          </div>
+          </FadeUp>
         </div>
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* Top Row: Card 1 */}
-          <div className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-all duration-300 hover:bg-black/10 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-            <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
-              {steps[0].num}
-            </span>
-            <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">
-              {steps[0].title}
-            </h3>
-            <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">
-              {steps[0].desc}
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-all duration-300 hover:bg-black/10 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
+          >
+            <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">{steps[0].num}</span>
+            <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">{steps[0].title}</h3>
+            <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">{steps[0].desc}</p>
+          </motion.div>
 
-          {/* Top Row: Video (col-span-1) */}
-          <div className="flex flex-col relative w-full h-full min-h-[300px] md:min-h-full rounded-2xl border-4 border-black overflow-hidden shadow-xl bg-black/5">
-            <LazyVideo 
-              src="/money.mp4" 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
-              className="absolute inset-0 w-full h-full object-cover opacity-90"
-              suppressHydrationWarning
-            />
-          </div>
+          {/* Top Row: Video */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col relative w-full h-full min-h-[300px] md:min-h-full rounded-2xl border-4 border-black overflow-hidden shadow-xl bg-black/5"
+          >
+            <LazyVideo src="/money.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90" suppressHydrationWarning />
+          </motion.div>
 
-          {/* Rest of the cards (Card 2, 3, 4, 5) */}
-          {steps.slice(1).map((step) => (
-            <div
+          {/* Rest of the cards */}
+          {steps.slice(1).map((step, i) => (
+            <motion.div
               key={step.num}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: 0.1 + (i + 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col items-start text-left bg-black/5 p-8 rounded-2xl border border-black/10 transition-all duration-300 hover:bg-black/10 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
             >
-              <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">
-                {step.num}
-              </span>
-              <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">
-                {step.title}
-              </h3>
-              <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">
-                {step.desc}
-              </p>
-            </div>
+              <span className="text-black font-serif italic text-5xl md:text-6xl mb-4 font-black tracking-tighter opacity-90 drop-shadow-sm">{step.num}</span>
+              <h3 className="text-black font-serif text-2xl md:text-3xl mb-4 font-bold drop-shadow-sm">{step.title}</h3>
+              <p className="text-black/80 font-sans text-base md:text-lg font-medium leading-relaxed">{step.desc}</p>
+            </motion.div>
           ))}
         </div>
       </div>
