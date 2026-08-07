@@ -61,39 +61,49 @@ export default function Navbar() {
   });
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-[padding] duration-300 ${
-        scrolled ? "py-4" : "py-6"
-      }`}
-    >
-      <div className={`max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between transition-colors duration-300 relative ${isDarkBg ? "text-white" : "text-black"}`}>
+    <>
+      {/* Nav links — fixed, mix-blend-difference directly against page background like MONETIZE text */}
+      <div
+        className={`fixed top-0 left-0 w-full z-50 pointer-events-none mix-blend-difference transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          scrolled ? "py-[2.25rem]" : "py-[2.75rem]"
+        } ${hidden ? 'opacity-0 -translate-y-8' : 'opacity-100 translate-y-0'}`}
+      >
+        <ul className="hidden md:flex items-center justify-center gap-8 text-sm font-medium pointer-events-auto">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <a
+                href={item.href}
+                className="text-[#ffff00] opacity-80 hover:opacity-100 transition-opacity duration-200"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-[padding] duration-300 ${
+          scrolled ? "py-4" : "py-6"
+        }`}
+      >
+      <div className={`max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between relative ${isDarkBg ? "text-white" : "text-black"}`}>
         {/* LOGO */}
         <div className="flex flex-col items-start cursor-default z-20">
           <span className="font-bold text-2xl tracking-tight leading-none">SELLIXA</span>
           <span className="text-[0.6rem] tracking-[0.3em] font-medium opacity-80 mt-1 uppercase">STUDIO</span>
         </div>
 
-        {/* LINKS - These hide on scroll down */}
-        <div className={`absolute left-1/2 -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          hidden ? 'opacity-0 -translate-y-8 pointer-events-none' : 'opacity-100 translate-y-0'
-        }`}>
-          <ul className="hidden md:flex items-center gap-8 text-sm font-medium opacity-80">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="hover:opacity-100 transition-opacity"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* LINKS placeholder — hidden, actual links rendered above with mix-blend */}
+        <div className="hidden md:flex items-center gap-8 text-sm opacity-0 pointer-events-none select-none" aria-hidden="true">
+          {navItems.map((item) => (
+            <span key={item.label}>{item.label}</span>
+          ))}
         </div>
 
         {/* APPLY BUTTON */}
         <div className="hidden md:block z-20">
-          <MagneticButton variant="primary" className={`px-6 py-2 text-sm rounded-full font-medium transition-colors duration-300 ${isDarkBg ? "bg-white text-black hover:opacity-90" : "bg-black text-white hover:opacity-90"}`}>
+          <MagneticButton variant="secondary" className={`px-6 py-2 text-sm rounded-full font-medium border-2 border-transparent transition-all duration-300 hover:scale-105 active:scale-95 ${isDarkBg ? "bg-white text-black hover:bg-black hover:text-white hover:border-white" : "bg-black text-white hover:bg-white hover:text-black hover:border-black"}`}>
             Apply
           </MagneticButton>
         </div>
@@ -134,5 +144,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </nav>
+    </>
   );
 }

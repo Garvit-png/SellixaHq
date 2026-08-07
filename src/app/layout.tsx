@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Geist } from "next/font/google";
+import { Inter, Outfit, Geist, Pixelify_Sans, VT323 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
+import { PageLoader } from "@/components/PageLoader";
+
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const pixelifySans = Pixelify_Sans({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const vt323 = VT323({
+  variable: "--font-hud",
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,10 +42,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("scroll-smooth antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
+      className={cn("scroll-smooth antialiased", inter.variable, outfit.variable, "font-sans", geist.variable, pixelifySans.variable, vt323.variable)}
     >
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
         <NoiseOverlay />
+        <PageLoader />
         <main className="flex-grow">{children}</main>
       </body>
     </html>

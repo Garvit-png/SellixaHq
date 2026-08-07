@@ -30,12 +30,6 @@ const team = [
     bio: "More interested in shipping meaningful products than collecting buzzwords. Building software that users remember and developers enjoy maintaining."
   },
   {
-    name: "Drishti",
-    role: "SALES",
-    image: "/Drishti.jpeg",
-    bio: "I treat every client call like the start of a great story"
-  },
-  {
     name: "Shivangi",
     role: "DESIGNER",
     image: "/shivangi88.jpeg",
@@ -86,7 +80,7 @@ export function OurTeamSection() {
         </h2>
 
         {/* 3D Flip Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full">
           {team.map((member, idx) => (
             <div 
               key={idx}
