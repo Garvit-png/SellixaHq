@@ -40,8 +40,8 @@ export function PortfolioSection() {
         />
       </div>
 
-      {/* HalftoneReveal — absolute after content so height is known */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* HalftoneReveal — pointer-events-auto so hover works */}
+      <div className="absolute inset-0 z-0" style={{ pointerEvents: 'auto' }}>
         <HalftoneReveal
           src="/groupColored.jpeg"
           inkColor="#050505"

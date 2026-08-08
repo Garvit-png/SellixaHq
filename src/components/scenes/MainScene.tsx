@@ -2,7 +2,7 @@
 
 import { useRef, useMemo, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Environment, Fog } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { Particles } from "./Particles";
 import { ProjectMesh } from "./ProjectMesh";
