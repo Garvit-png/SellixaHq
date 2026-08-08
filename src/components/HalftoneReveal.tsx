@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import { Renderer, Program, Triangle, Mesh, Texture } from 'ogl';
+import { useMobile } from '@/hooks/use-mobile';
 
 const hexToRgb = (hex: string): [number, number, number] => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '');

@@ -2,6 +2,7 @@
 
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
+import { useMobile } from '@/hooks/use-mobile';
 
 const vertexShader = `
 attribute vec2 uv;

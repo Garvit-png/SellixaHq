@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Geometry, Program, Mesh, Texture } from 'ogl';
+import { useMobile } from '@/hooks/use-mobile';
 
 const DIST = 4.6;
 const FIT = 0.82;
