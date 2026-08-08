@@ -20,12 +20,12 @@ export function AboutSection() {
       </div>
 
       {/* Text Content */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full px-6 md:px-12 flex flex-col justify-center min-h-[60vh]">
+      <div className="relative z-10 w-full px-6 md:px-16 lg:px-24 flex flex-col justify-center min-h-[60vh]">
         <div className="flex flex-col">
 
           {/* Heading — TypeWriter effect */}
           <FadeUp className="flex flex-col max-w-3xl mb-12">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl text-white font-serif font-light leading-[1.1] drop-shadow-2xl">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl text-white font-serif font-light leading-[1.1] drop-shadow-2xl text-left">
               <TypeWriter text="We turn influence into" delay={0.1} speed={35} cursor={false} />
               <br />
               <TypeWriter
