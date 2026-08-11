@@ -141,12 +141,13 @@ const ElasticMesh: React.FC<ElasticMeshProps> = ({
   style,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   const propsRef = useRef({ color1, color2, highlight, showGrid, gridDensity, gridOpacity, gridColor, borderRadius, stiffness, damping, grabRadius, pull, wobble, tilt, shading, interaction, enabled });
   propsRef.current = { color1, color2, highlight, showGrid, gridDensity, gridOpacity, gridColor, borderRadius, stiffness, damping, grabRadius, pull, wobble, tilt, shading, interaction, enabled };
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || isMobile) return;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const el: HTMLDivElement = container;
     const renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
@@ -375,7 +376,33 @@ const ElasticMesh: React.FC<ElasticMeshProps> = ({
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image, resolution]);
+  }, [image, resolution, isMobile]);
+
+  if (isMobile === null) return null;
+
+  // Mobile: static image only, no WebGL
+  if (isMobile === true) {
+    return (
+      <div
+        className={`elastic-mesh${className ? ` ${className}` : ''}`}
+        style={{
+          position: 'relative', width: '100%', height: '100%',
+          overflow: 'hidden', borderRadius,
+          background: image ? 'transparent' : `linear-gradient(to bottom, ${color1}, ${color2})`,
+          ...style,
+        }}
+      >
+        {image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={image}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div

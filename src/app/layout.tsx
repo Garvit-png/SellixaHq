@@ -44,6 +44,13 @@ export default function RootLayout({
       lang="en"
       className={cn("scroll-smooth antialiased", inter.variable, outfit.variable, "font-sans", geist.variable, pixelifySans.variable, vt323.variable)}
     >
+      <head>
+        {/* Preload hero video for faster first-paint */}
+        <link rel="preload" as="video" href="/sellixa.mp4" type="video/mp4" />
+        {/* Preload critical above-fold images */}
+        <link rel="preload" as="image" href="/you_have.png" />
+        <link rel="preload" as="image" href="/group.jpg" />
+      </head>
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
         <NoiseOverlay />
         <PageLoader />

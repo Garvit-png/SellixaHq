@@ -174,6 +174,7 @@ export default function HalftoneReveal({
   style,
 }: HalftoneRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const uniformsRef = useRef<any>(null);
   const rafRef = useRef<number | null>(null);
@@ -184,7 +185,7 @@ export default function HalftoneReveal({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || isMobile !== false) return;
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
     const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 2), alpha: false, antialias: true });
@@ -241,13 +242,28 @@ export default function HalftoneReveal({
 
     const onMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
-      mouseRef.current.x = (e.clientX - rect.left) / rect.width;
-      mouseRef.current.y = 1 - (e.clientY - rect.top) / rect.height;
-      mouseRef.current.target = reduced ? 0 : 1;
+      // Check if pointer is within the container bounds (works even when overlapping elements block events)
+      if (
+        e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom
+      ) {
+        mouseRef.current.x = (e.clientX - rect.left) / rect.width;
+        mouseRef.current.y = 1 - (e.clientY - rect.top) / rect.height;
+        mouseRef.current.target = reduced ? 0 : 1;
+      }
     };
-    const onLeave = () => { mouseRef.current.target = 0; };
-    container.addEventListener('pointermove', onMove, { passive: true });
-    container.addEventListener('pointerenter', onMove, { passive: true });
+    const onLeave = (e: PointerEvent) => {
+      const rect = container.getBoundingClientRect();
+      if (
+        e.clientX < rect.left || e.clientX > rect.right ||
+        e.clientY < rect.top || e.clientY > rect.bottom
+      ) {
+        mouseRef.current.target = 0;
+      }
+    };
+    // Listen on window so overlapping content doesn't block events
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerleave', onLeave, { passive: true });
     container.addEventListener('pointerleave', onLeave, { passive: true });
 
     let prev = performance.now();
@@ -271,15 +287,14 @@ export default function HalftoneReveal({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
-      container.removeEventListener('pointermove', onMove);
-      container.removeEventListener('pointerenter', onMove);
-      container.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerleave', onLeave);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
       if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
       uniformsRef.current = null;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src]);
+  }, [src, isMobile]);
 
   useEffect(() => {
     const u = uniformsRef.current;
@@ -305,10 +320,15 @@ export default function HalftoneReveal({
       className={`halftone-reveal${className ? ` ${className}` : ''}`}
       style={{
         position: 'relative', width: '100%', height: '100%',
-        overflow: 'hidden', touchAction: 'none', cursor: 'crosshair',
-        borderRadius,
-        ...style,
+        overflow: 'hidden', touchAction: 'none', cursor: isMobile ? 'default' : 'crosshair',
+        borderRadius, ...style,
       }}
-    />
+    >
+      {/* Mobile: show plain image, no canvas */}
+      {isMobile === true && src && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.35 }} />
+      )}
+    </div>
   );
 }

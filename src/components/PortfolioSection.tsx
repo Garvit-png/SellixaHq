@@ -1,9 +1,7 @@
 "use client";
 
 import { AnimatedTestimonialGrid } from '@/components/ui/testimonial-2';
-import HalftoneReveal from '@/components/HalftoneReveal';
 
-// --- SAMPLE DATA ---
 const testimonials = [
   { imgSrc: '/ashish chhipa.jpeg', alt: 'Ashish Chhipa', handle: '@ashish', growth: 180 },
   { imgSrc: '/Isha dhankhar.jpeg', alt: 'Isha Dhankhar', handle: '@ishadhankhar21', link: 'https://www.instagram.com/ishadhankhar21/', growth: 240, objectPosition: 'top' },
@@ -15,14 +13,12 @@ const testimonials = [
 export function PortfolioSection() {
   return (
     <section id="portfolio" className="relative w-full bg-[#050505] overflow-hidden">
-      {/* Paint spill */}
       <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-[10vh] md:h-[15vh] text-[#ffff00] fill-current">
           <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
         </svg>
       </div>
 
-      {/* Content — renders first so section gets its natural height */}
       <div className="relative z-10 pt-24 md:pt-32">
         <AnimatedTestimonialGrid
           testimonials={testimonials}
@@ -37,29 +33,6 @@ export function PortfolioSection() {
           description="Learn why top creators and professionals trust our infrastructure to scale their customer journeys."
           ctaText="Read Success Stories"
           ctaHref="#"
-        />
-      </div>
-
-      {/* HalftoneReveal — pointer-events-auto so hover works */}
-      <div className="absolute inset-0 z-0" style={{ pointerEvents: 'auto' }}>
-        <HalftoneReveal
-          src="/groupColored.jpeg"
-          inkColor="#050505"
-          paperColor="#1a1a1a"
-          mode="mono"
-          dotDensity={55}
-          angle={45}
-          revealRadius={0.45}
-          dotSize={1}
-          shape="circle"
-          contrast={1.2}
-          invert={false}
-          edge={0.75}
-          follow={0.37}
-          idleReveal={0.08}
-          trigger="hover"
-          borderRadius="0px"
-          style={{ pointerEvents: 'auto' }}
         />
       </div>
     </section>

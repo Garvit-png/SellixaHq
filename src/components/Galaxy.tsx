@@ -174,13 +174,14 @@ export default function Galaxy({
   ...rest
 }: GalaxyProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   const targetMousePos = useRef({ x: 0.5, y: 0.5 });
   const smoothMousePos = useRef({ x: 0.5, y: 0.5 });
   const targetMouseActive = useRef(0.0);
   const smoothMouseActive = useRef(0.0);
 
   useEffect(() => {
-    if (!ctnDom.current) return;
+    if (!ctnDom.current || isMobile !== false) return;
     const ctn = ctnDom.current;
 
     const renderer = new Renderer({ alpha: transparent, premultipliedAlpha: false });
@@ -275,7 +276,13 @@ export default function Galaxy({
       if (ctn.contains(gl.canvas)) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [focal, rotation, starSpeed, density, hueShift, disableAnimation, speed, mouseInteraction, glowIntensity, saturation, mouseRepulsion, twinkleIntensity, rotationSpeed, repulsionStrength, autoCenterRepulsion, transparent]);
+  }, [focal, rotation, starSpeed, density, hueShift, disableAnimation, speed, mouseInteraction, glowIntensity, saturation, mouseRepulsion, twinkleIntensity, rotationSpeed, repulsionStrength, autoCenterRepulsion, transparent, isMobile]);
+
+  // Mobile: just plain black background, no canvas
+  if (isMobile === null) return null; // not yet mounted
+  if (isMobile === true) {
+    return <div className="galaxy-container" style={{ background: transparent ? 'transparent' : '#000' }} />;
+  }
 
   return (
     <div

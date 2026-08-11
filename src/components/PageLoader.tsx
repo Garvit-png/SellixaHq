@@ -16,15 +16,22 @@ export function PageLoader() {
       setTimeout(() => setVisible(false), 600);
     };
 
-    // Wait for both: page load AND minimum 3 seconds
+    // Mobile gets shorter minimum wait (1.5s), desktop gets 3s
+    const isMobile = window.innerWidth < 768;
+    const minMs = isMobile ? 1500 : 3000;
+
     let pageLoaded = document.readyState === "complete";
     let timerDone = false;
 
     const onLoad = () => { pageLoaded = true; if (timerDone) tryFadeOut(); };
-    const onTimer = () => { timerDone = true; if (pageLoaded) tryFadeOut(); else window.addEventListener("load", onLoad, { once: true }); };
+    const onTimer = () => {
+      timerDone = true;
+      if (pageLoaded) tryFadeOut();
+      else window.addEventListener("load", onLoad, { once: true });
+    };
 
     if (!pageLoaded) window.addEventListener("load", onLoad, { once: true });
-    const minTimer = setTimeout(onTimer, 3000);
+    const minTimer = setTimeout(onTimer, minMs);
 
     return () => {
       clearTimeout(minTimer);
