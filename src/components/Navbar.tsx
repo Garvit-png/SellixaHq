@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 
 const navItems = [
@@ -10,8 +10,12 @@ const navItems = [
   { label: "Split", href: "#deal" },
   { label: "Creators", href: "#portfolio" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact us", href: "#audit" }
+  { label: "Contact us", href: "#launch" }
 ];
+
+const scrollTo = (id: string) => {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -67,13 +71,15 @@ export default function Navbar() {
         className={`fixed top-0 left-0 w-full z-50 pointer-events-none mix-blend-difference transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           scrolled ? "py-[2.25rem]" : "py-[2.75rem]"
         } ${hidden ? 'opacity-0 -translate-y-8' : 'opacity-100 translate-y-0'}`}
+        style={{ cursor: 'pointer' }}
       >
-        <ul className="hidden md:flex items-center justify-center gap-8 text-sm font-medium pointer-events-auto">
+        <ul className="hidden md:flex items-center justify-center gap-8 text-sm font-medium pointer-events-auto" style={{ cursor: 'pointer' }}>
           {navItems.map((item) => (
             <li key={item.label}>
               <a
                 href={item.href}
-                className="text-[#ffff00] opacity-80 hover:opacity-100 transition-opacity duration-200"
+                onClick={(e) => { e.preventDefault(); scrollTo(item.href.slice(1)); }}
+                className="text-[#ffff00] opacity-80 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
               >
                 {item.label}
               </a>
@@ -103,9 +109,11 @@ export default function Navbar() {
 
         {/* APPLY BUTTON */}
         <div className="hidden md:block z-20">
-          <MagneticButton variant="secondary" className={`px-6 py-2 text-sm rounded-full font-medium border-2 border-transparent transition-all duration-300 hover:scale-105 active:scale-95 ${isDarkBg ? "bg-white text-black hover:bg-black hover:text-white hover:border-white" : "bg-black text-white hover:bg-white hover:text-black hover:border-black"}`}>
-            Apply
-          </MagneticButton>
+          <a href="#launch" onClick={(e) => { e.preventDefault(); document.getElementById('launch')?.scrollIntoView({ behavior: 'smooth' }); }}>
+            <MagneticButton variant="secondary" className={`px-6 py-2 text-sm rounded-full font-medium border-2 border-transparent transition-all duration-300 hover:scale-105 active:scale-95 ${isDarkBg ? "bg-white text-black hover:bg-black hover:text-white hover:border-white" : "bg-black text-white hover:bg-white hover:text-black hover:border-black"}`}>
+              Apply
+            </MagneticButton>
+          </a>
         </div>
 
         <button className="md:hidden z-20" onClick={() => setMobileMenuOpen(true)}>
@@ -133,7 +141,7 @@ export default function Navbar() {
                   <a
                     href={item.href}
                     className="hover:text-[#FFFFFF] transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); setTimeout(() => scrollTo(item.href.slice(1)), 300); }}
                   >
                     {item.label}
                   </a>

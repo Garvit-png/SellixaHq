@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Galaxy from "@/components/Galaxy";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+
+const Galaxy = dynamic(() => import("@/components/Galaxy"), { ssr: false });
 
 export function WhatWeBuildSection() {
   const [isMobile, setIsMobile] = useState(false);

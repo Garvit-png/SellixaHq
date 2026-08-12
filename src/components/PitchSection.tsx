@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import ElasticMesh from "@/components/ElasticMesh";
+import dynamic from "next/dynamic";
 import { useMobile } from "@/hooks/use-mobile";
+
+const ElasticMesh = dynamic(() => import("@/components/ElasticMesh"), { ssr: false });
 
 export function PitchSection() {
   const sectionRef = useRef<HTMLElement>(null);

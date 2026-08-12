@@ -290,9 +290,8 @@
     rgba(255, 255, 255, 0.18) 0 6px,
     transparent 6px 12px
   );
-  animation: ow-hp-fill 3s cubic-bezier(0.35, 0, 0.3, 1) forwards;
+  animation: ow-hp-fill 5s cubic-bezier(0.25, 0, 0.2, 1) forwards;
 }
-
 .ow-hp-loader__pips {
   position: absolute;
   inset: 0;

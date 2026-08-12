@@ -50,6 +50,7 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
       ref={videoRef}
       className={className}
       preload={shouldLoad ? "auto" : "none"}
+      suppressHydrationWarning
       // We still pass autoPlay because React needs it for muted autoplay on iOS
       {...props}
     >

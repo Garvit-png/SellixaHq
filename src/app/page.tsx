@@ -1,51 +1,44 @@
 "use client";
 
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import { HeroWebGL } from "@/components/HeroWebGL";
 import { HeroBottomButtons } from "@/components/HeroBottomButtons";
-import { ReviewsSection } from "@/components/ReviewsSection";
-import { WatchHimGrowSection } from "@/components/WatchHimGrowSection";
-import { PitchSection } from "@/components/PitchSection";
-import { TheDealSection } from "@/components/TheDealSection";
-import { WhoItsForSection } from "@/components/WhoItsForSection";
-import { EarlyPartnersSection } from "@/components/EarlyPartnersSection";
-import { FAQSection } from "@/components/FAQSection";
-import { OurTeamSection } from "@/components/OurTeamSection";
-import { FinalCtaSection } from "@/components/FinalCtaSection";
-import { CalendlySection } from "@/components/CalendlySection";
-import { FooterSection } from "@/components/FooterSection";
-import { MarqueeSection } from "@/components/MarqueeSection";
+
+// ─── Eager (above fold) ───────────────────────────────────────────────────────
 import { WhatWeBuildSection } from "@/components/WhatWeBuildSection";
-import { AboutSection } from "@/components/AboutSection";
-import { StairsScrollSection } from "@/components/StairsScrollSection";
-import { HandScrollSection } from "@/components/HandScrollSection";
-import { WhyChooseUsSection } from "@/components/WhyChooseUsSection";
-import { PortfolioSection } from "@/components/PortfolioSection";
-import { FreeAuditSection } from "@/components/FreeAuditSection";
-import { BlogPreviewSection } from "@/components/BlogPreviewSection";
-import { NewsletterSection } from "@/components/NewsletterSection";
+import { ReviewsSection } from "@/components/ReviewsSection";
+
+// ─── Lazy (below fold) ────────────────────────────────────────────────────────
+const WatchHimGrowSection   = dynamic(() => import("@/components/WatchHimGrowSection").then(m => ({ default: m.WatchHimGrowSection })), { ssr: false });
+const PitchSection          = dynamic(() => import("@/components/PitchSection").then(m => ({ default: m.PitchSection })), { ssr: false });
+const MarqueeSection        = dynamic(() => import("@/components/MarqueeSection").then(m => ({ default: m.MarqueeSection })));
+const AboutSection          = dynamic(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
+const StairsScrollSection   = dynamic(() => import("@/components/StairsScrollSection").then(m => ({ default: m.StairsScrollSection })));
+const HandScrollSection     = dynamic(() => import("@/components/HandScrollSection").then(m => ({ default: m.HandScrollSection })));
+const WhyChooseUsSection    = dynamic(() => import("@/components/WhyChooseUsSection").then(m => ({ default: m.WhyChooseUsSection })));
+const PortfolioSection      = dynamic(() => import("@/components/PortfolioSection").then(m => ({ default: m.PortfolioSection })));
+const TheDealSection        = dynamic(() => import("@/components/TheDealSection").then(m => ({ default: m.TheDealSection })));
+const WhoItsForSection      = dynamic(() => import("@/components/WhoItsForSection").then(m => ({ default: m.WhoItsForSection })));
+const EarlyPartnersSection  = dynamic(() => import("@/components/EarlyPartnersSection").then(m => ({ default: m.EarlyPartnersSection })));
+const FAQSection            = dynamic(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
+const OurTeamSection        = dynamic(() => import("@/components/OurTeamSection").then(m => ({ default: m.OurTeamSection })));
+const FreeAuditSection      = dynamic(() => import("@/components/FreeAuditSection").then(m => ({ default: m.FreeAuditSection })));
+const BlogPreviewSection    = dynamic(() => import("@/components/BlogPreviewSection").then(m => ({ default: m.BlogPreviewSection })));
+const FinalCtaSection       = dynamic(() => import("@/components/FinalCtaSection").then(m => ({ default: m.FinalCtaSection })));
+const CalendlySection       = dynamic(() => import("@/components/CalendlySection").then(m => ({ default: m.CalendlySection })), { ssr: false });
+const NewsletterSection     = dynamic(() => import("@/components/NewsletterSection").then(m => ({ default: m.NewsletterSection })));
+const FooterSection         = dynamic(() => import("@/components/FooterSection").then(m => ({ default: m.FooterSection })));
 
 export default function Home() {
-  useEffect(() => {
-    // Only keeping essential window logic if necessary, though scroll-based active state was unused by layout.
-    // Removed IntersectionObserver as the active section state wasn't consumed.
-  }, []);
-
   return (
-    <main 
-      className="relative min-h-screen w-full overflow-x-clip bg-[#ffff00] flex flex-col items-center justify-center"
-    >
+    <main className="relative min-h-screen w-full overflow-x-clip bg-[#ffff00] flex flex-col items-center justify-center">
       <Navbar />
-      <div 
-        id="main-scroll-container"
-        className="relative z-40 w-full flex flex-col text-text-primary"
-      >
-        {/* HERO SECTION (100svh) */}
+      <div id="main-scroll-container" className="relative z-40 w-full flex flex-col text-text-primary">
+
+        {/* HERO SECTION */}
         <div id="intro" className="relative h-[100svh] w-full bg-[#ffff00] z-0 overflow-hidden">
-          <div 
-            className="absolute inset-0 w-full h-full"
-          >
+          <div className="absolute inset-0 w-full h-full">
             <HeroWebGL />
             <div className="absolute inset-0 w-full h-full z-20 pointer-events-none">
               <div className="pointer-events-auto h-full w-full">
@@ -55,77 +48,32 @@ export default function Home() {
           </div>
         </div>
 
-        {/* WHAT WE BUILD FOR YOU SECTION (WE DESIGN & SHIP) */}
         <WhatWeBuildSection />
-
-        {/* STAGGERED REVIEWS SECTION (RESTORED) */}
         <ReviewsSection />
-
-        {/* BUILD SECTION (REMOVED AS PER USER REQUEST) */}
-
-        {/* WATCH HIM GROW SECTION (100vh) */}
         <WatchHimGrowSection />
-
-        {/* THE PITCH SECTION */}
         <PitchSection />
 
-        {/* SECTIONS WITH ROUGH NOISE BACKGROUND */}
         <div className="relative w-full">
-          {/* Global Noise Overlay Removed for Performance */}
-
-          {/* MARQUEE SECTION */}
           <MarqueeSection />
-
-          {/* ABOUT SECTION */}
           <AboutSection />
-
           <StairsScrollSection />
           <HandScrollSection />
-          
-          {/* WHY CHOOSE US SECTION */}
           <WhyChooseUsSection />
-
-          {/* PORTFOLIO SECTION */}
           <PortfolioSection />
-
-
-
-          {/* THE DEAL SECTION */}
           <TheDealSection />
-
-          {/* WHO IT'S FOR SECTION */}
           <WhoItsForSection />
-
-          {/* EARLY PARTNERS SECTION */}
           <EarlyPartnersSection />
-
-          {/* FAQ SECTION */}
           <FAQSection />
-
-          {/* OUR TEAM SECTION */}
           <OurTeamSection />
-
-          {/* FREE FUNNEL AUDIT */}
           <FreeAuditSection />
-
-          {/* BLOG / RESOURCES */}
           <BlogPreviewSection />
         </div>
 
-        {/* FINAL CTA SECTION */}
         <FinalCtaSection />
-
-        {/* CALENDLY SCHEDULE SECTION */}
         <CalendlySection />
-        
-        {/* NEWSLETTER SECTION */}
         <NewsletterSection />
-
-        {/* NEW FOOTER SECTION */}
         <FooterSection />
       </div>
-
-      
     </main>
   );
 }
