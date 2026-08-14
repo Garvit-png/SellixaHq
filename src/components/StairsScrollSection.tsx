@@ -83,6 +83,7 @@ export function StairsScrollSection() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col relative w-full h-full min-h-[300px] md:min-h-full rounded-2xl border-4 border-black overflow-hidden shadow-xl bg-black/5"
+            suppressHydrationWarning
           >
             <LazyVideo src="/money.mp4" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90" suppressHydrationWarning />
           </motion.div>

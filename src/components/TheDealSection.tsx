@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
+import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 export function TheDealSection() {
   const ref = useRef(null);
@@ -20,13 +21,15 @@ export function TheDealSection() {
           <span className="text-black text-xs md:text-sm font-mono tracking-[0.2em] uppercase font-bold">The Deal</span>
         </div>
 
-        <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-light leading-[1.05] tracking-tight text-center mb-6">
-          <span className="text-black drop-shadow-sm">We can work on </span>
-          <span className="italic text-black font-bold drop-shadow-sm">upfront</span>
-          <span className="text-black drop-shadow-sm"> or </span>
-          <span className="italic text-black font-bold drop-shadow-sm">commission</span>
-          <span className="text-black drop-shadow-sm"> basis.</span>
-        </h2>
+        <FadeUp delay={0.1} className="text-center mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-light leading-[1.05] tracking-tight text-center">
+            <span className="text-black drop-shadow-sm">We can work on </span>
+            <TypeWriter text="upfront" delay={0.5} speed={80} className="italic text-black font-bold" cursor={false} />
+            <span className="text-black drop-shadow-sm"> or </span>
+            <TypeWriter text="commission" delay={1.3} speed={60} className="italic text-black font-bold" cursor={false} />
+            <span className="text-black drop-shadow-sm"> basis.</span>
+          </h2>
+        </FadeUp>
 
         <p className="text-black/80 text-sm md:text-base font-medium max-w-2xl text-center leading-relaxed mb-24">
           We work on both <strong className="text-black font-bold">upfront</strong> and <strong className="text-black font-bold">commission</strong> basis — whatever works best for you.

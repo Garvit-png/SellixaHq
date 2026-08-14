@@ -46,15 +46,17 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
   }, [shouldLoad, props.autoPlay]);
 
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      preload={shouldLoad ? "auto" : "none"}
-      suppressHydrationWarning
-      // We still pass autoPlay because React needs it for muted autoplay on iOS
-      {...props}
-    >
-      {shouldLoad && <source src={src} type="video/mp4" />}
-    </video>
+    <div suppressHydrationWarning className="contents">
+      <video
+        ref={videoRef}
+        className={className}
+        preload={shouldLoad ? "auto" : "none"}
+        suppressHydrationWarning
+        // We still pass autoPlay because React needs it for muted autoplay on iOS
+        {...props}
+      >
+        {shouldLoad && <source src={src} type="video/mp4" />}
+      </video>
+    </div>
   );
 }

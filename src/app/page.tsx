@@ -8,7 +8,6 @@ import { HeroBottomButtons } from "@/components/HeroBottomButtons";
 // ─── Eager (above fold) ───────────────────────────────────────────────────────
 import { WhatWeBuildSection } from "@/components/WhatWeBuildSection";
 import { ReviewsSection } from "@/components/ReviewsSection";
-
 // ─── Lazy (below fold) ────────────────────────────────────────────────────────
 const WatchHimGrowSection   = dynamic(() => import("@/components/WatchHimGrowSection").then(m => ({ default: m.WatchHimGrowSection })), { ssr: false });
 const PitchSection          = dynamic(() => import("@/components/PitchSection").then(m => ({ default: m.PitchSection })), { ssr: false });
