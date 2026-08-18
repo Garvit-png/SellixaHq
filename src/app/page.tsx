@@ -2,13 +2,26 @@
 
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
-import { HeroWebGL } from "@/components/HeroWebGL";
 import { HeroBottomButtons } from "@/components/HeroBottomButtons";
 
-// ─── Eager (above fold) ───────────────────────────────────────────────────────
-import { WhatWeBuildSection } from "@/components/WhatWeBuildSection";
-import { ReviewsSection } from "@/components/ReviewsSection";
-// ─── Lazy (below fold) ────────────────────────────────────────────────────────
+// Static fallback shown instantly while Three.js bundle loads — this becomes the LCP element
+function HeroFallback() {
+  return (
+    <div className="absolute inset-0 w-full h-full bg-[#ffff00] flex flex-col items-center justify-center overflow-hidden z-0">
+      <h1 className="text-[18vw] font-black text-black tracking-tighter leading-none select-none">SELLIXA</h1>
+    </div>
+  );
+}
+
+// HeroWebGL split into its own chunk — Three.js (~300KB) no longer in critical bundle
+const HeroWebGL = dynamic(
+  () => import("@/components/HeroWebGL").then(m => ({ default: m.HeroWebGL })),
+  { ssr: false, loading: () => <HeroFallback /> }
+);
+
+// ─── Lazy (all sections below fold) ──────────────────────────────────────────
+const WhatWeBuildSection    = dynamic(() => import("@/components/WhatWeBuildSection").then(m => ({ default: m.WhatWeBuildSection })), { ssr: false });
+const ReviewsSection        = dynamic(() => import("@/components/ReviewsSection").then(m => ({ default: m.ReviewsSection })), { ssr: false });
 const WatchHimGrowSection   = dynamic(() => import("@/components/WatchHimGrowSection").then(m => ({ default: m.WatchHimGrowSection })), { ssr: false });
 const PitchSection          = dynamic(() => import("@/components/PitchSection").then(m => ({ default: m.PitchSection })), { ssr: false });
 const MarqueeSection        = dynamic(() => import("@/components/MarqueeSection").then(m => ({ default: m.MarqueeSection })));

@@ -1,9 +1,8 @@
 "use client";
 
-
-
 import { BackgroundPaths } from "@/components/ui/animated-infinity-background";
 import { motion } from "framer-motion";
+import { useMobile } from "@/hooks/use-mobile";
 
 const steps = [
   {
@@ -34,9 +33,11 @@ const steps = [
 ];
 
 export function HandScrollSection() {
+  const isMobile = useMobile();
+
   return (
     <section id="hand-process" className="w-full relative bg-black">
-      {/* Paint spill transition from the yellow StairsScrollSection */}
+      {/* Paint spill transition */}
       <div className="absolute top-0 left-0 w-full z-30 pointer-events-none">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
@@ -47,97 +48,77 @@ export function HandScrollSection() {
           <path d="M0,20 Q150,30 250,60 T500,90 T750,40 T1000,70 T1200,50 V0 H0 Z" />
         </svg>
       </div>
-      {/* Flowing Black Waves (Spread, Left to Right) */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 overflow-hidden">
-        <motion.svg
-          className="absolute h-full w-[200vw] top-0 left-0"
-          preserveAspectRatio="none"
-          viewBox="0 0 2000 1000"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          animate={{ x: ["-50%", "0%"] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          {/* Wave 1: Large smooth wave */}
-          <path
-            d="M 0,300 C 250,600 750,0 1000,300 C 1250,600 1750,0 2000,300"
-            stroke="#ffff00"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            opacity="1"
-            style={{ filter: "drop-shadow(0px 0px 10px rgba(255, 255, 0, 0.2))" }}
-          />
-          {/* Wave 2: Faster, tighter wave */}
-          <path
-            d="M 0,500 C 125,700 375,300 500,500 C 625,700 875,300 1000,500 C 1125,700 1375,300 1500,500 C 1625,700 1875,300 2000,500"
-            stroke="#ffff00"
-            strokeWidth="2"
-            strokeLinecap="round"
-            opacity="0.8"
-            style={{ filter: "drop-shadow(0px 0px 8px rgba(255, 255, 0, 0.15))" }}
-          />
-          {/* Wave 3: Lower inverted wave */}
-          <path
-            d="M 0,700 C 250,450 750,950 1000,700 C 1250,450 1750,950 2000,700"
-            stroke="#ffff00"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            opacity="0.6"
-            style={{ filter: "drop-shadow(0px 0px 6px rgba(255, 255, 0, 0.1))" }}
-          />
-        </motion.svg>
-      </div>
+
+      {/* Wave animation — desktop only */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40 overflow-hidden">
+          <motion.svg
+            className="absolute h-full w-[200vw] top-0 left-0"
+            preserveAspectRatio="none"
+            viewBox="0 0 2000 1000"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            animate={{ x: ["-50%", "0%"] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          >
+            <path d="M 0,300 C 250,600 750,0 1000,300 C 1250,600 1750,0 2000,300" stroke="#ffff00" strokeWidth="3.5" strokeLinecap="round" opacity="1" style={{ filter: "drop-shadow(0px 0px 10px rgba(255, 255, 0, 0.2))" }} />
+            <path d="M 0,500 C 125,700 375,300 500,500 C 625,700 875,300 1000,500 C 1125,700 1375,300 1500,500 C 1625,700 1875,300 2000,500" stroke="#ffff00" strokeWidth="2" strokeLinecap="round" opacity="0.8" style={{ filter: "drop-shadow(0px 0px 8px rgba(255, 255, 0, 0.15))" }} />
+            <path d="M 0,700 C 250,450 750,950 1000,700 C 1250,450 1750,950 2000,700" stroke="#ffff00" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" style={{ filter: "drop-shadow(0px 0px 6px rgba(255, 255, 0, 0.1))" }} />
+          </motion.svg>
+        </div>
+      )}
 
       <div className="relative z-10 w-full">
-        <BackgroundPaths 
-          title="We handle everything." 
-          subtitle="You keep creating."
-          titleBackground={true}
-          backgroundStyle="gradient"
-        >
-        {/* Steps Container */}
-        <div className="flex flex-col gap-6 w-full max-w-5xl px-4 pb-24 mt-8 items-center">
-          {/* Top Row: Cards 1, 2, 3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {steps.slice(0, 3).map((step) => (
-              <div
-                key={step.num}
-                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
-              >
-                <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
-                  {step.num}
-                </span>
-                <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">
-                  {step.title}
-                </h3>
-                <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">
-                  {step.desc}
-                </p>
+        {/* On mobile skip BackgroundPaths (7 infinite pathLength animations) */}
+        {isMobile ? (
+          <div className="relative w-full min-h-screen overflow-hidden flex flex-col items-center justify-center bg-transparent">
+            <div className="relative z-10 w-full flex flex-col items-center">
+              <div className="flex flex-col items-center text-center max-w-3xl mb-8 mt-32 px-6">
+                <h2 className="text-4xl text-[#ffff00] font-serif font-light leading-tight">
+                  We handle everything.<br/>
+                  <span className="italic font-medium">You keep creating.</span>
+                </h2>
               </div>
-            ))}
-          </div>
-
-          {/* Bottom Row: Cards 4, 5 (Centered) */}
-          <div className="flex flex-col md:flex-row justify-center gap-6 w-full">
-            {steps.slice(3).map((step) => (
-              <div
-                key={step.num}
-                className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
-              >
-                <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">
-                  {step.num}
-                </span>
-                <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">
-                  {step.title}
-                </h3>
-                <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">
-                  {step.desc}
-                </p>
+              <div className="flex flex-col gap-6 w-full max-w-5xl px-4 pb-24 mt-8 items-center">
+                {steps.map((step) => (
+                  <div key={step.num} className="flex flex-col items-start text-left p-5 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl w-full">
+                    <span className="text-black font-serif italic text-4xl mb-2 font-black tracking-tighter">{step.num}</span>
+                    <h3 className="text-black font-serif text-xl mb-2 font-bold">{step.title}</h3>
+                    <p className="text-black/80 font-sans text-sm font-medium leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </BackgroundPaths>
+        ) : (
+          <BackgroundPaths 
+            title="We handle everything." 
+            subtitle="You keep creating."
+            titleBackground={true}
+            backgroundStyle="gradient"
+          >
+            <div className="flex flex-col gap-6 w-full max-w-5xl px-4 pb-24 mt-8 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                {steps.slice(0, 3).map((step) => (
+                  <div key={step.num} className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+                    <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">{step.num}</span>
+                    <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">{step.title}</h3>
+                    <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col md:flex-row justify-center gap-6 w-full">
+                {steps.slice(3).map((step) => (
+                  <div key={step.num} className="flex flex-col items-start text-left p-5 md:p-6 rounded-2xl bg-[#ffff00] border-2 border-black/10 shadow-xl backdrop-blur-sm w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+                    <span className="text-black font-serif italic text-4xl md:text-5xl mb-2 font-black tracking-tighter drop-shadow-sm">{step.num}</span>
+                    <h3 className="text-black font-serif text-xl md:text-2xl mb-2 font-bold drop-shadow-sm">{step.title}</h3>
+                    <p className="text-black/80 font-sans text-sm md:text-base font-medium leading-relaxed">{step.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </BackgroundPaths>
+        )}
       </div>
     </section>
   );

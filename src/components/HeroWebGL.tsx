@@ -127,6 +127,7 @@ const HeroShaderMaterial = () => {
   useEffect(() => {
     const video = document.createElement("video");
     video.src = "/sellixa.mp4";
+    video.preload = "none"; // Don't compete with JS/fonts on initial load
     video.crossOrigin = "Anonymous";
     video.loop = true;
     video.muted = true;

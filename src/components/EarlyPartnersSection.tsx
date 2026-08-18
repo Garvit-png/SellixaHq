@@ -137,7 +137,7 @@ export function EarlyPartnersSection() {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  <img src={partner.image} alt={partner.name} className="w-10 h-10 rounded-full object-cover border border-black/10" />
+                  <img src={partner.image} alt={partner.name} loading="lazy" className="w-10 h-10 rounded-full object-cover border border-black/10" />
                   <div>
                     <h4 className="text-black font-sans font-bold text-sm mb-0.5">{partner.name}</h4>
                     <p className="text-black/60 font-mono text-[9px] uppercase tracking-[0.1em]">{partner.role}</p>

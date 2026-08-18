@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useMobile } from "@/hooks/use-mobile";
 
 interface FlickeringGridProps {
   squareSize?: number;
@@ -23,6 +24,7 @@ export function FlickeringGrid({
   className,
   maxOpacity = 0.5,
 }: FlickeringGridProps) {
+  const isMobile = useMobile();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: width || 0, height: height || 0 });
@@ -111,11 +113,13 @@ export function FlickeringGrid({
 
   return (
     <div ref={containerRef} className={`w-full h-full overflow-hidden ${className || ""}`}>
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none block"
-        style={{ width: "100%", height: "100%" }}
-      />
+      {isMobile ? null : (
+        <canvas
+          ref={canvasRef}
+          className="pointer-events-none block"
+          style={{ width: "100%", height: "100%" }}
+        />
+      )}
     </div>
   );
 }

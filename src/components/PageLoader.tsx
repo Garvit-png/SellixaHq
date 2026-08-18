@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 export function PageLoader() {
   const [visible, setVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
     let resolved = false;
 
     const tryFadeOut = () => {
@@ -16,37 +18,20 @@ export function PageLoader() {
       setTimeout(() => setVisible(false), 600);
     };
 
-    const isMobile = window.innerWidth < 768;
+    // Use DOMContentLoaded (DOM parsed + JS ready) NOT window.load
+    // window.load waits for ALL resources including videos — that's the LCP killer.
+    // DOMContentLoaded fires as soon as the DOM is interactive, usually <1s.
+    // We add a 300ms buffer to let first paint settle.
+    const BUFFER_MS = 300;
 
-    // Mobile: just wait for page load, no minimum wait
-    // Desktop: 3s minimum for smoother experience
-    const minMs = isMobile ? 0 : 3000;
-
-    let timerDone = minMs === 0;
-    let pageLoaded = document.readyState === "complete";
-
-    const onLoad = () => {
-      pageLoaded = true;
-      if (timerDone) tryFadeOut();
-    };
-
-    const onTimer = () => {
-      timerDone = true;
-      if (pageLoaded) tryFadeOut();
-      else window.addEventListener("load", onLoad, { once: true });
-    };
-
-    if (pageLoaded && timerDone) {
-      // Already loaded, fade out immediately on mobile
-      tryFadeOut();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(tryFadeOut, BUFFER_MS);
+      }, { once: true });
     } else {
-      if (!pageLoaded) window.addEventListener("load", onLoad, { once: true });
-      if (minMs > 0) setTimeout(onTimer, minMs);
+      // readyState is "interactive" or "complete" — DOM is already ready
+      setTimeout(tryFadeOut, BUFFER_MS);
     }
-
-    return () => {
-      window.removeEventListener("load", onLoad);
-    };
   }, []);
 
   if (!visible) return null;
@@ -56,19 +41,22 @@ export function PageLoader() {
       className="ow-hp-loader-overlay"
       style={{ opacity: fadeOut ? 0 : 1, transition: "opacity 0.6s ease-in-out" }}
     >
-      <div className="ow-hp-loader" role="status" aria-label="Loading region">
-        <div className="ow-hp-loader__head">
-          <span className="ow-hp-loader__label">LOADING</span>
-          <span className="ow-hp-loader__pct">SELLIXA</span>
-        </div>
-        <div className="ow-hp-loader__bar">
-          <div className="ow-hp-loader__fill"></div>
-          <div className="ow-hp-loader__pips" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
+      {/* On mobile just show a plain black screen, no heavy animation */}
+      {isMobile ? null : (
+        <div className="ow-hp-loader" role="status" aria-label="Loading region">
+          <div className="ow-hp-loader__head">
+            <span className="ow-hp-loader__label">LOADING</span>
+            <span className="ow-hp-loader__pct">SELLIXA</span>
+          </div>
+          <div className="ow-hp-loader__bar">
+            <div className="ow-hp-loader__fill"></div>
+            <div className="ow-hp-loader__pips" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

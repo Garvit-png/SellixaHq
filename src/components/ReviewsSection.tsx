@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Marquee } from '@/components/ui/3d-testimonails';
+import { useMobile } from "@/hooks/use-mobile";
 
 // Unique reviews data
 const testimonials = [
@@ -50,9 +50,10 @@ function TestimonialCard({ name, username, body }: (typeof testimonials)[number]
 }
 
 export function ReviewsSection() {
+  const isMobile = useMobile();
+
   return (
-    <section id="reviews" className="bg-black text-white relative h-screen min-h-[900px] flex flex-col justify-center overflow-hidden">
-      {/* Content Container */}
+    <section id="reviews" className="bg-black text-white relative min-h-screen flex flex-col justify-center overflow-hidden">
       <div className="container z-10 mx-auto px-4 relative flex flex-col items-center justify-center h-full pt-10">
         
         <motion.div
@@ -67,17 +68,17 @@ export function ReviewsSection() {
         >
           <motion.h2 
             variants={{
-              hidden: { opacity: 0, y: 50, filter: "blur(10px)", scale: 0.9 },
-              visible: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { type: "spring", damping: 15, stiffness: 100 } }
+              hidden: { opacity: 0, y: 50, scale: 0.9 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 15, stiffness: 100 } }
             }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-thin tracking-tight mt-2 text-[#ffff00] drop-shadow-[0_0_15px_rgba(255,255,0,0.3)]"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-thin tracking-tight mt-2 text-[#ffff00]"
           >
             What our <span className="italic font-extralight">users say</span>
           </motion.h2>
           <motion.p 
             variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(10px)" },
-              visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
             }}
             className="text-center mt-4 text-white/60 text-sm md:text-base max-w-sm"
           >
@@ -85,46 +86,56 @@ export function ReviewsSection() {
           </motion.p>
         </motion.div>
 
-        {/* 3D Marquee Container */}
-        <div className="relative flex h-[700px] w-full max-w-[1200px] flex-row items-center justify-center overflow-hidden gap-1.5 [perspective:400px] rounded-[2rem] bg-black/50">
-          <div
-            className="flex flex-row items-center gap-4"
-            style={{
-              transform: 'translateX(-50px) translateY(0px) translateZ(0px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg) scale(1.1)',
-            }}
-          >
-            {/* Vertical Marquee (downwards) */}
-            <Marquee vertical pauseOnHover repeat={4} className="[--duration:40s]">
+        {/* Mobile: single flat horizontal marquee — no 3D, no perspective */}
+        {isMobile ? (
+          <div className="w-full overflow-hidden py-6">
+            <Marquee pauseOnHover repeat={3} className="[--duration:30s]">
               {testimonials.map((review) => (
                 <TestimonialCard key={review.username} {...review} />
               ))}
             </Marquee>
-            {/* Vertical Marquee (upwards) */}
-            <Marquee vertical pauseOnHover reverse repeat={4} className="[--duration:40s]">
-              {testimonials.map((review) => (
-                <TestimonialCard key={review.username} {...review} />
-              ))}
-            </Marquee>
-            {/* Vertical Marquee (downwards) */}
-            <Marquee vertical pauseOnHover repeat={4} className="[--duration:40s]">
-              {testimonials.map((review) => (
-                <TestimonialCard key={review.username} {...review} />
-              ))}
-            </Marquee>
-            {/* Vertical Marquee (upwards) */}
-            <Marquee vertical pauseOnHover reverse repeat={4} className="[--duration:40s] hidden md:flex">
+            <Marquee pauseOnHover reverse repeat={3} className="[--duration:30s] mt-3">
               {testimonials.map((review) => (
                 <TestimonialCard key={review.username} {...review} />
               ))}
             </Marquee>
           </div>
-
-          {/* Gradient overlays for vertical marquee */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black to-transparent z-10"></div>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black to-transparent z-10"></div>
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-10"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-10"></div>
-        </div>
+        ) : (
+          /* Desktop: full 3D marquee */
+          <div className="relative flex h-[700px] w-full max-w-[1200px] flex-row items-center justify-center overflow-hidden gap-1.5 [perspective:400px] rounded-[2rem] bg-black/50">
+            <div
+              className="flex flex-row items-center gap-4"
+              style={{
+                transform: 'translateX(-50px) translateY(0px) translateZ(0px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg) scale(1.1)',
+              }}
+            >
+              <Marquee vertical pauseOnHover repeat={4} className="[--duration:40s]">
+                {testimonials.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover reverse repeat={4} className="[--duration:40s]">
+                {testimonials.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover repeat={4} className="[--duration:40s]">
+                {testimonials.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+              <Marquee vertical pauseOnHover reverse repeat={4} className="[--duration:40s] hidden md:flex">
+                {testimonials.map((review) => (
+                  <TestimonialCard key={review.username} {...review} />
+                ))}
+              </Marquee>
+            </div>
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-black to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-10" />
+          </div>
+        )}
 
       </div>
     </section>

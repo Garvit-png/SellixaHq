@@ -1,8 +1,14 @@
 "use client";
 
 import React from "react";
+import { useMobile } from "@/hooks/use-mobile";
 
 export function NoiseOverlay() {
+  const isMobile = useMobile();
+
+  // Skip on mobile — mix-blend-overlay forces full compositing layer on every repaint
+  if (isMobile) return null;
+
   return (
     <div
       className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] mix-blend-overlay"

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { FadeUp, TypeWriter } from "@/components/AnimateIn";
 
 const team = [
@@ -92,10 +93,13 @@ function TeamCard({ member, idx }: { member: typeof team[0]; idx: number }) {
 
         {/* FRONT */}
         <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] rounded-[20px] overflow-hidden bg-[#050505] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]">
-          <img
+          <Image
             src={member.image}
             alt={member.name}
-            className={`absolute inset-0 w-full h-full object-cover object-top ${member.name !== 'Garvit' ? 'filter grayscale-[0.3]' : ''} ${member.imgClass || ""}`}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className={`object-cover object-top ${member.name !== 'Garvit' ? 'filter grayscale-[0.3]' : ''} ${member.imgClass || ""}`}
+            loading="lazy"
           />
           <div className="absolute top-0 right-0 h-[60%] w-12 bg-gradient-to-b from-black/90 to-transparent flex flex-col items-center pt-6 z-10">
             <span className="text-[#ffff00] font-mono text-[10px] uppercase tracking-[0.3em] font-bold" style={{ writingMode: 'vertical-rl' }}>
