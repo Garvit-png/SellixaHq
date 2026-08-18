@@ -1,53 +1,108 @@
-import { Sparkles } from "lucide-react";
-import MagneticButton from "./MagneticButton";
+import { Sparkles, Instagram, Mail, Phone } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-glass-border mt-32 py-20 bg-bg-primary relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 hidden md:block rounded-full blur-[100px] pointer-events-none" />
+    <footer className="border-t border-white/10 py-20 bg-[#050505] relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ffff00]/5 hidden md:block rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between gap-12 mb-20">
-          <div className="max-w-xs">
-            <div className="flex items-center gap-2 text-xl font-heading font-bold mb-4">
-              <div className="w-6 h-6 rounded-md bg-accent flex items-center justify-center text-black">
-                <Sparkles size={14} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-2 text-2xl font-serif font-bold mb-4 text-white">
+              <div className="w-8 h-8 rounded-md bg-[#ffff00] flex items-center justify-center text-black">
+                <Sparkles size={18} />
               </div>
-              Aura
+              Sellixa
             </div>
-            <p className="text-text-muted text-sm">
-              Crafting digital masterpieces. A world-class platform built for visionaries.
+            <p className="text-white/60 text-sm mb-6">
+              We help creators and professionals monetize their expertise through premium digital products and sales funnels.
             </p>
+            
+            {/* Contact Info */}
+            <div className="space-y-2 text-sm">
+              <a href="mailto:hello@sellixa.com" className="flex items-center gap-2 text-white/60 hover:text-[#ffff00] transition-colors">
+                <Mail size={16} />
+                hello@sellixa.com
+              </a>
+              <a href="tel:+911234567890" className="flex items-center gap-2 text-white/60 hover:text-[#ffff00] transition-colors">
+                <Phone size={16} />
+                +91 [Your Phone]
+              </a>
+            </div>
           </div>
           
-          <div className="flex gap-16 flex-wrap">
-            <div className="flex flex-col gap-4">
-              <h4 className="font-heading font-medium text-text-primary">Product</h4>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Features</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Integrations</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Pricing</a>
+          {/* Services */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-serif font-semibold text-white">Services</h4>
+            <Link href="#what-we-build" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Offer Creation</Link>
+            <Link href="#what-we-build" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Funnel Building</Link>
+            <Link href="#what-we-build" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Website Development</Link>
+            <Link href="#what-we-build" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Launch Strategy</Link>
+            <Link href="#what-we-build" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Consulting</Link>
+          </div>
+          
+          {/* Company */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-serif font-semibold text-white">Company</h4>
+            <Link href="#about" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">About Us</Link>
+            <Link href="#portfolio" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Success Stories</Link>
+            <Link href="#our-team" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Our Team</Link>
+            <Link href="/contact" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Contact</Link>
+            <Link href="#calendly" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Book a Call</Link>
+          </div>
+          
+          {/* Legal */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-serif font-semibold text-white">Legal</h4>
+            <Link href="/privacy-policy" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Privacy Policy</Link>
+            <Link href="/terms" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Terms &amp; Conditions</Link>
+            <Link href="/refund-policy" className="text-white/60 hover:text-[#ffff00] transition-colors text-sm">Refund Policy</Link>
+          </div>
+        </div>
+
+        {/* Business Details Section */}
+        <div className="mb-12 pb-8 border-b border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
+            <div>
+              <h5 className="text-white/80 font-semibold mb-2">Registered Office</h5>
+              <p className="text-white/40 leading-relaxed">
+                {/* ADD YOUR BUSINESS ADDRESS */}
+                [Your Business Name]<br />
+                [Street Address]<br />
+                [City, State - PIN]<br />
+                India
+              </p>
             </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="font-heading font-medium text-text-primary">Company</h4>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">About</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Careers</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Contact</a>
+            <div>
+              <h5 className="text-white/80 font-semibold mb-2">Business Details</h5>
+              <p className="text-white/40">
+                GST: [Your GSTIN]<br />
+                PAN: [Your PAN]
+              </p>
             </div>
-            <div className="flex flex-col gap-4">
-              <h4 className="font-heading font-medium text-text-primary">Legal</h4>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Privacy Policy</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors text-sm">Terms of Service</a>
+            <div>
+              <h5 className="text-white/80 font-semibold mb-2">Follow Us</h5>
+              <a 
+                href="https://www.instagram.com/sellixahq/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-white/60 hover:text-[#ffff00] transition-colors"
+              >
+                <Instagram size={18} />
+                @sellixahq
+              </a>
             </div>
           </div>
         </div>
         
-        <div className="pt-8 border-t border-glass-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-muted">
-          <p>&copy; {new Date().getFullYear()} Aura Inc. All rights reserved.</p>
-          <div className="flex gap-6">
-            <MagneticButton variant="secondary" className="p-2 h-auto w-auto px-4 py-2 text-xs" strength={10}>X</MagneticButton>
-            <MagneticButton variant="secondary" className="p-2 h-auto w-auto px-4 py-2 text-xs" strength={10}>GH</MagneticButton>
-            <MagneticButton variant="secondary" className="p-2 h-auto w-auto px-4 py-2 text-xs" strength={10}>LI</MagneticButton>
-          </div>
+        {/* Copyright */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
+          <p>&copy; {new Date().getFullYear()} Sellixa. All rights reserved.</p>
+          <p className="text-xs">
+            Made with passion for creators who want to scale 🚀
+          </p>
         </div>
       </div>
     </footer>

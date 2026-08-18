@@ -48,10 +48,12 @@ export function FooterSection() {
           </div>
 
           {/* Legal Links */}
-          <div className="flex items-center gap-4 text-[#ffff00]/50 font-mono text-[10px] uppercase tracking-widest">
-            <a href="#" className="hover:text-[#ffff00] transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-[#ffff00] transition-colors">Terms & Conditions</a>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 justify-center md:justify-end">
+            <a href="/privacy-policy" suppressHydrationWarning className="legal-shimmer font-mono text-[11px] uppercase tracking-widest transition-colors">Privacy Policy</a>
+            <span className="text-[#ffff00]/30">•</span>
+            <a href="/terms" suppressHydrationWarning className="legal-shimmer font-mono text-[11px] uppercase tracking-widest transition-colors">Terms &amp; Conditions</a>
+            <span className="text-[#ffff00]/30">•</span>
+            <a href="/refund-policy" suppressHydrationWarning className="legal-shimmer font-mono text-[11px] uppercase tracking-widest transition-colors">Refund Policy</a>
           </div>
         </div>
 

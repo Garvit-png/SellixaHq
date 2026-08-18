@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { PageLoader } from "@/components/PageLoader";
+import { WhatsAppWidget } from "@/components/WhatsAppWidget";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -54,6 +56,8 @@ export default function RootLayout({
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
         <NoiseOverlay />
         <PageLoader />
+        <WhatsAppWidget phoneNumber="919876543210" />
+        <CookieConsent />
         <main className="flex-grow">{children}</main>
       </body>
     </html>

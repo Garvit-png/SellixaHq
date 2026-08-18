@@ -9,7 +9,7 @@ const successStories = [
     image: '/placeholder-isha.jpeg' // Insert Isha's photo here
   },
   { 
-    link: '#', 
+    link: '/contact', // Changed from # to contact page
     text: 'Ashish Chhipa — 180% Revenue Boost', 
     image: '/placeholder-ashish.jpeg' // Insert Ashish's photo here
   },
@@ -24,7 +24,7 @@ const successStories = [
     image: '/placeholder-poonam.jpeg' // Insert Poonam's photo here
   },
   { 
-    link: '#', 
+    link: '/contact', // Changed from # to contact page
     text: 'Kush Adhana — 310% Expansion', 
     image: '/placeholder-kush.jpeg' // Insert Kush's photo here
   }

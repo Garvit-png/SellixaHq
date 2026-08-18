@@ -165,6 +165,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
       <a
         className="menu__item-link"
         href={link}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ color: textColor }}
