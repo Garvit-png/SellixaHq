@@ -27,7 +27,7 @@ const team = [
     linkedin: "https://www.linkedin.com/company/sellixahq/"
   },
   {
-    name: "Hriday",
+    name: "Hridey",
     role: "CHIEF OF OPERATIONS",
     image: "/hridya2.png",
     bio: "Makes complex operations feel simple. If there's a faster way to do it, he's probably already built it.",
