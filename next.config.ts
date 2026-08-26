@@ -1,8 +1,14 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   // Compress responses
   compress: true,
+
+  // Fix Turbopack root detection warning
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
 
   // Image optimization — serve AVIF/WebP, cache aggressively
   images: {

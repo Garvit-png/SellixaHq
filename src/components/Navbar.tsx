@@ -49,8 +49,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 pointer-events-none ${!hidden && scrolled ? "py-4 backdrop-blur-md bg-white/5" : "py-6"}`}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between relative">
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 pointer-events-none ${!hidden && scrolled ? "py-2 md:py-4 backdrop-blur-md bg-white/5" : "py-3 md:py-6"}`}>
+        <div className="max-w-[1400px] mx-auto px-4 md:px-12 py-2 md:py-4 flex items-center justify-between relative">
 
           {/* LOGO */}
           <div className={`flex flex-col items-start cursor-default z-20 pointer-events-auto ${isDarkBg ? "text-white" : "text-black"}`}>
