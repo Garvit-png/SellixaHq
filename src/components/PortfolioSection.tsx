@@ -6,27 +6,27 @@ const successStories = [
   { 
     link: 'https://www.instagram.com/ishadhankhar21/', 
     text: 'Isha Dhankhar — 240% Growth', 
-    image: '/placeholder-isha.jpeg' // Insert Isha's photo here
+    image: '/client_isha.png'
   },
   { 
-    link: '/contact', // Changed from # to contact page
+    link: '/contact',
     text: 'Ashish Chhipa — 180% Revenue Boost', 
-    image: '/placeholder-ashish.jpeg' // Insert Ashish's photo here
+    image: '/group.jpg' // placeholder until Ashish photo is added
   },
   { 
     link: 'https://www.instagram.com/rohitfitpreneur/', 
     text: 'Rohit Sah — 275% Scale', 
-    image: '/rohit_sah.jpeg' // ✅ Rohit's photo already exists
+    image: '/rohit_sah.jpeg'
   },
   { 
     link: 'https://www.instagram.com/poonamchaudharyofficial/', 
     text: 'Poonam Chaudhary — 195% Growth', 
-    image: '/placeholder-poonam.jpeg' // Insert Poonam's photo here
+    image: '/group.jpg' // placeholder until Poonam photo is added
   },
   { 
-    link: '/contact', // Changed from # to contact page
+    link: '/contact',
     text: 'Kush Adhana — 310% Expansion', 
-    image: '/placeholder-kush.jpeg' // Insert Kush's photo here
+    image: '/kush_adhana.jpeg'
   }
 ];
 

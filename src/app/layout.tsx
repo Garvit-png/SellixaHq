@@ -3,6 +3,7 @@ import { Inter, Outfit, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClientProviders } from "@/components/ClientProviders";
+import { LoadingProvider } from "@/components/LoadingContext";
 
 const geist  = Geist({ subsets: ['latin'], variable: '--font-sans' });
 const inter  = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -25,8 +26,10 @@ export default function RootLayout({
     >
       <head />
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
-        <ClientProviders />
-        <main className="flex-grow">{children}</main>
+        <LoadingProvider>
+          <ClientProviders />
+          <main className="flex-grow">{children}</main>
+        </LoadingProvider>
       </body>
     </html>
   );

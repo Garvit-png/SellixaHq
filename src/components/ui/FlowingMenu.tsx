@@ -171,6 +171,13 @@ const MenuItem: React.FC<MenuItemProps> = ({
         onMouseLeave={handleMouseLeave}
         style={{ color: textColor }}
       >
+        {/* Photo thumbnail shown in the row alongside the text */}
+        <div
+          className="menu__item-photo"
+          style={{
+            backgroundImage: `url(${image})`,
+          }}
+        />
         {text}
       </a>
       <div className="marquee" ref={marqueeRef} style={{ backgroundColor: marqueeBgColor }}>

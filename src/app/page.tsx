@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import { HeroBottomButtons } from "@/components/HeroBottomButtons";
+import { useLoadingContext } from "@/components/LoadingContext";
 
 // Static fallback shown instantly while Three.js bundle loads — this becomes the LCP element
 function HeroFallback() {
@@ -43,8 +44,17 @@ const NewsletterSection     = dynamic(() => import("@/components/NewsletterSecti
 const FooterSection         = dynamic(() => import("@/components/FooterSection").then(m => ({ default: m.FooterSection })));
 
 export default function Home() {
+  const { isLoading } = useLoadingContext();
+
   return (
-    <main className="relative min-h-screen w-full overflow-x-clip bg-[#ffff00] flex flex-col items-center justify-center">
+    <main
+      className="relative min-h-screen w-full overflow-x-clip bg-[#ffff00] flex flex-col items-center justify-center"
+      style={{
+        // Hide content while loader is active; visibility:hidden keeps it in the
+        // render tree so all chunks and resources preload during the bar animation.
+        visibility: isLoading ? "hidden" : "visible",
+      }}
+    >
       <Navbar />
       <div id="main-scroll-container" className="relative z-40 w-full flex flex-col text-text-primary">
 

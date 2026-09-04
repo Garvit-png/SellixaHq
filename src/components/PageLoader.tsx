@@ -1,37 +1,46 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLoadingContext } from "./LoadingContext";
+
+// Must match the CSS animation duration in globals.css (.ow-hp-loader__fill)
+const BAR_DURATION_MS = 3000;
+// Extra buffer after the bar finishes before we start fading
+const POST_BAR_BUFFER_MS = 100;
+// Fade-out transition duration (matches the inline transition below)
+const FADE_DURATION_MS = 600;
 
 export function PageLoader() {
   const [visible, setVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { onLoaderDone } = useLoadingContext();
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
-    let resolved = false;
 
-    const tryFadeOut = () => {
-      if (resolved) return;
-      resolved = true;
+    // Promise that resolves once the DOM is interactive
+    const domReady = new Promise<void>((resolve) => {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => resolve(), { once: true });
+      } else {
+        resolve();
+      }
+    });
+
+    // Promise that resolves after the bar animation completes
+    const barTimer = new Promise<void>((resolve) =>
+      setTimeout(resolve, BAR_DURATION_MS + POST_BAR_BUFFER_MS)
+    );
+
+    // Wait for BOTH — whichever is later wins, so the bar always plays fully
+    // and the DOM is guaranteed ready when we dismiss.
+    Promise.all([domReady, barTimer]).then(() => {
       setFadeOut(true);
-      setTimeout(() => setVisible(false), 600);
-    };
-
-    // Use DOMContentLoaded (DOM parsed + JS ready) NOT window.load
-    // window.load waits for ALL resources including videos — that's the LCP killer.
-    // DOMContentLoaded fires as soon as the DOM is interactive, usually <1s.
-    // We add a 300ms buffer to let first paint settle.
-    const BUFFER_MS = 300;
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(tryFadeOut, BUFFER_MS);
-      }, { once: true });
-    } else {
-      // readyState is "interactive" or "complete" — DOM is already ready
-      setTimeout(tryFadeOut, BUFFER_MS);
-    }
+      // Signal the rest of the page to render immediately as fade begins
+      onLoaderDone();
+      setTimeout(() => setVisible(false), FADE_DURATION_MS);
+    });
   }, []);
 
   if (!visible) return null;

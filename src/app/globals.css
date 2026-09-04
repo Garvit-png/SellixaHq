@@ -440,6 +440,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: clamp(12px, 2vw, 28px);
   height: 100%;
   position: relative;
   cursor: pointer;
@@ -449,6 +450,24 @@
   font-weight: 600;
   font-size: clamp(2rem, 4vh, 4rem);
   transition: color 0.3s ease;
+}
+
+/* Circular photo thumbnail shown inside each row */
+.menu__item-photo {
+  flex-shrink: 0;
+  width: clamp(48px, 6vh, 72px);
+  height: clamp(48px, 6vh, 72px);
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
+  border: 2px solid rgba(255, 255, 0, 0.5);
+  transition: transform 0.4s cubic-bezier(0.25, 0, 0.2, 1), border-color 0.3s ease;
+  pointer-events: none;
+}
+
+.menu__item-link:hover .menu__item-photo {
+  transform: scale(1.12);
+  border-color: #ffff00;
 }
 
 .menu__item-link:hover {
@@ -513,6 +532,12 @@
 @media (max-width: 768px) {
   .menu__item-link {
     font-size: clamp(1.5rem, 3vh, 3rem);
+    gap: clamp(8px, 1.5vw, 16px);
+  }
+  
+  .menu__item-photo {
+    width: clamp(36px, 5vh, 52px);
+    height: clamp(36px, 5vh, 52px);
   }
   
   .marquee span {

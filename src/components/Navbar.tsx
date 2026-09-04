@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import MagneticButton from "./MagneticButton";
 
 const navItems = [
@@ -82,8 +82,20 @@ export default function Navbar() {
             </ul>
           </div>
 
-          {/* APPLY BUTTON */}
-          <div className="hidden md:block z-20 pointer-events-auto">
+          {/* DESKTOP RIGHT — Brochure + Apply */}
+          <div className="hidden md:flex items-center gap-3 z-20 pointer-events-auto">
+            <a
+              href="/Brochure sellixa.pdf"
+              download="Sellixa Brochure.pdf"
+              className={`flex items-center gap-1.5 px-5 py-2 text-sm rounded-full font-medium border-2 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
+                isDarkBg
+                  ? "border-white/40 text-white hover:bg-white hover:text-black hover:border-white"
+                  : "border-black/30 text-black hover:bg-black hover:text-white hover:border-black"
+              }`}
+            >
+              <Download size={13} strokeWidth={2.5} />
+              Brochure
+            </a>
             <MagneticButton
               variant="secondary"
               onClick={() => scrollTo("launch")}
@@ -136,6 +148,17 @@ export default function Navbar() {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/Brochure sellixa.pdf"
+                  download="Sellixa Brochure.pdf"
+                  className="inline-flex items-center gap-2 text-[#ffff00] hover:text-white transition-colors text-2xl font-serif"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Download size={20} strokeWidth={2} />
+                  Brochure
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}
