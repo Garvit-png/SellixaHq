@@ -85,7 +85,7 @@ export default function Navbar() {
           {/* DESKTOP RIGHT — Brochure + Apply */}
           <div className="hidden md:flex items-center gap-3 z-20 pointer-events-auto">
             <a
-              href="/Brochure sellixa.pdf"
+              href="/sellixa_bro.pdf"
               download="Sellixa Brochure.pdf"
               className={`flex items-center gap-1.5 px-5 py-2 text-sm rounded-full font-medium border-2 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
                 isDarkBg
