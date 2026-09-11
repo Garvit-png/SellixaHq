@@ -113,7 +113,23 @@ function CrowdCanvas({ src, rows = 15, cols = 7 }: { src: string; rows?: number;
       while (availablePeeps.length) addPeepToCrowd().walk.progress(Math.random());
     };
 
-    img.onload = () => { createPeeps(); resize(); gsap.ticker.add(render); };
+    img.onload = () => { 
+      createPeeps(); 
+      resize(); 
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          gsap.ticker.add(render);
+        } else {
+          gsap.ticker.remove(render);
+        }
+      }, { threshold: 0 });
+      
+      if (canvas) observer.observe(canvas);
+      
+      // Cleanup observer on unmount
+      (canvas as any)._observer = observer;
+    };
     img.src = src;
 
     const onResize = () => resize();
@@ -121,6 +137,9 @@ function CrowdCanvas({ src, rows = 15, cols = 7 }: { src: string; rows?: number;
     return () => {
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(render);
+      if (canvas && (canvas as any)._observer) {
+        (canvas as any)._observer.disconnect();
+      }
       crowd.forEach((p) => p.walk?.kill());
     };
   }, [src, rows, cols]);

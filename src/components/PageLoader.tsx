@@ -19,12 +19,12 @@ export function PageLoader() {
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
 
-    // Promise that resolves once the DOM is interactive
-    const domReady = new Promise<void>((resolve) => {
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => resolve(), { once: true });
-      } else {
+    // Promise that resolves once all resources (images, chunks, fonts) are fully loaded
+    const fullyLoaded = new Promise<void>((resolve) => {
+      if (document.readyState === "complete") {
         resolve();
+      } else {
+        window.addEventListener("load", () => resolve(), { once: true });
       }
     });
 
@@ -35,7 +35,7 @@ export function PageLoader() {
 
     // Wait for BOTH — whichever is later wins, so the bar always plays fully
     // and the DOM is guaranteed ready when we dismiss.
-    Promise.all([domReady, barTimer]).then(() => {
+    Promise.all([fullyLoaded, barTimer]).then(() => {
       setFadeOut(true);
       // Signal the rest of the page to render immediately as fade begins
       onLoaderDone();

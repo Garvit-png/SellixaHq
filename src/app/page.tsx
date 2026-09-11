@@ -50,9 +50,10 @@ export default function Home() {
     <main
       className="relative min-h-screen w-full overflow-x-clip bg-[#ffff00] flex flex-col items-center justify-center"
       style={{
-        // Hide content while loader is active; visibility:hidden keeps it in the
-        // render tree so all chunks and resources preload during the bar animation.
-        visibility: isLoading ? "hidden" : "visible",
+        // Use opacity instead of visibility so the browser actually calculates layout,
+        // renders components, and compiles WebGL shaders in the background.
+        // If we used visibility: hidden, it would skip rendering and lag when shown.
+        opacity: isLoading ? 0 : 1,
       }}
     >
       <Navbar />
