@@ -13,12 +13,23 @@ export function NewsletterSection() {
   };
 
   return (
-    <section className="w-full min-h-screen flex flex-col justify-center items-center bg-[#050505] relative z-20 border-t border-white/5 px-4 md:px-12 lg:px-20 pt-32">
+    <section className="w-full flex flex-col justify-center items-center bg-[#050505] relative z-20 border-t border-white/5 px-4 md:px-12 lg:px-20 py-28 md:py-36">
 
       {/* Big full-width title */}
       <FadeUp delay={0.05}>
-        <h2 className="text-[#ffff00] font-serif font-extrabold leading-[0.95] tracking-tight w-full text-center text-[10vw] md:text-[7vw] lg:text-[6.5vw]">
-          Join the <em>Inner Circle.</em>
+        <h2
+          className="font-serif font-black whitespace-nowrap text-center leading-none tracking-[-0.02em] w-full"
+          style={{
+            fontSize: "clamp(2.4rem, 6.5vw, 7rem)",
+            background: "linear-gradient(135deg, #ffff00 30%, #ffe033 60%, #fff7a0 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: "drop-shadow(0 0 32px rgba(255,255,0,0.18))",
+          }}
+        >
+          Join the{" "}
+          <em className="not-italic" style={{ fontStyle: "oblique 12deg" }}>Inner Circle.</em>
         </h2>
       </FadeUp>
 
