@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClientProviders } from "@/components/ClientProviders";
 import { LoadingProvider } from "@/components/LoadingContext";
+import { SmoothScrolling } from "@/components/SmoothScrolling";
 
 const geist  = Geist({ subsets: ['latin'], variable: '--font-sans' });
 const inter  = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -22,13 +23,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("scroll-smooth antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
     >
       <head />
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
         <LoadingProvider>
-          <ClientProviders />
-          <main className="flex-grow">{children}</main>
+          <SmoothScrolling>
+            <ClientProviders />
+            <main className="flex-grow">{children}</main>
+          </SmoothScrolling>
         </LoadingProvider>
       </body>
     </html>
