@@ -8,14 +8,34 @@ interface LazyVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
 
 export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const sourceRef = useRef<HTMLSourceElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Mark as mounted so we can safely manipulate the DOM
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
+        if (entry.isIntersecting && sourceRef.current && videoRef.current) {
+          // Set src imperatively to avoid any React re-render diffing issues
+          sourceRef.current.src = src;
+          videoRef.current.load();
           observer.disconnect();
+
+          if (props.autoPlay) {
+            const playPromise = videoRef.current.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((error) => {
+                // Autoplay policy might block it if not muted, but our videos are muted
+                console.warn("Video autoplay prevented:", error);
+              });
+            }
+          }
         }
       },
       {
@@ -30,32 +50,19 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
     return () => {
       observer.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    if (shouldLoad && videoRef.current && props.autoPlay) {
-      // Some mobile browsers need a direct play call when src is set dynamically
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // Autoplay policy might block it if not muted, but our videos are muted
-          console.warn("Video autoplay prevented:", error);
-        });
-      }
-    }
-  }, [shouldLoad, props.autoPlay]);
+  }, [mounted, src, props.autoPlay]);
 
   return (
     <div suppressHydrationWarning className="contents">
       <video
         ref={videoRef}
         className={className}
-        preload={shouldLoad ? "auto" : "none"}
+        preload="none"
         suppressHydrationWarning
-        // We still pass autoPlay because React needs it for muted autoplay on iOS
         {...props}
       >
-        {shouldLoad && <source src={src} type="video/mp4" />}
+        {/* Always render <source> with no src — set imperatively after intersection to keep SSR/client tree identical */}
+        <source ref={sourceRef} type="video/mp4" />
       </video>
     </div>
   );
