@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
+import { InlineWidget } from "react-calendly";
 
 export function CalendlySection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,9 +22,9 @@ export function CalendlySection() {
   return (
     <section 
       id="schedule" 
-      className="relative w-full min-h-screen flex flex-col items-center justify-center bg-[#ffff00] py-32 overflow-hidden"
+      className="relative w-full flex flex-col items-center justify-center bg-[#ffff00] py-24 md:py-32 overflow-hidden"
     >
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto w-full mt-12 md:mt-24">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 max-w-5xl mx-auto w-full mt-8 md:mt-16">
         
         {/* Section Header */}
         <motion.div 
@@ -46,7 +47,7 @@ export function CalendlySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-tight leading-[1.05] mb-16 text-black"
+          className="text-5xl sm:text-6xl md:text-7xl font-serif font-light tracking-tight leading-[1.05] mb-12 md:mb-16 text-black"
         >
           <span className="text-black">Schedule it </span>
           <span className="italic text-black font-bold">right here.</span>
@@ -62,7 +63,7 @@ export function CalendlySection() {
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
-          className="relative w-full max-w-4xl h-[700px] rounded-[32px] p-[2px] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.3)]"
+          className="relative w-full max-w-4xl h-[950px] sm:h-[800px] md:h-[750px] rounded-[32px] p-[2px] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.3)]"
         >
           {/* Default Border (Subtle) */}
           <div className="absolute inset-0 bg-black/10 rounded-[32px] transition-opacity duration-300"></div>
@@ -77,18 +78,22 @@ export function CalendlySection() {
           />
 
           {/* Inner Container */}
-          <div className="relative w-full h-full bg-[#0A0A0B] rounded-[30px] overflow-hidden flex items-center justify-center p-8 md:p-16 border border-black/20">
+          <div className="relative w-full h-full bg-[#0A0A0B] rounded-[30px] overflow-hidden flex items-center justify-center p-4 sm:p-8 md:p-16 border border-black/20">
             {/* Soft inner glow */}
             <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(0,0,0,0.5)] pointer-events-none"></div>
             
-            <iframe
-              src="https://calendly.com/contact-sellixahq/30min?embed_domain=sellixahq.com&embed_type=Inline&hide_gdpr_banner=1&month=2026-07"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              className="w-full h-full max-w-3xl rounded-[16px] bg-white shadow-2xl"
-              title="Schedule a Meeting"
-            ></iframe>
+            <div className="w-full h-full max-w-3xl rounded-[16px] bg-white shadow-2xl overflow-hidden relative z-10">
+              <InlineWidget
+                url="https://calendly.com/contact-sellixahq/30min"
+                pageSettings={{
+                  hideGdprBanner: true,
+                }}
+                styles={{
+                  height: "100%",
+                  width: "100%",
+                }}
+              />
+            </div>
           </div>
         </motion.div>
         
