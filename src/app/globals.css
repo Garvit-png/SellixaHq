@@ -112,6 +112,7 @@
 
 .animate-grid {
   animation: grid 15s linear infinite;
+  will-change: transform;
 }
 
 @keyframes moveGrid {
@@ -571,6 +572,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer-sweep 2.5s linear infinite;
+  will-change: background-position;
 }
 
 .legal-shimmer:nth-child(3) { animation-delay: 0.8s; }

@@ -1,77 +1,89 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useSpring, useMotionValue, useTransform, animate } from "framer-motion";
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Smooth trailing spring for the outer ring
+  // Outer ring — spring-lagged position
   const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
 
+  // Inner dot — instant position, no spring
+  const dotX = useMotionValue(0);
+  const dotY = useMotionValue(0);
+
+  // Hover state as a motion value (0 = default, 1 = hovered)
+  // Using a motion value instead of React state eliminates re-renders entirely
+  const hoverProgress = useMotionValue(0);
+
+  const ringScale    = useTransform(hoverProgress, [0, 1], [1, 1.5]);
+  const ringBg       = useTransform(hoverProgress, [0, 1], ["rgba(255,255,255,0)", "rgba(255,255,255,1)"]);
+  const ringBorder   = useTransform(hoverProgress, [0, 1], [1, 0]);
+  const dotScale     = useTransform(hoverProgress, [0, 1], [1, 0]);
+  const dotOpacity   = useTransform(hoverProgress, [0, 1], [1, 0]);
+
+  const isHoveredRef = useRef(false);
+
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const onMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      dotX.set(e.clientX);
+      dotY.set(e.clientY);
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
+    const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
+      const hovered =
         target.tagName === "BUTTON" ||
         target.tagName === "A" ||
-        target.closest("button") ||
-        target.closest("a")
-      ) {
-        setIsHovered(true);
-      } else {
-        setIsHovered(false);
-      }
+        !!target.closest("button") ||
+        !!target.closest("a");
+
+      if (hovered === isHoveredRef.current) return; // no-op if unchanged
+      isHoveredRef.current = hovered;
+
+      animate(hoverProgress, hovered ? 1 : 0, { duration: 0.2 });
     };
 
-    window.addEventListener("mousemove", updateMousePosition);
-    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseover", onMouseOver);
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
-      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseover", onMouseOver);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, dotX, dotY, hoverProgress]);
 
   return (
     <>
       {/* Outer Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-black/30 dark:border-white/50 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
           x: cursorX,
           y: cursorY,
           translateX: "-50%",
           translateY: "-50%",
+          scale: ringScale,
+          backgroundColor: ringBg,
+          borderWidth: ringBorder,
+          borderStyle: "solid",
+          borderColor: "rgba(0,0,0,0.3)",
         }}
-        animate={{
-          scale: isHovered ? 1.5 : 1,
-          backgroundColor: isHovered ? "rgba(255,255,255,1)" : "rgba(255,255,255,0)",
-          borderWidth: isHovered ? "0px" : "1px",
-        }}
-        transition={{ duration: 0.2 }}
       />
       {/* Inner Dot */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-black dark:bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
-        animate={{
-          x: mousePosition.x,
-          y: mousePosition.y,
+        style={{
+          x: dotX,
+          y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          scale: isHovered ? 0 : 1,
-          opacity: isHovered ? 0 : 1,
+          scale: dotScale,
+          opacity: dotOpacity,
         }}
-        transition={{ duration: 0.1 }}
       />
     </>
   );

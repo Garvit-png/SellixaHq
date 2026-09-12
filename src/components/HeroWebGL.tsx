@@ -237,12 +237,36 @@ const HeroShaderMaterial = () => {
     const texture = new THREE.CanvasTexture(canvas);
     setTrailTexture(texture);
 
+    // Only add a new trail point if the cursor has moved at least MIN_DIST pixels
+    // from the last recorded point. This prevents pointsRef from growing unbounded
+    // during fast mouse movement and avoids redundant canvas redraws per frame.
+    const MIN_DIST = 8;
+    const MAX_POINTS = 40;
+
+    const shouldAddPoint = (x: number, y: number): boolean => {
+      const pts = pointsRef.current;
+      if (pts.length === 0) return true;
+      const last = pts[pts.length - 1];
+      const dx = x - last.x;
+      const dy = y - last.y;
+      return (dx * dx + dy * dy) >= MIN_DIST * MIN_DIST;
+    };
+
+    const addPoint = (x: number, y: number) => {
+      if (!shouldAddPoint(x, y)) return;
+      pointsRef.current.push({ x, y, age: 0 });
+      // Hard cap — drop oldest points if we exceed the limit
+      if (pointsRef.current.length > MAX_POINTS) {
+        pointsRef.current = pointsRef.current.slice(pointsRef.current.length - MAX_POINTS);
+      }
+    };
+
     const onMouseMove = (e: MouseEvent) => {
-      pointsRef.current.push({ x: e.clientX, y: e.clientY, age: 0 });
+      addPoint(e.clientX, e.clientY);
     };
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        pointsRef.current.push({ x: e.touches[0].clientX, y: e.touches[0].clientY, age: 0 });
+        addPoint(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
     window.addEventListener("mousemove", onMouseMove);

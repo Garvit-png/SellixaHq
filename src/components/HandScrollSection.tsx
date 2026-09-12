@@ -60,6 +60,7 @@ export function HandScrollSection() {
             xmlns="http://www.w3.org/2000/svg"
             animate={{ x: ["-50%", "0%"] }}
             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            style={{ willChange: "transform" }}
           >
             <path d="M 0,300 C 250,600 750,0 1000,300 C 1250,600 1750,0 2000,300" stroke="#ffff00" strokeWidth="3.5" strokeLinecap="round" opacity="1" style={{ filter: "drop-shadow(0px 0px 10px rgba(255, 255, 0, 0.2))" }} />
             <path d="M 0,500 C 125,700 375,300 500,500 C 625,700 875,300 1000,500 C 1125,700 1375,300 1500,500 C 1625,700 1875,300 2000,500" stroke="#ffff00" strokeWidth="2" strokeLinecap="round" opacity="0.8" style={{ filter: "drop-shadow(0px 0px 8px rgba(255, 255, 0, 0.15))" }} />
