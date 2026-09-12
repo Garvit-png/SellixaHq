@@ -44,6 +44,63 @@ const nextConfig: NextConfig = {
       "./node_modules/@tensorflow/**",
     ],
   },
+
+  // Aggressive HTTP caching for static assets served from /public/
+  // /_next/static/ already gets immutable headers from Next.js by default
+  async headers() {
+    return [
+      // JS/CSS chunks — immutable (content-hashed filenames, safe to cache forever)
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // Videos — 7 days, serve stale while revalidating in background
+      {
+        source: "/:path*.mp4",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      // Images — 30 days
+      {
+        source: "/:path*.(jpg|jpeg|png|webp|avif|gif|svg|ico)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      // Fonts — immutable (filenames are hashed)
+      {
+        source: "/:path*.(woff|woff2|ttf|otf)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // PDFs — 1 day
+      {
+        source: "/:path*.pdf",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

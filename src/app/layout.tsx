@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Geist } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClientProviders } from "@/components/ClientProviders";
 import { LoadingProvider } from "@/components/LoadingContext";
 
-const geist  = Geist({ subsets: ['latin'], variable: '--font-sans' });
-const inter  = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const outfit = Outfit({ variable: "--font-heading", subsets: ["latin"] });
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: "SELLIXA | We Build Startups Fast",
@@ -22,7 +20,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("antialiased", inter.variable, outfit.variable, "font-sans", geist.variable)}
+      className={cn("antialiased font-sans", geist.variable)}
     >
       <head />
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
