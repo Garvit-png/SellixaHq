@@ -98,14 +98,14 @@ export default function Navbar() {
             </a>
             <MagneticButton
               variant="secondary"
-              onClick={() => scrollTo("launch")}
+              onClick={() => window.location.href = "/join"}
               className={`px-6 py-2 text-sm rounded-full font-medium border-2 border-transparent transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
                 isDarkBg
                   ? "bg-white text-black hover:bg-black hover:text-white hover:border-white"
                   : "bg-black text-white hover:bg-white hover:text-black hover:border-black"
               }`}
             >
-              Apply
+              Join Sellixa
             </MagneticButton>
           </div>
 

@@ -11,7 +11,6 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
   const sourceRef = useRef<HTMLSourceElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Mark as mounted so we can safely manipulate the DOM
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -22,7 +21,6 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && sourceRef.current && videoRef.current) {
-          // Set src imperatively to avoid any React re-render diffing issues
           sourceRef.current.src = src;
           videoRef.current.load();
           observer.disconnect();
@@ -31,16 +29,13 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
             const playPromise = videoRef.current.play();
             if (playPromise !== undefined) {
               playPromise.catch((error) => {
-                // Autoplay policy might block it if not muted, but our videos are muted
                 console.warn("Video autoplay prevented:", error);
               });
             }
           }
         }
       },
-      {
-        rootMargin: "400px", // Load when it's 400px away from viewport to ensure smooth playback when it enters
-      }
+      { rootMargin: "400px" }
     );
 
     if (videoRef.current) {
@@ -52,18 +47,20 @@ export function LazyVideo({ src, className, ...props }: LazyVideoProps) {
     };
   }, [mounted, src, props.autoPlay]);
 
+  // Render nothing on the server — a same-size placeholder keeps layout stable.
+  // This avoids any SSR/client tree mismatch for the video element.
+  if (!mounted) {
+    return <div className={className} aria-hidden="true" />;
+  }
+
   return (
-    <div suppressHydrationWarning className="contents">
-      <video
-        ref={videoRef}
-        className={className}
-        preload="none"
-        suppressHydrationWarning
-        {...props}
-      >
-        {/* Always render <source> with no src — set imperatively after intersection to keep SSR/client tree identical */}
-        <source ref={sourceRef} type="video/mp4" />
-      </video>
-    </div>
+    <video
+      ref={videoRef}
+      className={className}
+      preload="none"
+      {...props}
+    >
+      <source ref={sourceRef} type="video/mp4" />
+    </video>
   );
 }
