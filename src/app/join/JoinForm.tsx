@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useForm, ValidationError } from "@formspree/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
@@ -99,7 +98,9 @@ export default function JoinForm() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormData>(EMPTY);
   const [direction, setDirection] = useState(1);
-  const [formspreeState, submitToFormspree] = useForm("mbglglnn");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const set = <K extends keyof FormData>(key: K) =>
     (val: FormData[K]) => setForm((f) => ({ ...f, [key]: val }));
@@ -108,21 +109,38 @@ export default function JoinForm() {
   const goBack = () => { setDirection(-1); setStep((s) => s - 1); };
 
   const handleSubmit = async () => {
-    const payload = {
-      "Full Name": form.fullName, "Email": form.email, "Phone": form.phone,
-      "College": form.college, "Year": form.year, "Instagram": form.instagram,
-      "LinkedIn": form.linkedin, "Role": form.role,
-      "Skills": form.skills.join(", "),
-      "Prior Experience": form.priorExperience,
-      "Experience Details": form.experienceDetails,
-      "Portfolio": form.portfolio,
-      "Role Question Answer": form.roleAnswer,
-      "Hours Per Week": form.hoursPerWeek, "Start Date": form.startDate,
-      "Remote OK": form.remoteOk, "Why Sellixa": form.whySellixa,
-      "Skill to Develop": form.skillToDevelop,
-      "Why Select You": form.whySelectYou, "Ownership OK": form.ownershipOk,
-    };
-    await submitToFormspree(payload as unknown as React.FormEvent<HTMLFormElement>);
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/join-application", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "Full Name": form.fullName, "Email": form.email, "Phone": form.phone,
+          "College": form.college, "Year": form.year, "Instagram": form.instagram,
+          "LinkedIn": form.linkedin, "Role": form.role,
+          "Skills": form.skills.join(", "),
+          "Prior Experience": form.priorExperience,
+          "Experience Details": form.experienceDetails,
+          "Portfolio": form.portfolio,
+          "Role Question Answer": form.roleAnswer,
+          "Hours Per Week": form.hoursPerWeek,
+          "Start Date": form.startDate,
+          "Remote OK": form.remoteOk,
+          "Why Sellixa": form.whySellixa,
+          "Skill to Develop": form.skillToDevelop,
+          "Why Select You": form.whySelectYou,
+          "Ownership OK": form.ownershipOk,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) setSubmitted(true);
+      else setError("Something went wrong. Please try again.");
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const variants = {
@@ -131,7 +149,7 @@ export default function JoinForm() {
     exit:   (d: number) => ({ x: d * -60, opacity: 0 }),
   };
 
-  if (formspreeState.succeeded) return <SuccessScreen name={form.fullName} />;
+  if (submitted) return <SuccessScreen name={form.fullName} />;
 
   return (
     <main className="min-h-screen bg-[#ffff00] flex flex-col">
@@ -177,7 +195,7 @@ export default function JoinForm() {
             </AnimatePresence>
           </div>
 
-          <ValidationError errors={formspreeState.errors} className="mt-4 text-red-600 font-mono text-xs font-bold" />
+          {error && <p className="mt-4 text-red-600 font-mono text-xs font-bold tracking-wide">{error}</p>}
 
           <div className="flex items-center justify-between mt-10">
             {step > 0 ? (
@@ -191,9 +209,9 @@ export default function JoinForm() {
                 <span>Next</span><ArrowRight size={14} />
               </button>
             ) : (
-              <button onClick={handleSubmit} disabled={formspreeState.submitting}
+              <button onClick={handleSubmit} disabled={submitting}
                 className="flex items-center gap-2 bg-black text-[#ffff00] px-8 py-3 rounded-full font-mono text-xs tracking-widest uppercase font-black hover:bg-black/80 transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
-                {formspreeState.submitting
+                {submitting
                   ? <><Loader2 size={14} className="animate-spin" /><span>Submitting…</span></>
                   : <><span>Submit Application</span><ArrowRight size={14} /></>}
               </button>

@@ -1,93 +1,83 @@
 import { NextRequest } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { google } from "googleapis";
 
-const CSV_PATH = path.join(process.cwd(), "data", "applications.csv");
-
-const CSV_HEADERS = [
-  "Timestamp",
-  "Full Name",
-  "Email",
-  "Phone",
-  "College",
-  "Year",
-  "Instagram",
-  "LinkedIn",
-  "Role",
-  "Skills",
-  "Prior Experience",
-  "Experience Details",
-  "Portfolio",
-  "Role Question Answer",
-  "Hours Per Week",
-  "Start Date",
-  "Remote OK",
-  "Why Sellixa",
-  "Skill to Develop",
-  "Why Select You",
-  "Ownership Comfortable",
+const HEADERS = [
+  "Timestamp", "Full Name", "Email", "Phone", "College", "Year",
+  "Instagram", "LinkedIn", "Role", "Skills", "Prior Experience",
+  "Experience Details", "Portfolio", "Role Question Answer",
+  "Hours Per Week", "Start Date", "Remote OK", "Why Sellixa",
+  "Skill to Develop", "Why Select You", "Ownership OK",
 ];
 
-function escapeCsv(value: string | undefined): string {
-  const v = (value ?? "").toString().trim();
-  if (v.includes(",") || v.includes('"') || v.includes("\n")) {
-    return `"${v.replace(/"/g, '""')}"`;
-  }
-  return v;
+async function getSheet() {
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    },
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  const sheets = google.sheets({ version: "v4", auth });
+  return sheets;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const sheetId = process.env.GOOGLE_SHEET_ID!;
+    const sheets = await getSheet();
 
+    // Check if headers row exists — if sheet is empty, add headers first
+    const existing = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: "Sheet1!A1:A1",
+    });
+
+    if (!existing.data.values || existing.data.values.length === 0) {
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: sheetId,
+        range: "Sheet1!A1",
+        valueInputOption: "RAW",
+        requestBody: { values: [HEADERS] },
+      });
+    }
+
+    // Append the submission row
     const row = [
-      new Date().toISOString(),
-      body.fullName,
-      body.email,
-      body.phone,
-      body.college,
-      body.year,
-      body.instagram,
-      body.linkedin,
-      body.role,
-      Array.isArray(body.skills) ? body.skills.join("; ") : body.skills,
-      body.priorExperience,
-      body.experienceDetails,
-      body.portfolio,
-      body.roleAnswer,
-      body.hoursPerWeek,
-      body.startDate,
-      body.remoteOk,
-      body.whySellixa,
-      body.skillToDevelop,
-      body.whySelectYou,
-      body.ownershipOk,
-    ]
-      .map(escapeCsv)
-      .join(",");
+      new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+      body["Full Name"] ?? "",
+      body["Email"] ?? "",
+      body["Phone"] ?? "",
+      body["College"] ?? "",
+      body["Year"] ?? "",
+      body["Instagram"] ?? "",
+      body["LinkedIn"] ?? "",
+      body["Role"] ?? "",
+      body["Skills"] ?? "",
+      body["Prior Experience"] ?? "",
+      body["Experience Details"] ?? "",
+      body["Portfolio"] ?? "",
+      body["Role Question Answer"] ?? "",
+      body["Hours Per Week"] ?? "",
+      body["Start Date"] ?? "",
+      body["Remote OK"] ?? "",
+      body["Why Sellixa"] ?? "",
+      body["Skill to Develop"] ?? "",
+      body["Why Select You"] ?? "",
+      body["Ownership OK"] ?? "",
+    ];
 
-    // Check if file exists — if not, write headers first
-    let fileExists = false;
-    try {
-      await fs.access(CSV_PATH);
-      fileExists = true;
-    } catch {
-      fileExists = false;
-    }
-
-    if (!fileExists) {
-      await fs.writeFile(
-        CSV_PATH,
-        CSV_HEADERS.map(escapeCsv).join(",") + "\n",
-        "utf-8"
-      );
-    }
-
-    await fs.appendFile(CSV_PATH, row + "\n", "utf-8");
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: sheetId,
+      range: "Sheet1!A1",
+      valueInputOption: "RAW",
+      requestBody: { values: [row] },
+    });
 
     return Response.json({ success: true });
   } catch (err) {
-    console.error("Join application error:", err);
+    console.error("Google Sheets error:", err);
     return Response.json({ success: false, error: "Server error" }, { status: 500 });
   }
 }

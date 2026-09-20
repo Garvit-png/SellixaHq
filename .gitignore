@@ -42,3 +42,10 @@ next-env.d.ts
 
 # application submissions
 /data/
+
+# google service account key
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!components.json
