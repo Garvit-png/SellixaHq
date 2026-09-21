@@ -135,7 +135,7 @@ export default function JoinForm() {
       });
       const data = await res.json();
       if (data.success) setSubmitted(true);
-      else setError("Something went wrong. Please try again.");
+      else setError(data.error ?? "Something went wrong. Please try again.");
     } catch {
       setError("Network error. Please try again.");
     } finally {

@@ -159,6 +159,15 @@ export default function Navbar() {
                   Brochure
                 </a>
               </li>
+              <li>
+                <a
+                  href="/join"
+                  className="inline-flex items-center justify-center bg-[#ffff00] text-black px-8 py-3 rounded-full font-mono font-black text-sm tracking-widest uppercase hover:bg-white transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Join Sellixa
+                </a>
+              </li>
             </ul>
           </motion.div>
         )}

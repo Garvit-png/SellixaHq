@@ -13,7 +13,7 @@ async function getSheet() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n").replace(/\\\\n/g, "\n"),
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
@@ -77,7 +77,8 @@ export async function POST(req: NextRequest) {
 
     return Response.json({ success: true });
   } catch (err) {
-    console.error("Google Sheets error:", err);
-    return Response.json({ success: false, error: "Server error" }, { status: 500 });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Google Sheets error:", message);
+    return Response.json({ success: false, error: message }, { status: 500 });
   }
 }
