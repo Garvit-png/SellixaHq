@@ -49,16 +49,7 @@ const nextConfig: NextConfig = {
   // /_next/static/ already gets immutable headers from Next.js by default
   async headers() {
     return [
-      // JS/CSS chunks — immutable (content-hashed filenames, safe to cache forever)
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
+      // Note: /_next/static/ is handled by Next.js automatically (immutable headers)
       // Videos — 7 days, serve stale while revalidating in background
       {
         source: "/:path*.mp4",

@@ -35,6 +35,10 @@ const steps = [
 export function HandScrollSection() {
   const isMobile = useMobile();
 
+  // useMobile() returns null until mounted — render nothing until we know the viewport.
+  // This is safe because HandScrollSection is loaded with { ssr: false } in page.tsx.
+  if (isMobile === null) return null;
+
   return (
     <section id="hand-process" className="w-full relative bg-black">
       {/* Paint spill transition */}

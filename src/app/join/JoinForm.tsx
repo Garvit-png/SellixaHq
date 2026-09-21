@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
@@ -22,6 +23,74 @@ const EMPTY: FormData = {
 };
 
 const STEPS = ["Basic Info", "Role & Skills", "Availability"] as const;
+
+// Photo config per step — slightly different tilt + tape angle per photo for a natural look
+const STEP_PHOTOS = [
+  { src: "/groupPhoto1.png", rotate: -3, tape: 12,  alt: "Sellixa team 1" },
+  { src: "/groupPhoto2.png", rotate:  4, tape: -8,  alt: "Sellixa team 2" },
+  { src: "/groupPhoto3.png", rotate: -2, tape:  6,  alt: "Sellixa team 3" },
+];
+
+/** Tape strip — a semi-transparent sticky-tape piece at the top-center of the photo */
+function TapeStrip({ angle }: { angle: number }) {
+  return (
+    <div
+      className="absolute -top-4 left-1/2 -translate-x-1/2 z-10"
+      style={{ transform: `translateX(-50%) rotate(${angle}deg)` }}
+    >
+      {/* Tape body */}
+      <div
+        className="w-16 h-7 rounded-sm"
+        style={{
+          background: "rgba(255,255,220,0.55)",
+          backdropFilter: "blur(2px)",
+          boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
+          border: "1px solid rgba(255,255,200,0.4)",
+        }}
+      />
+      {/* Subtle tape grain lines */}
+      <div
+        className="absolute inset-0 rounded-sm pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 4px)",
+        }}
+      />
+    </div>
+  );
+}
+
+/** Photo polaroid card shown beside each form step */
+function StepPhoto({ step }: { step: number }) {
+  const { src, rotate, tape, alt } = STEP_PHOTOS[step];
+  return (
+    <motion.div
+      key={step}
+      initial={{ opacity: 0, y: 24, rotate: rotate - 4 }}
+      animate={{ opacity: 1, y: 0, rotate }}
+      exit={{ opacity: 0, y: -16, rotate: rotate + 4 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="relative select-none"
+      style={{ filter: "drop-shadow(0 12px 28px rgba(0,0,0,0.22))" }}
+    >
+      <TapeStrip angle={tape} />
+      {/* Polaroid frame */}
+      <div className="bg-white p-2.5 pb-8 rounded-sm"
+        style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(0,0,0,0.06)" }}>
+        <div className="relative w-72 h-56 md:w-96 md:h-72 overflow-hidden rounded-[2px] bg-black/5">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 288px, 384px"
+            priority={step === 0}
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
@@ -167,56 +236,68 @@ export default function JoinForm() {
           transition={{ duration: 0.5, ease: "easeInOut" }} />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-start px-4 py-10 md:py-16">
-        <div className="w-full max-w-2xl">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-10 md:py-16">
+        {/* Two-column layout on desktop: form left, photo right */}
+        <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
 
-          <motion.div key={`label-${step}`} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 mb-8 flex-wrap">
-            {STEPS.map((s, i) => (
-              <div key={s} className="flex items-center gap-2">
-                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black transition-all duration-300 ${
-                  i < step ? "bg-black text-[#ffff00]" : i === step ? "bg-black text-[#ffff00] ring-4 ring-black/20" : "bg-black/10 text-black/40"
-                }`}>{i < step ? "✓" : i + 1}</div>
-                <span className={`font-mono text-[10px] tracking-widest uppercase font-bold transition-colors duration-300 ${i === step ? "text-black" : "text-black/30"}`}>{s}</span>
-                {i < STEPS.length - 1 && <div className="w-6 h-px bg-black/20 mx-1" />}
-              </div>
-            ))}
-          </motion.div>
+          {/* ── Form column ── */}
+          <div className="w-full lg:flex-1 min-w-0">
+            <motion.div key={`label-${step}`} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2 mb-8 flex-wrap">
+              {STEPS.map((s, i) => (
+                <div key={s} className="flex items-center gap-2">
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black transition-all duration-300 ${
+                    i < step ? "bg-black text-[#ffff00]" : i === step ? "bg-black text-[#ffff00] ring-4 ring-black/20" : "bg-black/10 text-black/40"
+                  }`}>{i < step ? "✓" : i + 1}</div>
+                  <span className={`font-mono text-[10px] tracking-widest uppercase font-bold transition-colors duration-300 ${i === step ? "text-black" : "text-black/30"}`}>{s}</span>
+                  {i < STEPS.length - 1 && <div className="w-6 h-px bg-black/20 mx-1" />}
+                </div>
+              ))}
+            </motion.div>
 
-          <div className="overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div key={step} custom={direction} variants={variants}
-                initial="enter" animate="center" exit="exit"
-                transition={{ duration: 0.3, ease: "easeInOut" }}>
-                {step === 0 && <StepBasic form={form} set={set} />}
-                {step === 1 && <StepRole  form={form} set={set} />}
-                {step === 2 && <StepAvailability form={form} set={set} />}
-              </motion.div>
+            <div className="overflow-hidden">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div key={step} custom={direction} variants={variants}
+                  initial="enter" animate="center" exit="exit"
+                  transition={{ duration: 0.3, ease: "easeInOut" }}>
+                  {step === 0 && <StepBasic form={form} set={set} />}
+                  {step === 1 && <StepRole  form={form} set={set} />}
+                  {step === 2 && <StepAvailability form={form} set={set} />}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {error && <p className="mt-4 text-red-600 font-mono text-xs font-bold tracking-wide">{error}</p>}
+
+            <div className="flex items-center justify-between mt-10">
+              {step > 0 ? (
+                <button onClick={goBack} className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase font-bold text-black/50 hover:text-black transition-colors">
+                  <ArrowLeft size={14} /><span>Back</span>
+                </button>
+              ) : <div />}
+
+              {step < STEPS.length - 1 ? (
+                <button onClick={goNext} className="flex items-center gap-2 bg-black text-[#ffff00] px-8 py-3 rounded-full font-mono text-xs tracking-widest uppercase font-black hover:bg-black/80 transition-all duration-200 hover:scale-105 active:scale-95">
+                  <span>Next</span><ArrowRight size={14} />
+                </button>
+              ) : (
+                <button onClick={handleSubmit} disabled={submitting}
+                  className="flex items-center gap-2 bg-black text-[#ffff00] px-8 py-3 rounded-full font-mono text-xs tracking-widest uppercase font-black hover:bg-black/80 transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                  {submitting
+                    ? <><Loader2 size={14} className="animate-spin" /><span>Submitting…</span></>
+                    : <><span>Submit Application</span><ArrowRight size={14} /></>}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* ── Photo column (desktop only — hidden on mobile) ── */}
+          <div className="hidden lg:flex lg:w-80 xl:w-96 shrink-0 items-start justify-center pt-20">
+            <AnimatePresence mode="wait">
+              <StepPhoto step={step} />
             </AnimatePresence>
           </div>
 
-          {error && <p className="mt-4 text-red-600 font-mono text-xs font-bold tracking-wide">{error}</p>}
-
-          <div className="flex items-center justify-between mt-10">
-            {step > 0 ? (
-              <button onClick={goBack} className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase font-bold text-black/50 hover:text-black transition-colors">
-                <ArrowLeft size={14} /><span>Back</span>
-              </button>
-            ) : <div />}
-
-            {step < STEPS.length - 1 ? (
-              <button onClick={goNext} className="flex items-center gap-2 bg-black text-[#ffff00] px-8 py-3 rounded-full font-mono text-xs tracking-widest uppercase font-black hover:bg-black/80 transition-all duration-200 hover:scale-105 active:scale-95">
-                <span>Next</span><ArrowRight size={14} />
-              </button>
-            ) : (
-              <button onClick={handleSubmit} disabled={submitting}
-                className="flex items-center gap-2 bg-black text-[#ffff00] px-8 py-3 rounded-full font-mono text-xs tracking-widest uppercase font-black hover:bg-black/80 transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
-                {submitting
-                  ? <><Loader2 size={14} className="animate-spin" /><span>Submitting…</span></>
-                  : <><span>Submit Application</span><ArrowRight size={14} /></>}
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </main>
@@ -290,7 +371,7 @@ function StepRole({ form, set }: { form: FormData; set: <K extends keyof FormDat
 
 function StepAvailability({ form, set }: { form: FormData; set: <K extends keyof FormData>(k: K) => (v: FormData[K]) => void }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
         <h2 className="text-3xl md:text-5xl font-black text-black tracking-tighter leading-none mb-1">Are you ready?</h2>
         <p className="text-black/50 font-mono text-xs tracking-widest uppercase">Availability & Motivation</p>
@@ -307,17 +388,19 @@ function StepAvailability({ form, set }: { form: FormData; set: <K extends keyof
         <Label>Comfortable working remotely? *</Label>
         <RadioGroup options={["Yes", "No", "Hybrid Preferred"]} value={form.remoteOk} onChange={set("remoteOk") as (v: string) => void} />
       </div>
-      <div>
-        <Label>Why do you want to join Sellixa? *</Label>
-        <Textarea value={form.whySellixa} onChange={set("whySellixa")} placeholder="What draws you to Sellixa specifically…" />
-      </div>
-      <div>
-        <Label>One skill you want to develop *</Label>
-        <Textarea value={form.skillToDevelop} onChange={set("skillToDevelop")} rows={3} placeholder="e.g. building funnels, short-form editing…" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Label>Why do you want to join Sellixa? *</Label>
+          <Textarea value={form.whySellixa} onChange={set("whySellixa")} rows={3} placeholder="What draws you to Sellixa specifically…" />
+        </div>
+        <div>
+          <Label>One skill you want to develop *</Label>
+          <Textarea value={form.skillToDevelop} onChange={set("skillToDevelop")} rows={3} placeholder="e.g. building funnels, short-form editing…" />
+        </div>
       </div>
       <div>
         <Label>Why should we select you? *</Label>
-        <Textarea value={form.whySelectYou} onChange={set("whySelectYou")} placeholder="Make your case — be bold." />
+        <Textarea value={form.whySelectYou} onChange={set("whySelectYou")} rows={3} placeholder="Make your case — be bold." />
       </div>
       <div>
         <Label>Comfortable with ownership & deadlines? *</Label>

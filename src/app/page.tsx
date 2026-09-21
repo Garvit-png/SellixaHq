@@ -28,7 +28,7 @@ const PitchSection          = dynamic(() => import("@/components/PitchSection").
 const MarqueeSection        = dynamic(() => import("@/components/MarqueeSection").then(m => ({ default: m.MarqueeSection })));
 const AboutSection          = dynamic(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
 const StairsScrollSection   = dynamic(() => import("@/components/StairsScrollSection").then(m => ({ default: m.StairsScrollSection })));
-const HandScrollSection     = dynamic(() => import("@/components/HandScrollSection").then(m => ({ default: m.HandScrollSection })));
+const HandScrollSection     = dynamic(() => import("@/components/HandScrollSection").then(m => ({ default: m.HandScrollSection })), { ssr: false });
 const WhyChooseUsSection    = dynamic(() => import("@/components/WhyChooseUsSection").then(m => ({ default: m.WhyChooseUsSection })));
 const PortfolioSection      = dynamic(() => import("@/components/PortfolioSection").then(m => ({ default: m.PortfolioSection })));
 const TheDealSection        = dynamic(() => import("@/components/TheDealSection").then(m => ({ default: m.TheDealSection })));
