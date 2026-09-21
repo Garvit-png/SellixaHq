@@ -366,6 +366,11 @@ export function HeroWebGL() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef);
   const [isSimplified, setIsSimplified] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const checkConditions = () => {
@@ -383,7 +388,7 @@ export function HeroWebGL() {
     return () => window.removeEventListener("resize", checkConditions);
   }, []);
 
-  if (isSimplified) {
+  if (isMounted && isSimplified) {
     return (
       <div className="absolute inset-0 w-full h-full bg-[#ffff00] flex flex-col items-center justify-center overflow-hidden z-0">
         <h1 className="text-[18vw] font-black text-black tracking-tighter mb-10">SELLIXA</h1>

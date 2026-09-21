@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClientProviders } from "@/components/ClientProviders";
 import { LoadingProvider } from "@/components/LoadingContext";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="bg-white text-black min-h-screen flex flex-col font-sans overflow-x-clip selection:bg-accent selection:text-white">
         <LoadingProvider>
           <ClientProviders />
+          <ScrollToTop />
           <main className="flex-grow">{children}</main>
         </LoadingProvider>
       </body>

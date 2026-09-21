@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const NoiseOverlay   = dynamic(() => import("@/components/NoiseOverlay").then(m => ({ default: m.NoiseOverlay })), { ssr: false });
@@ -8,11 +9,14 @@ const WhatsAppWidget = dynamic(() => import("@/components/WhatsAppWidget").then(
 const CookieConsent  = dynamic(() => import("@/components/CookieConsent").then(m => ({ default: m.CookieConsent })), { ssr: false });
 
 export function ClientProviders() {
+  const pathname = usePathname();
+  const isJoinPage = pathname === "/join";
+
   return (
     <>
       <NoiseOverlay />
       <PageLoader />
-      <WhatsAppWidget phoneNumber="919876543210" />
+      {!isJoinPage && <WhatsAppWidget phoneNumber="919876543210" />}
       <CookieConsent />
     </>
   );

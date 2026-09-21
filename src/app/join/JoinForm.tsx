@@ -174,8 +174,8 @@ export default function JoinForm() {
   const set = <K extends keyof FormData>(key: K) =>
     (val: FormData[K]) => setForm((f) => ({ ...f, [key]: val }));
 
-  const goNext = () => { setDirection(1);  setStep((s) => s + 1); };
-  const goBack = () => { setDirection(-1); setStep((s) => s - 1); };
+  const goNext = () => { setDirection(1);  setStep((s) => s + 1); window.scrollTo(0, 0); };
+  const goBack = () => { setDirection(-1); setStep((s) => s - 1); window.scrollTo(0, 0); };
 
   const handleSubmit = async () => {
     setSubmitting(true);
