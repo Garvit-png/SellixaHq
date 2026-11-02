@@ -1,0 +1,905 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, X, Home, TrendingUp, Target, Users, DollarSign, Calendar, Layers, Award, Rocket } from "lucide-react";
+
+const slides = [
+  {
+    id: 1,
+    title: "Sellixa V2",
+    subtitle: "Talent-to-Venture Strategy",
+    description: "Evidence-based strategy report for transforming creators into successful business ventures",
+    icon: Rocket,
+    date: "Research Date: 28 October 2026"
+  },
+  {
+    id: 2,
+    title: "Executive Summary",
+    subtitle: "The Opportunity",
+    description: "The Indian creator economy is growing, but the real opportunity is more focused than headlines suggest.",
+    icon: TrendingUp,
+    keyPoints: [
+      { label: "Market Size", value: "₹3,000-3,500 Cr", sublabel: "Influencer marketing (2025)" },
+      { label: "Growth Rate", value: "~22% YoY", sublabel: "Per Kofluence report" },
+      { label: "Active Creators", value: "4M+", sublabel: "But only 0.2% monetize well" }
+    ]
+  },
+  {
+    id: 3,
+    title: "The Problem",
+    subtitle: "Current Market Gaps",
+    description: "Most creators struggle to monetize beyond brand deals. Platforms exist, but they focus on discovery, not execution.",
+    icon: Target,
+    problems: [
+      { issue: "No Product Launch Support", impact: "Creators can't build digital products alone" },
+      { issue: "Limited Brand Access", impact: "Small creators ignored by big platforms" },
+      { issue: "Missing Operators", impact: "No manufacturing/fulfillment network for products" },
+      { issue: "Capital Inaccessible", impact: "Funding locked for sub-mid tier creators" }
+    ]
+  },
+  {
+    id: 4,
+    title: "Our Solution",
+    subtitle: "Three Core Service Lines",
+    description: "A managed creator-business studio with three revenue streams",
+    icon: Layers,
+    services: [
+      { 
+        name: "Studio Launch", 
+        desc: "Turn audience into digital products (courses, ebooks, templates)",
+        margin: "55-70% margin",
+        features: ["Product validation", "Storefront setup", "Funnel creation", "Revenue share model"]
+      },
+      { 
+        name: "Brand Deals", 
+        desc: "Connect creators with MSMEs and D2C brands",
+        margin: "15-20% fee",
+        features: ["Creator matching", "Campaign management", "Reporting", "Payment handling"]
+      },
+      { 
+        name: "Ventures", 
+        desc: "Build consumer brands with validated demand",
+        margin: "Equity stake",
+        features: ["Operator network", "Manufacturing", "Retail strategy", "Brand building"]
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Target Customers",
+    subtitle: "Who We Serve",
+    description: "Focusing on underserved segments with real commercial intent",
+    icon: Users,
+    segments: [
+      { 
+        type: "Nano/Micro Creators", 
+        range: "10k-500k followers",
+        why: "Best first segment - many, reachable, need products",
+        priority: "HIGH"
+      },
+      { 
+        type: "MSMEs/D2C Brands", 
+        range: "₹50k-5L budgets",
+        why: "Real budgets for micro-creator collaborations",
+        priority: "HIGH"
+      },
+      { 
+        type: "Verified Operators", 
+        range: "Manufacturing & fulfillment",
+        why: "Partner network for product execution",
+        priority: "MEDIUM"
+      },
+      { 
+        type: "Mid/Large Creators", 
+        range: "500k+ followers",
+        why: "Have agencies already - later stage opportunity",
+        priority: "LOW"
+      }
+    ]
+  },
+  {
+    id: 6,
+    title: "Revenue Model",
+    subtitle: "Year 1 Base Case Projections",
+    description: "Conservative estimates based on 100 active creators by month 12",
+    icon: DollarSign,
+    revenue: [
+      { source: "Brand Deal Fees", desc: "90 deals @ ₹80k avg, 15% fee", amount: "₹10.8L" },
+      { source: "Studio Setup Fees", desc: "25 launches @ ₹35k each", amount: "₹8.75L" },
+      { source: "Product Revenue Share", desc: "₹60L GMV @ 25% share", amount: "₹15L" },
+      { source: "Venture Build Fees", desc: "1 pilot project", amount: "₹6L" },
+      { source: "Total Revenue", desc: "", amount: "₹40.6L", highlight: true }
+    ],
+    costs: [
+      { item: "Delivery Cost (~35%)", amount: "₹14.2L" },
+      { item: "Fixed Opex (Team + Tools)", amount: "₹48L" },
+      { item: "Year 1 Loss", amount: "-₹22L", highlight: true }
+    ]
+  },
+  {
+    id: 7,
+    title: "90-Day Launch Plan",
+    subtitle: "Experimental Validation Roadmap",
+    description: "Prove the model works before scaling. Clear gates at each phase.",
+    icon: Calendar,
+    phases: [
+      { 
+        phase: "Days 1-30",
+        title: "Interview & Sell",
+        goal: "Understand creator needs and secure first commitments",
+        activities: ["30 creator interviews", "15 brand discovery calls", "Legal templates finalized"],
+        target: "3 pre-paid launch commitments",
+        gate: "≥3 paying creators?"
+      },
+      { 
+        phase: "Days 31-60",
+        title: "Deliver & Learn",
+        goal: "Execute first projects and build case studies",
+        activities: ["5 product launches", "3 brand campaigns", "10 operator partnerships"],
+        target: "₹1.5L+ revenue booked",
+        gate: "≥50% contribution margin?"
+      },
+      { 
+        phase: "Days 61-90",
+        title: "Prove Repeat",
+        goal: "Validate repeat business and refine pricing",
+        activities: ["8 total paid deals", "2 case studies captured", "Pricing optimized"],
+        target: "25% repeat rate achieved",
+        gate: "Continue or pivot?"
+      }
+    ]
+  },
+  {
+    id: 8,
+    title: "Strategic Approach",
+    subtitle: "Stage-Gate Model",
+    description: "Start narrow, prove repeat revenue, then expand. Defer high-risk/low-return activities.",
+    icon: Award,
+    stages: [
+      { 
+        stage: "Stage 1 (Now)",
+        focus: "Studio Launch",
+        why: "Already doing it, fastest revenue, aligns incentives",
+        status: "ACTIVE",
+        color: "bg-green-500"
+      },
+      { 
+        stage: "Stage 2 (Month 2+)",
+        focus: "Brand Deals",
+        why: "Monetize same creator relationships, proven demand",
+        status: "READY",
+        color: "bg-yellow-500"
+      },
+      { 
+        stage: "Stage 3 (After repeat)",
+        focus: "Ventures",
+        why: "Only after validated demand and operator network",
+        status: "FUTURE",
+        color: "bg-blue-500"
+      },
+      { 
+        stage: "Deferred",
+        focus: "Capital Network",
+        why: "Regulated, slow, heavy ops load, defer entirely",
+        status: "ON HOLD",
+        color: "bg-gray-500"
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: "Competitive Landscape",
+    subtitle: "How We're Different",
+    description: "Discovery tools are crowded. Execution support for sub-mid creators is wide open.",
+    icon: TrendingUp,
+    competitors: [
+      { name: "Kofluence", model: "SaaS platform", revenue: "Series B ₹103 Cr", gap: "Discovery only, no execution" },
+      { name: "Monk-E", model: "Talent agency", revenue: "₹97.8 Cr FY24", gap: "Slow growth (2.2%), service-heavy" },
+      { name: "House of X", model: "Creator D2C", revenue: "₹6.5 Cr FY25", gap: "Closest comparable, creator-dependent" }
+    ],
+    advantages: [
+      "Focus on sub-mid creators (ignored by big platforms)",
+      "Bundled product + brand deals (not just one or the other)",
+      "Vetted operator network (no one else has this)",
+      "Vernacular + Tier 2-4 creators (growth segment)"
+    ]
+  },
+  {
+    id: 10,
+    title: "12-Month Success Metrics",
+    subtitle: "What Good Looks Like",
+    description: "Clear targets for Year 1. Break-even by Year 2.",
+    icon: Award,
+    targets: [
+      { metric: "100 Active Creators", sublabel: "End of Month 12" },
+      { metric: "25 Paying Brands", sublabel: "Recurring relationship" },
+      { metric: "₹40.6L Earned Revenue", sublabel: "Base case projection" },
+      { metric: "1 Venture Pilot", sublabel: "Validated demand test" },
+      { metric: "≥50% Contribution Margin", sublabel: "Unit economics proven" },
+      { metric: "≥25% Repeat Rate", sublabel: "Product-market fit signal" }
+    ]
+  },
+  {
+    id: 11,
+    title: "Risks & Mitigations",
+    subtitle: "What Could Go Wrong",
+    description: "Five key risks and how we handle them",
+    icon: Target,
+    risks: [
+      { 
+        risk: "Creator Bypass", 
+        impact: "HIGH",
+        mitigation: "Revenue-share model + bundled services, not one-off introductions"
+      },
+      { 
+        risk: "Agency-like Margins", 
+        impact: "HIGH",
+        mitigation: "Productized packages, refuse deals below margin floor"
+      },
+      { 
+        risk: "Regulatory (SEBI)", 
+        impact: "SEVERE",
+        mitigation: "No investor features in V1, counsel-reviewed contracts"
+      },
+      { 
+        risk: "Fame Products Don't Repeat", 
+        impact: "MEDIUM",
+        mitigation: "Presale validation before build, focus on evergreen categories"
+      },
+      { 
+        risk: "Cash Runs Out", 
+        impact: "SEVERE",
+        mitigation: "₹30L+ runway secured, monthly burn tracking, 90-day gates"
+      }
+    ]
+  },
+  {
+    id: 12,
+    title: "Why Now?",
+    subtitle: "Market Timing",
+    description: "Three converging trends make this the right moment",
+    icon: TrendingUp,
+    trends: [
+      {
+        trend: "Creators Going Pro",
+        stat: "15% now registered businesses",
+        impact: "Formal entities can sign contracts and take revenue share"
+      },
+      {
+        trend: "Vernacular Explosion",
+        stat: "Tier 2-4 now center of gravity",
+        impact: "Large platforms ignore this segment, opportunity for us"
+      },
+      {
+        trend: "Platform Fatigue",
+        stat: "<0.2% monetize beyond brand deals",
+        impact: "Creators want products but can't build alone"
+      }
+    ]
+  },
+  {
+    id: 13,
+    title: "The Ask",
+    subtitle: "What We Need",
+    description: "To execute the 90-day validation plan",
+    icon: Rocket,
+    needs: [
+      { item: "Capital", amount: "₹30-40L", use: "12-month runway for 90-day experiment + scale" },
+      { item: "Team", amount: "3 people", use: "Founder (sales) + Ops lead + Designer" },
+      { item: "Legal/CA", amount: "₹50k-1L", use: "Contract templates, tax structure, compliance" },
+      { item: "Time Commitment", amount: "90 days", use: "Full focus on first 8-10 paid deals" }
+    ],
+    conditions: [
+      "Continue if: ≥8 paid deals, ≥50% margin, ≥25% repeat",
+      "Pivot if: Brand deals fail but products sell (pure Studio)",
+      "Raise if: ₹5L+ monthly run-rate + repeat customers",
+      "Abandon if: ≤3 paid deals in 90 days"
+    ]
+  },
+  {
+    id: 14,
+    title: "Join the Revolution",
+    subtitle: "Sellixa V2 Launch",
+    description: "Building the future of creator-led businesses in India. Be part of the first wave.",
+    icon: Rocket,
+    cta: true,
+    stats: [
+      { label: "Target Launch", value: "Q1 2027" },
+      { label: "First Cohort", value: "25 Creators" },
+      { label: "Partner Brands", value: "8-10 MSMEs" }
+    ]
+  }
+];
+
+export default function V2Page() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+      if (e.key === "Escape") window.location.href = "/";
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentSlide]);
+
+  const slide = slides[currentSlide];
+  const Icon = slide.icon;
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0
+    })
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-white text-black flex flex-col relative overflow-hidden">
+      
+      {/* Header with Close & Home */}
+      <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-6 md:p-8">
+        <button
+          onClick={() => window.location.href = "/"}
+          className="flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105 bg-black/5 hover:bg-black/10"
+        >
+          <Home size={20} />
+          <span className="hidden md:inline text-sm font-medium">Home</span>
+        </button>
+
+        <div className="text-sm font-medium opacity-60">
+          Slide {currentSlide + 1} / {slides.length}
+        </div>
+
+        <button
+          onClick={() => window.location.href = "/"}
+          className="p-2 rounded-full transition-all hover:scale-110 bg-black/5 hover:bg-black/10"
+        >
+          <X size={24} />
+        </button>
+      </div>
+
+      {/* Main Slide Content */}
+      <div className="flex-1 flex items-center justify-center px-4 md:px-8 py-20">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="w-full max-w-6xl"
+          >
+            {/* Slide Header */}
+            <div className="text-center mb-12">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+                className="inline-block mb-6"
+              >
+                <Icon size={64} strokeWidth={1.5} />
+              </motion.div>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-4xl md:text-6xl font-black tracking-tight mb-3"
+              >
+                {slide.title}
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl md:text-2xl font-medium opacity-80 mb-4"
+              >
+                {slide.subtitle}
+              </motion.p>
+              
+              {slide.description && (
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-base md:text-lg max-w-3xl mx-auto opacity-70"
+                >
+                  {slide.description}
+                </motion.p>
+              )}
+            </div>
+
+            {/* Content Area */}
+            <div className="max-w-5xl mx-auto">
+              
+              {/* Key Points Layout (Slide 2) */}
+              {slide.keyPoints && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {slide.keyPoints.map((point, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-8 rounded-2xl backdrop-blur-sm bg-gray-50 border-2 border-gray-200"
+                    >
+                      <div className="text-4xl font-black mb-2">{point.value}</div>
+                      <div className="text-lg font-bold mb-1">{point.label}</div>
+                      <div className="text-sm opacity-60">{point.sublabel}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Problems Layout (Slide 3) */}
+              {slide.problems && (
+                <div className="space-y-4">
+                  {slide.problems.map((problem, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-6 rounded-xl bg-gray-50 border-l-4 border-red-500"
+                    >
+                      <div className="text-xl font-bold mb-2">{problem.issue}</div>
+                      <div className="text-sm opacity-70">→ {problem.impact}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Services Layout (Slide 4) */}
+              {slide.services && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {slide.services.map((service, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-6 rounded-2xl bg-black text-white"
+                    >
+                      <div className="text-2xl font-black mb-2">{service.name}</div>
+                      <div className="text-sm opacity-70 mb-4">{service.desc}</div>
+                      <div className="text-lg font-bold mb-4 text-green-400">{service.margin}</div>
+                      <ul className="space-y-2">
+                        {service.features.map((feature, i) => (
+                          <li key={i} className="text-xs flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Segments Layout (Slide 5) */}
+              {slide.segments && (
+                <div className="space-y-4">
+                  {slide.segments.map((segment, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className={`p-6 rounded-xl border-2 flex items-center justify-between ${
+                        segment.priority === "HIGH" ? "border-green-500 bg-green-500/10" :
+                        segment.priority === "MEDIUM" ? "border-yellow-500 bg-yellow-500/10" :
+                        "border-gray-500 bg-gray-500/10"
+                      }`}
+                    >
+                      <div>
+                        <div className="text-xl font-bold mb-1">{segment.type}</div>
+                        <div className="text-sm opacity-70 mb-1">{segment.range}</div>
+                        <div className="text-sm">{segment.why}</div>
+                      </div>
+                      <div className={`px-4 py-2 rounded-full text-xs font-bold ${
+                        segment.priority === "HIGH" ? "bg-green-500" :
+                        segment.priority === "MEDIUM" ? "bg-yellow-500" :
+                        "bg-gray-500"
+                      } text-black`}>
+                        {segment.priority}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Revenue Layout (Slide 6) */}
+              {slide.revenue && (
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="text-lg font-bold mb-4">Revenue Streams</div>
+                    {slide.revenue.map((item, idx) => (
+                      <motion.div
+                        key={idx}
+                        custom={idx}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className={`p-4 rounded-xl flex justify-between items-center ${
+                          item.highlight 
+                            ? "bg-green-500 text-white font-black text-xl border-4 border-green-400" 
+                            : "bg-gray-50"
+                        }`}
+                      >
+                        <div>
+                          <div className="font-bold">{item.source}</div>
+                          {item.desc && <div className="text-xs opacity-60">{item.desc}</div>}
+                        </div>
+                        <div className="text-xl font-bold">{item.amount}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  {slide.costs && (
+                    <div className="space-y-3 mt-8">
+                      <div className="text-lg font-bold mb-4">Costs</div>
+                      {slide.costs.map((cost, idx) => (
+                        <motion.div
+                          key={idx}
+                          custom={idx + 5}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          className={`p-4 rounded-xl flex justify-between items-center ${
+                            cost.highlight 
+                              ? "bg-red-500 text-white font-black" 
+                              : "bg-gray-50"
+                          }`}
+                        >
+                          <div>{cost.item}</div>
+                          <div className="font-bold">{cost.amount}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Phases Layout (Slide 7) */}
+              {slide.phases && (
+                <div className="space-y-6">
+                  {slide.phases.map((phase, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-6 rounded-2xl bg-gray-50 border-l-4 border-blue-500"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <div className="text-sm opacity-60 mb-1">{phase.phase}</div>
+                          <div className="text-2xl font-bold">{phase.title}</div>
+                        </div>
+                        <div className="text-sm font-bold bg-blue-500 text-white px-3 py-1 rounded-full">
+                          {phase.gate}
+                        </div>
+                      </div>
+                      <div className="text-sm opacity-80 mb-3">{phase.goal}</div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                        {phase.activities.map((activity, i) => (
+                          <div key={i} className="text-xs bg-white px-3 py-2 rounded border">• {activity}</div>
+                        ))}
+                      </div>
+                      <div className="text-lg font-bold text-green-600">Target: {phase.target}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Stages Layout (Slide 8) */}
+              {slide.stages && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {slide.stages.map((stage, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className={`p-6 rounded-2xl border-4 ${stage.color} bg-white/5`}
+                    >
+                      <div className="text-sm opacity-60 mb-2">{stage.stage}</div>
+                      <div className="text-2xl font-black mb-3">{stage.focus}</div>
+                      <div className="text-sm opacity-80 mb-4">{stage.why}</div>
+                      <div className={`inline-block px-4 py-1 rounded-full text-xs font-bold ${stage.color} text-black`}>
+                        {stage.status}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Competitors Layout (Slide 9) */}
+              {slide.competitors && (
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <div className="text-xl font-bold mb-4">Current Players</div>
+                    {slide.competitors.map((comp, idx) => (
+                      <motion.div
+                        key={idx}
+                        custom={idx}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="p-5 rounded-xl bg-black/5 border border-black/10"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="text-xl font-bold">{comp.name}</div>
+                          <div className="text-sm font-medium opacity-60">{comp.revenue}</div>
+                        </div>
+                        <div className="text-sm opacity-70 mb-2">{comp.model}</div>
+                        <div className="text-sm text-red-600 font-medium">Gap: {comp.gap}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="space-y-3">
+                    <div className="text-xl font-bold mb-4">Our Advantages</div>
+                    {slide.advantages.map((adv, idx) => (
+                      <motion.div
+                        key={idx}
+                        custom={idx + 4}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="p-4 rounded-xl bg-green-500/20 border-l-4 border-green-500 text-sm"
+                      >
+                        ✓ {adv}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Targets Layout (Slide 10) */}
+              {slide.targets && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {slide.targets.map((target, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-6 rounded-xl bg-white/5 border-2 border-white/10"
+                    >
+                      <div className="text-2xl font-black mb-2">{target.metric}</div>
+                      <div className="text-sm opacity-60">{target.sublabel}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Risks Layout (Slide 11) */}
+              {slide.risks && (
+                <div className="space-y-4">
+                  {slide.risks.map((risk, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className={`p-5 rounded-xl border-l-4 ${
+                        risk.impact === "SEVERE" ? "border-red-600 bg-red-500/10" :
+                        risk.impact === "HIGH" ? "border-orange-500 bg-orange-500/10" :
+                        "border-yellow-500 bg-yellow-500/10"
+                      }`}
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="text-lg font-bold">{risk.risk}</div>
+                        <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                          risk.impact === "SEVERE" ? "bg-red-600" :
+                          risk.impact === "HIGH" ? "bg-orange-500" :
+                          "bg-yellow-500"
+                        } text-black`}>
+                          {risk.impact}
+                        </div>
+                      </div>
+                      <div className="text-sm opacity-80">
+                        <span className="font-medium">Mitigation:</span> {risk.mitigation}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Trends Layout (Slide 12) */}
+              {slide.trends && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {slide.trends.map((trend, idx) => (
+                    <motion.div
+                      key={idx}
+                      custom={idx}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="p-6 rounded-2xl bg-black/5 border-2 border-black/10"
+                    >
+                      <div className="text-xl font-bold mb-3">{trend.trend}</div>
+                      <div className="text-3xl font-black mb-3 text-green-600">{trend.stat}</div>
+                      <div className="text-sm opacity-70">{trend.impact}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+
+              {/* Needs Layout (Slide 13) */}
+              {slide.needs && (
+                <div className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {slide.needs.map((need, idx) => (
+                      <motion.div
+                        key={idx}
+                        custom={idx}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="p-6 rounded-xl bg-black/5 border-2 border-black/10"
+                      >
+                        <div className="text-sm opacity-60 mb-1">{need.item}</div>
+                        <div className="text-3xl font-black mb-2">{need.amount}</div>
+                        <div className="text-sm">{need.use}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-lg font-bold mb-3">Decision Gates</div>
+                    {slide.conditions.map((condition, idx) => (
+                      <motion.div
+                        key={idx}
+                        custom={idx + 4}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="p-3 rounded bg-black/5 text-sm"
+                      >
+                        • {condition}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* CTA Layout (Slide 14) */}
+              {slide.cta && (
+                <div className="text-center space-y-8">
+                  {slide.stats && (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                      {slide.stats.map((stat, idx) => (
+                        <motion.div
+                          key={idx}
+                          custom={idx}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          className="p-8 rounded-2xl bg-white/5 border-2 border-white/10"
+                        >
+                          <div className="text-4xl font-black mb-2">{stat.value}</div>
+                          <div className="text-sm opacity-70">{stat.label}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <button
+                      onClick={() => window.location.href = "/join"}
+                      className="px-12 py-5 bg-[#ffff00] text-black text-xl font-black rounded-full hover:scale-105 transition-transform shadow-2xl"
+                    >
+                      Apply to Join Sellixa V2
+                    </button>
+                  </motion.div>
+                  {slide.date && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                      className="text-sm opacity-50 mt-6"
+                    >
+                      {slide.date}
+                    </motion.div>
+                  )}
+                </div>
+              )}
+
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Navigation Footer */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-center justify-between">
+        <button
+          onClick={prevSlide}
+          disabled={currentSlide === 0}
+          className={`p-4 rounded-full transition-all bg-black text-white ${
+            currentSlide === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-110 hover:bg-gray-800"
+          }`}
+        >
+          <ChevronLeft size={28} strokeWidth={3} />
+        </button>
+
+        {/* Progress Indicators */}
+        <div className="flex gap-2 overflow-x-auto max-w-md px-4">
+          {slides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => goToSlide(idx)}
+              className={`transition-all rounded-full ${
+                idx === currentSlide 
+                  ? "h-3 w-12 bg-black" 
+                  : "h-3 w-3 bg-black/20 hover:bg-black/40"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={nextSlide}
+          disabled={currentSlide === slides.length - 1}
+          className={`p-4 rounded-full transition-all bg-black text-white ${
+            currentSlide === slides.length - 1 ? "opacity-30 cursor-not-allowed" : "hover:scale-110 hover:bg-gray-800"
+          }`}
+        >
+          <ChevronRight size={28} strokeWidth={3} />
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -82,8 +82,18 @@ export default function Navbar() {
             </ul>
           </div>
 
-          {/* DESKTOP RIGHT — Brochure + Apply */}
+          {/* DESKTOP RIGHT — Sellixa V2 + Brochure + Apply */}
           <div className="hidden md:flex items-center gap-3 z-20 pointer-events-auto">
+            <button
+              onClick={() => window.location.href = "/v2"}
+              className={`px-5 py-2 text-sm rounded-full font-bold border-2 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
+                isDarkBg
+                  ? "bg-white text-black hover:bg-black hover:text-white hover:border-white"
+                  : "bg-black text-white hover:bg-white hover:text-black hover:border-black"
+              }`}
+            >
+              Sellixa V2
+            </button>
             <a
               href="/sellixa_bro.pdf"
               download="Sellixa Brochure.pdf"
@@ -148,6 +158,17 @@ export default function Navbar() {
                   </button>
                 </li>
               ))}
+              <li>
+                <button
+                  className="inline-flex items-center justify-center bg-white text-black px-8 py-3 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-[#ffff00] transition-all"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.location.href = "/v2";
+                  }}
+                >
+                  Sellixa V2
+                </button>
+              </li>
               <li>
                 <a
                   href="/Brochure sellixa.pdf"
